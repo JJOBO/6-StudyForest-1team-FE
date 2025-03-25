@@ -1,15 +1,17 @@
-import React from 'react'
-import GNB from '../components/GlobalNavigationBar';
-import './Home.css'; // CSS 파일 추가
-import RecentStudy from '../components/home/RecentStudy';
+import React from "react";
+import GNB from "../components/GlobalNavigationBar";
+import "./Home.css"; // CSS 파일 추가
+import RecentStudy from "../features/study/home/RecentStudy";
+import StudyContents from "../features/study/home/StudyContents";
 
 function Home() {
   return (
     <div className="home-container">
-      <GNB /> 
+      <GNB />
       <RecentStudy />
+      <StudyContents />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
