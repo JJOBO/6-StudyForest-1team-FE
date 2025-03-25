@@ -1,0 +1,14 @@
+.recent-study {
+  background-color: #FFFFFF;
+  width: 1200px;
+  height: 382px;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  gap: 10px;
+  margin: 0; /* Remove horizontal centering */
+  position: absolute; /* Change to absolute positioning */
+  left: 50%;
+  margin-top: 140px; /* Add top margin */
+  transform: translateX(-50%); /* Adjust transform to only center horizontally */
+}
