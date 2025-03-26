@@ -1,0 +1,129 @@
+body {
+  background-color: #ffffff; /* 스크롤 시 배경색 유지 */
+}
+
+.study-contents {
+  background-color: #ffffff;
+  width: 1200px; /* 너비 */
+  height: 822px; /* 높이 */
+  margin: 0 auto; /* 가로 중앙 정렬 */
+  position: static; /* 플렉스 레이아웃 유지 */
+}
+
+.search-bar,
+.sort-dropdown {
+  display: inline-block; /* 가로 정렬 */
+  vertical-align: top; /* 상단 정렬 */
+}
+
+.search-bar {
+  margin-right: 16px; /* 검색창과 정렬 드롭다운 간격 */
+}
+
+.search-bar input {
+  width: 20%; /* 너비 20% */
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 둥근 모서리 */
+}
+
+.sort-dropdown {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.sort-dropdown button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 둥근 모서리 */
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.sort-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 둥근 모서리 */
+  background-color: #ffffff;
+  position: absolute;
+  top: 0; /* 최상단 위치 */
+  display: none; /* 기본 숨김 */
+  z-index: 10; /* 다른 요소 위에 표시 */
+}
+
+.sort-dropdown button:focus + ul {
+  display: block; /* 버튼 클릭 시 표시 */
+}
+
+.sort-dropdown ul:hover {
+  display: block; /* 목록에 마우스 올리면 유지 */
+}
+
+.sort-dropdown ul li:active {
+  display: block; /* 임시 표시 */
+}
+
+.sort-dropdown ul li:focus {
+  display: none; /* 클릭 후 닫힘 */
+}
+
+.sort-dropdown li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.sort-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.study-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.study-card {
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 둥근 모서리 */
+  padding: 16px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.study-card img {
+  max-width: 100%;
+  border-radius: 20px; /* 둥근 모서리 */
+  margin-bottom: 8px;
+}
+
+.study-card h3 {
+  margin: 8px 0;
+  font-size: 18px;
+}
+
+.study-card p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.study-card span {
+  font-weight: bold;
+  color: #333;
+}
+
+.load-more {
+  display: block;
+  margin: 16px auto;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 둥근 모서리 */
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #f0f0f0;
+}
