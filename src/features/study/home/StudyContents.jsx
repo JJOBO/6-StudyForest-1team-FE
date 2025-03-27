@@ -1,62 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import studyAPI from "../studyAPI";
 import "./StudyContents.css";
 
-function StudyCard({ title, description, image, points }) {
+function StudyCard({ title, description, image, points, emojis }) {
   return (
     <div className="study-card">
       <img src={image} alt={title} />
       <h3>{title}</h3>
       <p>{description}</p>
       <span>{points} Points</span>
+      <div className="study-card-emojis">
+        {emojis.map((emoji, index) => (
+          <span key={index}>
+            {emoji.emoji} {emoji.count}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("최근 순");
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: "아워팀의 UX 스터디",
-      description: "Slow And Steady Wins The Race!",
-      image: "/images/study1.png",
-      points: 37,
-    },
-    {
-      id: 2,
-      title: "K.K.의 UX 스터디",
-      description: "나비는벗따우",
-      image: "/images/study2.png",
-      points: 31,
-    },
-    {
-      id: 3,
-      title: "연우의 개발광장",
-      description: "오늘 하루도 화이팅 :)",
-      image: "/images/study3.png",
-      points: 12,
-    },
-  ]);
+  const [sortOption, setSortOption] = useState("createdAt");
+  const [cards, setCards] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStudies = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await studyAPI.getStudyList(
+          searchTerm,
+          sortOption,
+          offset
+        );
+        setCards((prevCards) => [...prevCards, ...data.studies]);
+        setTotal(data.total);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStudies();
+  }, [searchTerm, sortOption, offset]);
 
   const handleLoadMore = () => {
-    // 카드 추가 로직
-    setCards((prevCards) => [
-      ...prevCards,
-      {
-        id: prevCards.length + 1,
-        title: "새로운 스터디",
-        description: "추가된 스터디 카드입니다.",
-        image: "/images/study4.png",
-        points: 20,
-      },
-    ]);
+    if (cards.length < total) {
+      setOffset((prevOffset) => prevOffset + 6);
+    }
   };
 
   const handleSortChange = (option) => {
-    setSortOption(option);
-    // 정렬 로직은 API 통합 후 구현
+    setCards([]);
+    setOffset(0);
+    switch (option) {
+      case "최근 순":
+        setSortOption("createdAt");
+        break;
+      case "오래된 순":
+        setSortOption("oldest");
+        break;
+      case "많은 포인트 순":
+        setSortOption("totalPointsDesc");
+        break;
+      case "적은 포인트 순":
+        setSortOption("totalPointsAsc");
+        break;
+      default:
+        setSortOption("createdAt");
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="study-contents">
@@ -69,7 +97,16 @@ function StudyContents() {
         />
       </div>
       <div className="sort-dropdown">
-        <button>{sortOption}</button>
+        <button>
+          {
+            {
+              createdAt: "최근 순",
+              oldest: "오래된 순",
+              totalPointsDesc: "많은 포인트 순",
+              totalPointsAsc: "적은 포인트 순",
+            }[sortOption]
+          }
+        </button>
         <ul>
           {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
             (option) => (
@@ -82,12 +119,21 @@ function StudyContents() {
       </div>
       <div className="study-cards">
         {cards.map((card) => (
-          <StudyCard key={card.id} {...card} />
+          <StudyCard
+            key={card.id}
+            title={card.name}
+            description={card.description}
+            image={card.background}
+            points={card.totalPoints}
+            emojis={card.emojis}
+          />
         ))}
       </div>
-      <button className="load-more" onClick={handleLoadMore}>
-        더보기
-      </button>
+      {cards.length < total && (
+        <button className="load-more" onClick={handleLoadMore}>
+          더보기
+        </button>
+      )}
     </div>
   );
 }
