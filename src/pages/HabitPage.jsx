@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
 import "./HabitPage.scss";
+import FormatDate from "../components/ui/FormatDate";
+import HabitList from "../features/habit/HabitList";
+import { useEffect, useState } from "react";
+import { getHabitList } from "../features/habit/habitAPI";
 
 export default function HabitPage() {
+  const [habits, setHabits] = useState([]);
+  const studyId = 1;
+
+  const fetchHabits = async () => {
+    const data = await getHabitList(studyId);
+    setHabits(data || []);
+  };
+
+  useEffect(() => {
+    fetchHabits();
+  }, []);
+
   return (
     <div className="container">
       <nav className="nav">
@@ -14,7 +30,9 @@ export default function HabitPage() {
         </div>
         <div className="currentTime">
           <div className="text">현재 시간</div>
-          <div className="tag">2024-03-25</div>
+          <div className="tag">
+            <FormatDate />
+          </div>
         </div>
       </nav>
       <section className="section">
@@ -23,13 +41,15 @@ export default function HabitPage() {
           <button className="editBtn">목록 수정</button>
         </div>
         <div className="habitList">
-          <button className="active">미라클 모닝 6시 기상</button>
-          <button className="active">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
+          {habits.length > 0 ? (
+            habits.map((habit) => <HabitList key={habit.id} habit={habit} />)
+          ) : (
+            <p>
+              아직 습관이 없어요
+              <br />
+              목록 수정을 눌러서 습관을 생성해 보세요
+            </p>
+          )}
         </div>
       </section>
     </div>

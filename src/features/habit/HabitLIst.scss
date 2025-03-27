@@ -1,0 +1,17 @@
+.habitList button {
+  padding: 18px 135px;
+  border: transparent;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.habitList .active {
+  background-color: #99c08e;
+  color: #fff;
+}
+
+.habitList .inactive {
+  background-color: #eeeeee;
+  color: #818181;
+}

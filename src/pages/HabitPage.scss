@@ -39,21 +39,20 @@
   margin-top: 16px;
   flex-basis: 1;
   order: 3;
-}
 
-.currentTime .text {
-  margin-bottom: 8px;
-  font-size: 18px;
-  font-weight: 400;
-  color: #818181;
-}
+  .text {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #818181;
+  }
 
-.currentTime .tag {
-  display: inline-flex;
-  justify-content: center;
-  padding: 8px 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
+  .tag {
+    display: inline-flex;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+  }
 }
 
 .section {
@@ -91,24 +90,10 @@
 .habitList {
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 20px;
-}
-
-.habitList button {
-  padding: 18px 135px;
-  border: transparent;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.habitList .active {
-  background-color: #99c08e;
-  color: #fff;
-}
-
-.habitList .inactive {
-  background-color: #eeeeee;
+  font-size: 20px;
+  font-weight: 500;
   color: #818181;
 }
 
