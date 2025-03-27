@@ -25,18 +25,20 @@ const HabitPage = () => {
       </nav>
 
       <section className="habit-section">
-        <div className="habit-bar">
-          <div className="habit-title">오늘의 습관</div>
-          <button className="edit-btn">목록 수정</button>
-        </div>
-        <div className="habit-list">
-          <button className="active">미라클 모닝 6시 기상</button>
-          <button className="active">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
-          <button className="inactive">미라클 모닝 6시 기상</button>
+        <div className="habit-content">
+          <div className="habit-bar">
+            <div className="habit-title">오늘의 습관</div>
+            <button className="edit-btn">목록 수정</button>
+          </div>
+          <div className="habit-list">
+            <button className="active">미라클 모닝 6시 기상</button>
+            <button className="active">미라클 모닝 6시 기상</button>
+            <button className="inactive">미라클 모닝 6시 기상</button>
+            <button className="inactive">미라클 모닝 6시 기상</button>
+            <button className="inactive">미라클 모닝 6시 기상</button>
+            <button className="inactive">미라클 모닝 6시 기상</button>
+            <button className="inactive">미라클 모닝 6시 기상</button>
+          </div>
         </div>
       </section>
     </div>

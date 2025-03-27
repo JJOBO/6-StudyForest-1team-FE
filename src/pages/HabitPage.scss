@@ -70,3 +70,63 @@
   padding: 40px 24px;
 }
 
+.habit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.habit-list {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.habit-bar {
+  display: flex;
+  align-items: center;
+}
+
+.habit-title {
+  color: #414141;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 100%;
+}
+
+.edit-btn {
+  border: none;
+  background-color: #FFFFFF;
+  position: absolute;
+  right: 630px;
+  color: #818181;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.active {
+  width: 400px;
+  height: 54px;
+  border: none;
+  border-radius: 20px;
+  background-color: #99C08E;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.inactive {
+  width: 400px;
+  height: 54px;
+  border: none;
+  border-radius: 20px;
+  background-color: #EEEEEE;
+  color: #818181;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 100%;
+}
