@@ -1,0 +1,23 @@
+header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin: 0 0 39px 220px;
+}
+
+@media (max-width: 1023px) {
+  header {
+    margin: 0 0 16px 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  header {
+    margin: 0 0 20px 16px;
+  }
+
+  img {
+    width: 106px;
+    height: auto;
+  }
+}

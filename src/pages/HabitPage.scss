@@ -1,0 +1,72 @@
+.habit-container {
+  background-color: #FFFFFF;
+  margin: 0 360px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.habit-nav {
+  margin-bottom: 24px;
+}
+
+.habit-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.habit-study-title {
+  color: #414141;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 100%;
+}
+
+.habit-btns {
+  display: flex;
+  gap: 16px;
+}
+
+.habit-btn {
+  color:#818181;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 12px 16px 12px 24px;
+  background-color: #FFFFFF;
+  border: #DDDDDD 1px solid;
+  border-radius: 15px;
+}
+
+.habit-time {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.current-text {
+  color: #818181;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.current-time {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  width: fit-content;
+  color: #414141;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.habit-section {
+  border: #DDDDDD 1px solid;
+  border-radius: 20px;
+  padding: 40px 24px;
+}
+

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/layout/Header";
 import HomePage from "./pages/HomePage";
+import HabitPage from "./pages/HabitPage";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+          <Route path="/study/habits" element={<HabitPage />} />
       </Routes>
     </BrowserRouter>
   );
