@@ -7,7 +7,7 @@ const FocusHeader = ({ studyInfo }) => {
       <div className={styles.titleContainer}>
         <h1>{studyInfo.name}</h1>
         <div className={styles.buttonContainer}>
-          <button className={styles.habitButton}>오늘의 습관</button>
+          <button className={styles.focusButton}>오늘의 습관</button>
           <button className={styles.homeButton}>홈</button>
         </div>
       </div>

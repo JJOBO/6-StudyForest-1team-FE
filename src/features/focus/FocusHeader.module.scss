@@ -21,7 +21,7 @@
     gap: 16px;
   }
   
-  .habitButton, .homeButton {
+  .focusButton, .homeButton {
     padding: 12px 24px;
     font-size: 16px;
     font-weight: 600;
@@ -33,7 +33,7 @@
     transition: background-color 0.3s, color 0.3s;
   }
   
-  .habitButton:hover, .homeButton:hover {
+  .focusButton:hover, .homeButton:hover {
     background-color: #4caf50;
     color: white;
   }
