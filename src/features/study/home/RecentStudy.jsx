@@ -1,8 +1,8 @@
 import React from "react";
-import "./RecentStudy.css"; // CSS 파일 가져오기
+import "./RecentStudy.css";
+import StudyCard from "../../../components/StudyCard";
 
 function RecentStudy() {
-  // 생성일로부터 며칠이 지났는지 계산하는 함수
   const calculateDays = (createdAt) => {
     const createdDate = new Date(createdAt);
     const today = new Date();
@@ -15,29 +15,17 @@ function RecentStudy() {
       <h2>최근 조회한 스터디</h2>
       <div className="study-cards">
         {studyData.map((study) => (
-          <div key={study.id} className="study-card">
-            <img src={study.image} alt={study.name} className="study-image" />
-            <div className="study-content">
-              <h3>{study.name}</h3>
-              <p>{calculateDays(study.createdAt)}일째 진행 중</p>
-              <p>{study.points}P 획득</p>
-              <p>{study.description}</p>
-              <div className="study-stats">
-                {study.emojis.map((emoji, index) => (
-                  <span key={index}>
-                    {emoji.type} {emoji.count}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <StudyCard
+            key={study.id}
+            {...study}
+            calculateDays={calculateDays} // 함수 전달
+          />
         ))}
       </div>
     </div>
   );
 }
 
-// 스터디 데이터
 const studyData = [
   {
     id: 1,
@@ -50,6 +38,7 @@ const studyData = [
       { type: "💬", count: 26 },
       { type: "🔖", count: 14 },
     ],
+    image: "/images/study1.png",
   },
   {
     id: 2,
@@ -62,6 +51,7 @@ const studyData = [
       { type: "💬", count: 18 },
       { type: "🔖", count: 20 },
     ],
+    image: "/images/study2.png",
   },
   {
     id: 3,
@@ -74,6 +64,7 @@ const studyData = [
       { type: "💬", count: 11 },
       { type: "🔖", count: 9 },
     ],
+    image: "/images/study3.png",
   },
 ];
 
