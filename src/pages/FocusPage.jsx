@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import focusAPI from "../features/focus/focusAPI.js";
 import GNB from "../components/GlobalNavigationBar";
+import focusAPI from "../features/focus/focusAPI.js";
 import FocusContainer from "../features/focus/FocusContainer";
-import PointDisplay from "../features/focus/PointDisplay";
 import FocusTimer from "../features/focus/FocusTimer";
+import PointDisplay from "../features/focus/PointDisplay";
 import "./FocusPage.scss";
 
 const FocusPage = () => {
-  const { id } = useParams();
+  const { studyId } = useParams();
   const [studyInfo, setStudyInfo] = useState(null);
   const [points, setPoints] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await focusAPI.getStudyInfo(id);
+        const data = await focusAPI.getStudyInfo(studyId);
         setStudyInfo(data);
         setPoints(data.points);
       } catch (e) {
@@ -24,7 +24,7 @@ const FocusPage = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [studyId]);
 
   if (!studyInfo) return <div>Loading...</div>;
 
