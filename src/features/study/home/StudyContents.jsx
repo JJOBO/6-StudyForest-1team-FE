@@ -95,35 +95,41 @@ function StudyContents() {
 
   return (
     <div className="study-contents">
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="검색"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
-        />
-      </div>
-      <div className="sort-dropdown">
-        <button>
-          {
+      <h2>스터디 둘러보기</h2>
+      <div className="option-bar">
+        <div className="search-bar">
+          <div className="search-icon">
+            <img src="/src/assets/icons/ic_search.svg" alt="search" />
+          </div>
+          <input
+            type="text"
+            placeholder="검색"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+          />
+        </div>
+        <div className="sort-dropdown">
+          <button>
             {
-              createdAt: "최근 순",
-              oldest: "오래된 순",
-              totalPointsDesc: "많은 포인트 순",
-              totalPointsAsc: "적은 포인트 순",
-            }[sortOption]
-          }
-        </button>
-        <ul>
-          {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
-            (option) => (
-              <li key={option} onClick={() => handleSortChange(option)}>
-                {option}
-              </li>
-            )
-          )}
-        </ul>
+              {
+                createdAt: "최근 순",
+                oldest: "오래된 순",
+                totalPointsDesc: "많은 포인트 순",
+                totalPointsAsc: "적은 포인트 순",
+              }[sortOption]
+            }
+          </button>
+          <ul>
+            {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
+              (option) => (
+                <li key={option} onClick={() => handleSortChange(option)}>
+                  {option}
+                </li>
+              )
+            )}
+          </ul>
+        </div>
       </div>
 
       <div className="study-cards">
@@ -136,6 +142,7 @@ function StudyContents() {
             points={card.totalPoints}
             createdAt={card.createdAt}
             emojis={card.emojis}
+            background={card.background}
             calculateDays={calculateDays}
           />
         ))}
