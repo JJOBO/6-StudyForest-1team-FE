@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import arrow from "../../assets/icons/ic_arrow_right.svg";
 import styles from './FocusContainer.module.scss';
 
 const FocusContainer = ({ studyInfo }) => {
@@ -21,10 +22,10 @@ const FocusContainer = ({ studyInfo }) => {
       </div>
       <div className={styles.buttonContainer}>
         <button className={styles.focusButton} onClick={handleHabitClick}>
-          오늘의 습관
+          오늘의 습관<img src={arrow} alt="arrow" />
         </button>
         <button className={styles.homeButton} onClick={handleHomeClick}>
-          홈
+          홈<img src={arrow} alt="arrow" />
         </button>
       </div>
     </div>
