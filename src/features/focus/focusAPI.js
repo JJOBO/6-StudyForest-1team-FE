@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// Axios 인스턴스 생성 (기본 URL 설정 등)
 const client = axios.create({
-  baseURL: "http://localhost:5000", // 백엔드 서버(수정 예정)
+  baseURL: "https://studyforest-xdk5.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
@@ -27,9 +26,30 @@ const stopFocus = async (studyId, elapsedTime, targetTime) => {
   return response.data;
 };
 
+const getStudyInfo = async (id) => {
+  try {
+    const response = await client.get(`/study/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch study info:", error);
+    throw error;
+  }
+};
+
+const updateStudyPoint = async (updatedPoint) => {
+  try {
+    await client.post("/updatePoint", { updatedPoint });
+  } catch (error) {
+    console.error("Failed to update study point:", error);
+    throw error;
+  }
+};
+
 const focusAPI = {
   startFocus,
   stopFocus,
+  getStudyInfo,
+  updateStudyPoint,
 };
 
 export default focusAPI;

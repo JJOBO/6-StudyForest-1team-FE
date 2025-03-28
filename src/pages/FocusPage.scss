@@ -1,0 +1,78 @@
+.focus-page {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 세로 가운데 정렬 */
+  align-items: center; /* 가로 가운데 정렬 */
+  padding: 20px;
+  min-height: 100vh; /* 화면 전체 높이를 차지 */
+}
+
+.focus-container {
+  width: 100%;
+  max-width: 1200px; /* 컨테이너 크기 키우기 */
+  background-color: white;
+  padding: 60px; /* 여백을 늘려서 더 커지게 만들기 */
+  border-radius: 20px; /* 라운드 처리 */
+  box-shadow: none; /* 그림자 제거 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* 컨텐츠 간 간격 */
+}
+
+.timer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* 타이머와 버튼 간 간격 */
+  padding: 40px; /* 여백 증가 */
+  background-color: white; /* 흰색 배경 */
+  border: 2px solid #DDDDDD; /* #DDDDDD 색상으로 테두리 */
+  border-radius: 15px; /* 라운드 테두리 */
+}
+
+.point-display {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+  width: 100%;
+  margin-top: 20px; /* 포인트 표시와 FocusContainer 간 간격 */
+  padding-left: 20px; /* 왼쪽 여백 추가 */
+}
+
+.point-display span {
+  font-size: 16px;
+  color: #818181;
+}
+
+.point-display .points-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #414141;
+}
+
+
+.timer {
+  font-size: 48px;
+  font-weight: bold;
+  color: #414141;
+}
+
+.start-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #45a049;
+}
+

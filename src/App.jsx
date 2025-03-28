@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/layout/Header";
-import HomePage from "./pages/HomePage";
+import Home from "./pages/Home";
 import FocusPage from "./pages/FocusPage";
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/study/:id/focus" element={<FocusPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/study/:id/Focus" element={<FocusPage />} />
       </Routes>
     </BrowserRouter>
   );
