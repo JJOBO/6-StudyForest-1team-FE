@@ -1,24 +1,7 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./StudyContents.css";
-
-function StudyCard({ title, description, image, points, emojis }) {
-  return (
-    <div className="study-card">
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <span>{points} Points</span>
-      <div className="study-card-emojis">
-        {emojis.map((emoji, index) => (
-          <span key={index}>
-            {emoji.emoji} {emoji.count}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+import StudyCard from "../../../components/StudyCard";
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -78,6 +61,13 @@ function StudyContents() {
     }
   };
 
+  const calculateDays = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const today = new Date();
+    const diffTime = Math.abs(today - createdDate);
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -121,11 +111,13 @@ function StudyContents() {
         {cards.map((card) => (
           <StudyCard
             key={card.id}
-            title={card.name}
+            name={card.name}
             description={card.description}
             image={card.background}
             points={card.totalPoints}
+            createdAt={card.createdAt}
             emojis={card.emojis}
+            calculateDays={calculateDays}
           />
         ))}
       </div>
