@@ -11,6 +11,7 @@ function StudyContents() {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // 실제 검색에 사용될 쿼리
 
   useEffect(() => {
     const fetchStudies = async () => {
@@ -18,11 +19,13 @@ function StudyContents() {
       setError(null);
       try {
         const data = await studyAPI.getStudyList(
-          searchTerm,
+          searchQuery, // searchQuery 사용
           sortOption,
           offset
         );
-        setCards((prevCards) => [...prevCards, ...data.studies]);
+        setCards((prevCards) =>
+          offset === 0 ? [...data.studies] : [...prevCards, ...data.studies]
+        );
         setTotal(data.total);
       } catch (err) {
         setError(err);
@@ -31,8 +34,13 @@ function StudyContents() {
       }
     };
 
-    fetchStudies();
-  }, [searchTerm, sortOption, offset]);
+    // searchQuery가 변경될 때만 fetchStudies 실행
+    if (searchQuery !== "" || offset > 0) {
+      fetchStudies();
+    } else if (offset === 0) {
+      fetchStudies();
+    }
+  }, [searchQuery, sortOption, offset]);
 
   const handleLoadMore = () => {
     if (cards.length < total) {
@@ -68,6 +76,15 @@ function StudyContents() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
+  // 엔터 키를 눌렀을 때 검색을 실행하는 함수
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setCards([]); // 검색 시 기존 카드 초기화
+      setOffset(0); // 검색 시 offset 초기화
+      setSearchQuery(searchTerm); // 실제 검색 쿼리 업데이트
+    }
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -84,6 +101,7 @@ function StudyContents() {
           placeholder="검색"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
         />
       </div>
       <div className="sort-dropdown">

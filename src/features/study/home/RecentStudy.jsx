@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./RecentStudy.css";
+import StudyCard from "../../../components/StudyCard";
 
 function RecentStudy() {
   const [recentStudies, setRecentStudies] = useState([]);
@@ -63,21 +64,16 @@ function RecentStudy() {
           <div>최근 조회한 스터디가 없습니다.</div>
         ) : (
           recentStudies.map((study) => (
-            <div key={study.id} className="study-card">
-              <div className="study-content">
-                <h3>{study.name}</h3>
-                <p>{calculateDays(study.createdAt)}일째 진행 중</p>
-                <p>{study.totalPoints}P 획득</p>
-                <p>{study.description}</p>
-                <div className="study-stats">
-                  {study.emojis.map((emoji, index) => (
-                    <span key={index}>
-                      {emoji.emoji} {emoji.count}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <StudyCard
+              key={study.id}
+              name={study.name}
+              description={study.description}
+              image={study.background}
+              points={study.totalPoints}
+              createdAt={study.createdAt}
+              emojis={study.emojis}
+              calculateDays={calculateDays}
+            />
           ))
         )}
       </div>
