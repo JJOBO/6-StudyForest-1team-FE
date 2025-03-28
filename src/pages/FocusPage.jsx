@@ -14,10 +14,10 @@ const FocusPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await focusAPI.getStudyInfo(id); // ✅ 객체에서 메서드 호출
+        const data = await focusAPI.getStudyInfo(id); //  객체에서 메서드 호출
         setStudyInfo(data);
         setPoints(data.points);
-      } catch (error) {
+      } catch (e) {
         console.error('Error fetching study info:', error);
       }
     };
