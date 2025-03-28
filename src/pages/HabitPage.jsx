@@ -4,6 +4,7 @@ import FormatDate from "../components/ui/FormatDate";
 import HabitList from "../features/habit/HabitList";
 import { useEffect, useState } from "react";
 import { getHabitList } from "../features/habit/habitAPI";
+import HabitModal from "../features/habit/HabitModal";
 
 export default function HabitPage() {
   const [habits, setHabits] = useState([]);
@@ -21,14 +22,14 @@ export default function HabitPage() {
   return (
     <div className="container">
       <nav className="nav">
-        <div className="studyName">연우의 개발공장</div>
+        <div className="study-name">연우의 개발공장</div>
         <div className="link">
           <button>오늘의 집중</button>
           <Link to="/">
             <button>홈</button>
           </Link>
         </div>
-        <div className="currentTime">
+        <div className="current-time">
           <div className="text">현재 시간</div>
           <div className="tag">
             <FormatDate />
@@ -36,11 +37,12 @@ export default function HabitPage() {
         </div>
       </nav>
       <section className="section">
-        <div className="habitBar">
-          <div className="habitTitle">오늘의 습관</div>
-          <button className="editBtn">목록 수정</button>
+        <div className="habit-bar">
+          <div className="habit-title">오늘의 습관</div>
+          <button className="edit-btn">목록 수정</button>
         </div>
-        <div className="habitList">
+        <HabitModal habits={habits} />
+        <div className="habit-list">
           {habits.length > 0 ? (
             habits.map((habit) => <HabitList key={habit.id} habit={habit} />)
           ) : (
