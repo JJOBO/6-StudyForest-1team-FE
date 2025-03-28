@@ -1,6 +1,6 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/common/Header";
+import FocusPage from "./pages/FocusPage";
 import Home from "./pages/Home";
 
 function App() {
@@ -9,11 +9,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path=":studyId">
-          <Route index element={<StudyPage />} />
-          <Route path="habits" element={<HabitPage />} />
-          <Route path="focus" element={<FocusPage />} />
-        </Route>
+        <Route path="/study/:id/Focus" element={<FocusPage />} />
       </Routes>
     </BrowserRouter>
   );
