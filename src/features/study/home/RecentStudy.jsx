@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./RecentStudy.css";
-import StudyCard from "../../../components/StudyCard";
+import StudyCard from "../../../components/layout/StudyCard";
 
 function RecentStudy() {
   const [recentStudies, setRecentStudies] = useState([]);
