@@ -4,7 +4,7 @@ import Header from "./components/layout/Header";
 import Home from "./pages/Home";
 import FocusPage from "./pages/FocusPage";
 
-function App() {
+function App() { 
   return (
     <BrowserRouter>
       <Header />
