@@ -10,4 +10,5 @@ const PointDisplay = ({ points }) => {
   );
 };
 
+
 export default PointDisplay;

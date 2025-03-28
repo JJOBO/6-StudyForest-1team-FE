@@ -4,6 +4,7 @@ import Header from "./components/layout/Header";
 import Home from "./pages/Home";
 import FocusPage from "./pages/FocusPage";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
           <Route path="/study/:id/Focus" element={<FocusPage />} />
+
       </Routes>
     </BrowserRouter>
   );
