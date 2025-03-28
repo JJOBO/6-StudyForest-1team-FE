@@ -1,12 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import AppRouter from "./routes/AppRouter";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./components/common/Header";
+import Home from "./pages/Home";
+import HabitPage from "./pages/HabitPage";
 
 function App() {
   return (
-    <Router>
-      <AppRouter />
-    </Router>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path=":studyId/habits" element={<HabitPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
