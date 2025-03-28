@@ -11,7 +11,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path=":studyId/habits" element={<HabitPage />} />
-
       </Routes>
     </BrowserRouter>
   );

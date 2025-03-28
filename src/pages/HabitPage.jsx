@@ -9,8 +9,20 @@ import "dayjs/locale/ko";
 import Modal from "../components/layout/Modal";
 dayjs.locale("ko");
 
-// 현재 시간 불러오기
-const formattedDate = dayjs().format("YYYY-MM-DD A h:mm");
+const FormattedDate = () => {
+  const [currentTime, setCurrentTime] = useState(dayjs());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return <span className="current-time">{currentTime.format("YYYY-MM-DD A hh:mm")}</span>;
+};
+
 
 const HabitPage = () => {
   const { studyId } = useParams();
@@ -90,7 +102,7 @@ const HabitPage = () => {
         </div>
         <div className="habit-time">
           <span className="current-text">현재 시간</span>
-          <span className="current-time">{formattedDate}</span>
+          <FormattedDate />
         </div>
       </nav>
 

@@ -10,7 +10,11 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   // 습관 수정 함수
   const handleEditHabit = (index, newName) => {
     const updatedHabits = [...editedHabits];
-    updatedHabits[index].name = newName;
+    updatedHabits[index] = {
+      ...updatedHabits[index],
+      name: newName,
+      isUpdated: true,
+    };
     setEditedHabits(updatedHabits);
   };
 
@@ -29,8 +33,17 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     ]);
   };
 
-  // 수정 완료
-  const handleSave = () => {
+  // 수정 완료 (DB에 반영)
+  const handleSave = async () => {
+    for (const habit of editedHabits) {
+      if (habit.isUpdated && habit.id) {
+        try {
+          await habitAPI.updateHabit(habit.id, { name: habit.name }); // studyId 제거
+        } catch (error) {
+          console.error("습관 수정 실패:", error);
+        }
+      }
+    }
     onSave(editedHabits);
     onClose();
   };
@@ -72,7 +85,9 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
           ))}
         </div>
 
-        <button className="add-btn" onClick={handleAddHabit}>+</button>
+        <button className="add-btn" onClick={handleAddHabit}>
+          +
+        </button>
 
         <div className="modal-actions">
           <div className="cancel-btn" onClick={handleCancel}>
