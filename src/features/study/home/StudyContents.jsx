@@ -142,6 +142,7 @@ function StudyContents() {
             points={card.totalPoints}
             createdAt={card.createdAt}
             emojis={card.emojis}
+            background={card.background}
             calculateDays={calculateDays}
           />
         ))}

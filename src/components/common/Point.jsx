@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import "./Point.scss";
+import pointIcon from "../../assets/icons/ic_point.svg";
 
-function Point({ userId }) {
-  const [points, setPoints] = useState(null);
-
-  useEffect(() => {
-    const fetchPoints = async () => {
-      try {
-        const response = await axios.get(
-          `https://studyforest-xdk5.onrender.com/user/${userId}/points`
-        );
-        setPoints(response.data.points);
-      } catch (error) {
-        console.error(`Error fetching points for user ID ${userId}:`, error);
-      }
-    };
-
-    if (userId) {
-      fetchPoints();
-    }
-  }, [userId]);
-
+function Point({ points }) {
   return (
-    <div>
-      {points !== null ? <p>{points} 획득</p> : <p>Loading points...</p>}
+    <div className="point-container">
+      <span className="point-icon">
+        <img src={pointIcon} alt="Point Icon" />
+      </span>
+      <span className="point-text">{points}P 획득</span>
     </div>
   );
 }

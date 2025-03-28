@@ -1,6 +1,7 @@
 import React from "react";
 import "./StudyCard.scss"; // 스타일 파일 분리
 import Point from "../common/Point"; // Point 컴포넌트 추가
+import Emoji from "../common/Emoji"; // Emoji 컴포넌트 추가
 
 function StudyCard({
   name,
@@ -10,21 +11,23 @@ function StudyCard({
   createdAt,
   emojis,
   calculateDays,
-  userId, // userId 추가
+  background,
 }) {
+  const backgroundClass = background || "default";
+
   return (
-    <div className="study-card">
+    <div className={`study-card ${backgroundClass}`}>
       <img src={image} alt={name} className="study-image" />
       <div className="study-content">
-        <h3>{name}</h3>
+        <div className="study-title">
+          <h3>{name}</h3>
+          <Point points={points} className="point" />
+        </div>
         <p>{calculateDays(createdAt)}일째 진행 중</p>
-        <Point userId={userId} /> {/* Point 컴포넌트 사용 */}
         <p>{description}</p>
         <div className="study-stats">
           {emojis.map((emoji, index) => (
-            <span key={index}>
-              {emoji.emoji} {emoji.count} {/* emoji.emoji로 수정 */}
-            </span>
+            <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
           ))}
         </div>
       </div>
