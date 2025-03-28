@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Modal.scss";
+import "./HabitModal.scss";
 import trash from "../../assets/icons/ic_trash.svg";
 import modification from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
 import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
@@ -7,7 +7,7 @@ import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
 
-  // 습관 수정 함수
+  // 습관 수정
   const handleEditHabit = (index, newName) => {
     const updatedHabits = [...editedHabits];
     updatedHabits[index] = {
@@ -18,14 +18,14 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     setEditedHabits(updatedHabits);
   };
 
-  // 습관 삭제 함수
+  // 습관 삭제
   const handleDeleteHabit = (index) => {
     const updatedHabits = editedHabits.filter((_, i) => i !== index);
     setEditedHabits(updatedHabits);
     onDelete(index);
   };
 
-  // 습관 생성 함수
+  // 습관 생성
   const handleAddHabit = () => {
     setEditedHabits([
       ...editedHabits,
@@ -33,12 +33,11 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     ]);
   };
 
-  // 수정 완료 (DB에 반영)
   const handleSave = async () => {
     for (const habit of editedHabits) {
       if (habit.isUpdated && habit.id) {
         try {
-          await habitAPI.updateHabit(habit.id, { name: habit.name }); // studyId 제거
+          await habitAPI.updateHabit(habit.id, { name: habit.name });
         } catch (error) {
           console.error("습관 수정 실패:", error);
         }
@@ -64,7 +63,9 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>습관 목록</h2>
+        <div>
+          <p className="habit-list-title">습관 목록</p>
+        </div>
 
         <div className="habit-list">
           {editedHabits.map((habit, index) => (
@@ -83,11 +84,10 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
               </button>
             </div>
           ))}
+          <button className="add-btn" onClick={handleAddHabit}>
+            +
+          </button>
         </div>
-
-        <button className="add-btn" onClick={handleAddHabit}>
-          +
-        </button>
 
         <div className="modal-actions">
           <div className="cancel-btn" onClick={handleCancel}>

@@ -4,9 +4,9 @@ import habitAPI from "../features/habit/habitAPI";
 import arrow from "../assets/icons/ic_arrow_right.svg";
 import "./HabitPage.scss";
 import { Link } from "react-router-dom";
+import HabitModal from "../features/habit/HabitModal.jsx"
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import Modal from "../components/layout/Modal";
 dayjs.locale("ko");
 
 const FormattedDate = () => {
@@ -113,7 +113,7 @@ const HabitPage = () => {
             <button onClick={openModal} className="edit-btn">
               목록수정
             </button>
-            <Modal
+            <HabitModal
               isOpen={isModalOpen}
               onClose={closeModal}
               habits={habits}
