@@ -21,7 +21,7 @@ function StudyCard({
         <div className="study-stats">
           {emojis.map((emoji, index) => (
             <span key={index}>
-              {emoji.type} {emoji.count}
+              {emoji.emoji} {emoji.count} {/* emoji.emoji로 수정 */}
             </span>
           ))}
         </div>

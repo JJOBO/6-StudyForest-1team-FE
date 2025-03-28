@@ -1,8 +1,45 @@
-import React from "react";
+// src/features/study/home/RecentStudy.jsx
+import React, { useState, useEffect } from "react";
+import studyAPI from "../studyAPI";
 import "./RecentStudy.css";
 import StudyCard from "../../../components/StudyCard";
 
 function RecentStudy() {
+  const [recentStudies, setRecentStudies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecentStudies = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const recentStudyIds = JSON.parse(
+          localStorage.getItem("recentStudyIds") || "[]"
+        );
+
+        if (recentStudyIds.length === 0) {
+          setRecentStudies([]);
+          setIsLoading(false);
+          return;
+        }
+
+        const data = await studyAPI.getStudyList(
+          "",
+          "createdAt",
+          0,
+          recentStudyIds
+        );
+        setRecentStudies(data.recentStudies);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecentStudies();
+  }, []);
   const calculateDays = (createdAt) => {
     const createdDate = new Date(createdAt);
     const today = new Date();
@@ -10,62 +47,37 @@ function RecentStudy() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className="recent-study">
       <h2>최근 조회한 스터디</h2>
       <div className="study-cards">
-        {studyData.map((study) => (
-          <StudyCard
-            key={study.id}
-            {...study}
-            calculateDays={calculateDays} // 함수 전달
-          />
-        ))}
+        {recentStudies.length === 0 ? (
+          <div>최근 조회한 스터디가 없습니다.</div>
+        ) : (
+          recentStudies.map((study) => (
+            <StudyCard
+              key={study.id}
+              name={study.name}
+              description={study.description}
+              image={study.background}
+              points={study.totalPoints}
+              createdAt={study.createdAt}
+              emojis={study.emojis}
+              calculateDays={calculateDays}
+            />
+          ))
+        )}
       </div>
     </div>
   );
 }
-
-const studyData = [
-  {
-    id: 1,
-    name: "이유미의 UX 스터디",
-    description: "Slow And Steady Wins The Race!!",
-    createdAt: "2025-10-01",
-    points: 310,
-    emojis: [
-      { type: "❤️", count: 37 },
-      { type: "💬", count: 26 },
-      { type: "🔖", count: 14 },
-    ],
-    image: "/images/study1.png",
-  },
-  {
-    id: 2,
-    name: "K.K.의 UX 스터디",
-    description: "나비보벳따우",
-    createdAt: "2024-09-25",
-    points: 310,
-    emojis: [
-      { type: "❤️", count: 42 },
-      { type: "💬", count: 18 },
-      { type: "🔖", count: 20 },
-    ],
-    image: "/images/study2.png",
-  },
-  {
-    id: 3,
-    name: "연우 의 개발공장",
-    description: "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)",
-    createdAt: "2023-09-20",
-    points: 50,
-    emojis: [
-      { type: "❤️", count: 32 },
-      { type: "💬", count: 11 },
-      { type: "🔖", count: 9 },
-    ],
-    image: "/images/study3.png",
-  },
-];
 
 export default RecentStudy;

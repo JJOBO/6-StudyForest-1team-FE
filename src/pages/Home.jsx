@@ -7,7 +7,7 @@ import StudyContents from "../features/study/home/StudyContents";
 function Home() {
   return (
     <div className="home-container">
-      <GNB />
+      <GNB isButtonDisabled={true} />
       <RecentStudy />
       <StudyContents />
     </div>
