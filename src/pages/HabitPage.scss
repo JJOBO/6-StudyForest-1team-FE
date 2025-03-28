@@ -87,6 +87,7 @@
 .habit-bar {
   display: flex;
   align-items: center;
+  position: relative; 
 }
 
 .habit-title {
@@ -97,14 +98,16 @@
 }
 
 .edit-btn {
-  border: none;
+  position: absolute;  
+  left: 180px;  
   background-color: #FFFFFF;
-  position: absolute;
-  right: 630px;
   color: #818181;
   font-size: 14px;
   font-weight: 500;
   line-height: 100%;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .active {
