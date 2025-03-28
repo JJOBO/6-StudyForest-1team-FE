@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./StudyContents.css";
-import StudyCard from "../../../components/StudyCard";
+import StudyCard from "../../../components/layout/StudyCard";
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
