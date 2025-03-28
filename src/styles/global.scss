@@ -39,3 +39,10 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}

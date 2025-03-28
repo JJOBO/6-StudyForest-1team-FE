@@ -1,143 +1,135 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import focusAPI from "./focusAPI";
+import FocusTimerDisplay from "./FocusTimerDisplay";
+import FocusControls from "./FocusControls";
+import "./FocusTimer.scss";
 
-function FocusTimer({ userTotalPoints }) {
+function FocusTimer() {
   const { id: studyId } = useParams();
-
-  const [remainingTime, setRemainingTime] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [isTimerPaused, setIsTimerPaused] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [pausedDuration, setPausedDuration] = useState(0);
   const [pauseStartTime, setPauseStartTime] = useState(null);
-  const [totalPoints, setTotalPoints] = useState(userTotalPoints);
-  const [currentSessionPoints, setCurrentSessionPoints] = useState(0);
   const [inputMinutes, setInputMinutes] = useState("");
   const [inputSeconds, setInputSeconds] = useState("");
-
-  // MM:SS 형식 변환 함수
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(Math.abs(seconds) / 60)
-      .toString()
-      .padStart(2, "0");
-    const secs = (Math.abs(seconds) % 60).toString().padStart(2, "0");
-    return `${seconds < 0 ? "-" : ""}${minutes}:${secs}`;
-  };
+  const [isEditingMinutes, setIsEditingMinutes] = useState(false);
+  const [isEditingSeconds, setIsEditingSeconds] = useState(false);
 
   useEffect(() => {
     let timer;
-    if (isTimerRunning && !isTimerPaused) {
+    if (isRunning && !isPaused) {
       timer = setInterval(() => {
-        setRemainingTime((prevTime) => prevTime - 1);
+        setTimeLeft((prev) => prev - 1);
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [isTimerRunning, isTimerPaused]);
+  }, [isRunning, isPaused]);
 
-  // 집중 시작: POST 요청
-  const handleStartFocus = async () => {
-    const minutes = parseInt(inputMinutes) || 0;
-    const seconds = parseInt(inputSeconds) || 0;
-    const targetTime = minutes * 60 + seconds;
+  const getTargetTime = () => {
+    const minutes = parseInt(inputMinutes, 10) || 0;
+    const seconds = parseInt(inputSeconds, 10) || 0;
+    return minutes * 60 + seconds;
+  };
 
-    if (targetTime <= 0) {
-      alert("올바른 시간을 입력하세요!");
-      return;
-    }
+  const updateTimeLeft = () => {
+    setTimeLeft(getTargetTime());
+  };
+
+  const handleClickStartTimer = async () => {
+    if (timeLeft <= 0 && isRunning) return handleClickStopTimer();
+    const targetTime = getTargetTime();
+    if (targetTime <= 0) return alert("올바른 시간을 입력하세요!");
 
     try {
       await focusAPI.startFocus(studyId, targetTime);
-      setRemainingTime(targetTime);
+      setTimeLeft(targetTime);
       setStartTime(Date.now());
-      setIsTimerRunning(true);
-    } catch (error) {
-      console.error("Error starting focus:", error);
-      if (error.response && error.response.status === 401) {
-        alert("비밀번호가 올바르지 않습니다. 다시 인증해주세요.");
-      }
+      setIsRunning(true);
+    } catch (e) {
+      console.error("시작 에러:", e);
     }
   };
 
-  // 일시정지/재개
-  const handlePauseFocus = () => {
-    if (isTimerPaused) {
+  const handleClickPauseTimer = () => {
+    if (isPaused) {
       setPausedDuration((prev) => prev + (Date.now() - pauseStartTime));
       setPauseStartTime(null);
     } else {
       setPauseStartTime(Date.now());
     }
-    setIsTimerPaused(!isTimerPaused);
+    setIsPaused((prev) => !prev);
   };
 
-  // 집중 종료: PUT 요청 (백엔드 URL 명시)
-  const handleStopFocus = async () => {
-    setIsTimerRunning(false);
-
-    let totalPausedTime = pausedDuration;
-    if (isTimerPaused && pauseStartTime) {
-      totalPausedTime += Date.now() - pauseStartTime;
+  const handleClickStopTimer = async () => {
+    setIsRunning(false);
+    let totalPaused = pausedDuration;
+    if (isPaused && pauseStartTime) {
+      totalPaused += Date.now() - pauseStartTime;
     }
-    const elapsedTime = Math.floor(
-      (Date.now() - startTime - totalPausedTime) / 1000
-    );
 
+    const elapsed = Math.floor((Date.now() - startTime - totalPaused) / 1000);
     try {
-      const data = await focusAPI.stopFocus(
-        studyId,
-        elapsedTime,
-        remainingTime
-      );
-      setCurrentSessionPoints(data.focusPoints);
-      setTotalPoints(data.totalPoints);
-      alert(`${data.focusPoints} 포인트를 획득했습니다!`);
-
-      // 초기화
-      setRemainingTime(0);
-      setPausedDuration(0);
-      setPauseStartTime(null);
-      setStartTime(null);
-      setIsTimerPaused(false);
-      setInputMinutes("");
-      setInputSeconds("");
-    } catch (error) {
-      console.error("Error stopping focus:", error);
-      if (error.response && error.response.status === 401) {
-        alert("비밀번호가 올바르지 않습니다. 다시 인증해주세요.");
-      }
+      const res = await focusAPI.stopFocus(studyId, elapsed, timeLeft);
+      alert(`${res.focusPoints} 포인트를 획득했습니다!`);
+      handleClickResetTimer();
+    } catch (e) {
+      console.error("중지 에러:", e);
     }
+  };
+
+  const handleClickResetTimer = () => {
+    setIsRunning(false);
+    setIsPaused(false);
+    setTimeLeft(0);
+    setInputMinutes("");
+    setInputSeconds("");
+    setPausedDuration(0);
+    setPauseStartTime(null);
+    setStartTime(null);
+    setIsEditingMinutes(false);
+    setIsEditingSeconds(false);
   };
 
   return (
-    <div>
-      <h1>{formatTime(remainingTime)}</h1>
-      <div>
-        <input // 삭제 예정
-          type="number"
-          value={inputMinutes}
-          onChange={(e) => setInputMinutes(e.target.value)}
-          placeholder="분"
-          disabled={isTimerRunning}
-        />
-        <input
-          type="number"
-          value={inputSeconds}
-          onChange={(e) => setInputSeconds(e.target.value)}
-          placeholder="초"
-          disabled={isTimerRunning}
-        />
-      </div>
-      <button onClick={handleStartFocus} disabled={isTimerRunning}>
-        시작
-      </button>
-      <button onClick={handlePauseFocus} disabled={!isTimerRunning}>
-        {isTimerPaused ? "재개" : "일시정지"}
-      </button>
-      <button onClick={handleStopFocus} disabled={!isTimerRunning}>
-        중지
-      </button>
-      <h2>획득 포인트: {currentSessionPoints}</h2>
-      <h2>총 포인트: {totalPoints}</h2>
+    <div className="timer-wrapper">
+      <div className="title">오늘의 집중</div>
+
+      <FocusTimerDisplay
+        timeLeft={timeLeft}
+        inputMinutes={inputMinutes}
+        inputSeconds={inputSeconds}
+        isEditingMinutes={isEditingMinutes}
+        isEditingSeconds={isEditingSeconds}
+        onChangeMinutes={setInputMinutes}
+        onChangeSeconds={setInputSeconds}
+        onClickMinutes={() => setIsEditingMinutes(true)}
+        onClickSeconds={() => setIsEditingSeconds(true)}
+        handleBlur={(type) => {
+          if (type === "minutes") setIsEditingMinutes(false);
+          if (type === "seconds") setIsEditingSeconds(false);
+          updateTimeLeft();
+        }}
+        handleKeyDown={(e, type) => {
+          if (e.key === "Enter") {
+            if (type === "minutes") setIsEditingMinutes(false);
+            if (type === "seconds") setIsEditingSeconds(false);
+            updateTimeLeft();
+          }
+        }}
+      />
+
+      <FocusControls
+        isRunning={isRunning}
+        isPaused={isPaused}
+        timeLeft={timeLeft}
+        onClickStart={handleClickStartTimer}
+        onClickPause={handleClickPauseTimer}
+        onClickStop={handleClickStopTimer}
+        onClickReset={handleClickResetTimer}
+      />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios 인스턴스 생성 (기본 URL 설정 등)
 const client = axios.create({
-  baseURL: "http://localhost:5050", // 백엔드 서버(수정 예정)
+  baseURL: "http://localhost:5000", // 백엔드 서버(수정 예정)
   headers: {
     "Content-Type": "application/json",
   },
