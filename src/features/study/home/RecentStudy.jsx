@@ -40,7 +40,6 @@ function RecentStudy() {
 
     fetchRecentStudies();
   }, []);
-
   const calculateDays = (createdAt) => {
     const createdDate = new Date(createdAt);
     const today = new Date();

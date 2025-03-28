@@ -125,6 +125,7 @@ function StudyContents() {
           )}
         </ul>
       </div>
+
       <div className="study-cards">
         {cards.map((card) => (
           <StudyCard

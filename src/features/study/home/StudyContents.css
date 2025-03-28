@@ -8,12 +8,13 @@ body {
   height: 822px; /* 높이 */
   margin: 0 auto; /* 가로 중앙 정렬 */
   position: static; /* 플렉스 레이아웃 유지 */
+  border-radius: 20px;
 }
 
-.search-bar,
-.sort-dropdown {
-  display: inline-block; /* 가로 정렬 */
-  vertical-align: top; /* 상단 정렬 */
+.option-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 40px;
 }
 
 .search-bar {
@@ -21,11 +22,11 @@ body {
 }
 
 .search-bar input {
-  width: 20%; /* 너비 20% */
-  padding: 8px;
+  width: 335px; /* 너비 335px */
+  height: 42px; /* 높이 42px */
   margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 20px; /* 둥근 모서리 */
+  border: 1px solid #ccc; /* 테두리 1px */
+  border-radius: 15px; /* 둥근 모서리 15px */
 }
 
 .sort-dropdown {
@@ -34,22 +35,27 @@ body {
 }
 
 .sort-dropdown button {
+  width: 180px; /* 너비 180px */
+  height: 42px; /* 높이 42px */
   padding: 8px 16px;
   border: 1px solid #ccc;
-  border-radius: 20px; /* 둥근 모서리 */
+  border-radius: 15px; /* 둥근 모서리 15px */
   background-color: #f9f9f9;
   cursor: pointer;
 }
 
 .sort-dropdown ul {
+  width: 180px; /* 총 너비 180px */
+  height: auto; /* 높이를 자동으로 조정 */
+  max-height: none; /* 최대 높이 제한 제거 */
   list-style: none;
   padding: 0;
-  margin: 8px 0 0;
-  border: 1px solid #ccc;
+  margin: 8px 0 0; /* 드롭다운 아래로 8px 간격 */
+  border: 1px solid #ccc; /* 전체 테두리 */
   border-radius: 20px; /* 둥근 모서리 */
   background-color: #ffffff;
   position: absolute;
-  top: 0; /* 최상단 위치 */
+  top: calc(100% + 8px); /* 버튼 아래로 8px */
   display: none; /* 기본 숨김 */
   z-index: 10; /* 다른 요소 위에 표시 */
 }
@@ -71,18 +77,31 @@ body {
 }
 
 .sort-dropdown li {
-  padding: 8px 16px;
+  width: 100%; /* 부모의 너비에 맞춤 */
+  height: 42px; /* 각 항목 높이 42px */
+  border-bottom: 1px solid #ccc; /* 각 항목 구분선 */
+  border-radius: 0; /* 둥근 모서리 제거 */
   cursor: pointer;
+  text-align: center; /* 글씨 중앙 정렬 */
+  line-height: 42px; /* 높이에 맞춰 수직 정렬 */
+}
+
+.sort-dropdown li:last-child {
+  border-bottom: none; /* 마지막 항목은 구분선 제거 */
 }
 
 .sort-dropdown li:hover {
-  background-color: #f0f0f0;
+  background-color: #e0e0e0; /* 색깔 어두워짐 */
+  width: 100%; /* 부모 너비에 맞춤 */
+  height: 42px; /* 높이 유지 */
+  overflow: hidden; /* 모양 삐져나오지 않게 */
 }
 
 .study-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+  gap: 12px;
+  justify-content: center;
 }
 
 .study-card {
@@ -126,4 +145,10 @@ body {
 
 .load-more:hover {
   background-color: #f0f0f0;
+}
+
+.study-contents h2 {
+  font-size: 24px;
+  margin-top: 40px;
+  margin-left: 40px;
 }

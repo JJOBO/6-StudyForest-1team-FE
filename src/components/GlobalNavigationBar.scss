@@ -30,6 +30,10 @@
     font-size: 16px; // 텍스트 크기
     font-weight: bold; // 텍스트 굵기
     cursor: pointer;
+
+    &.disabled {
+      display: none; // 버튼을 완전히 숨김
+    }
   }
 }
 
