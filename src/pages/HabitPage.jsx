@@ -4,25 +4,8 @@ import habitAPI from "../features/habit/habitAPI";
 import arrow from "../assets/icons/ic_arrow_right.svg";
 import "./HabitPage.scss";
 import { Link } from "react-router-dom";
-import HabitModal from "../features/habit/HabitModal.jsx"
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
-dayjs.locale("ko");
-
-const FormattedDate = () => {
-  const [currentTime, setCurrentTime] = useState(dayjs());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(dayjs());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return <span className="current-time">{currentTime.format("YYYY-MM-DD A hh:mm")}</span>;
-};
-
+import HabitModal from "../features/habit/HabitModal.jsx";
+import FormattedDate from "../features/habit/FormattedDate";
 
 const HabitPage = () => {
   const { studyId } = useParams();
@@ -50,14 +33,14 @@ const HabitPage = () => {
   if (error) return <div>{error}</div>;
 
   const openModal = () => setIsModalOpen(true);
-
   const closeModal = () => setIsModalOpen(false);
 
+  // 습관 수정
   const saveHabits = (updatedHabits) => {
     updatedHabits.forEach((habit) => {
       if (habit.isUpdated) {
         habitAPI
-          .updateHabit(studyId, habit.id, { name: habit.name })
+          .updateHabit(habit.id, { name: habit.name })
           .then((updatedHabit) => {
             console.log("습관 수정 완료:", updatedHabit);
           })
@@ -72,16 +55,20 @@ const HabitPage = () => {
 
   const deleteHabit = (habitId) => {
     habitAPI
-      .deleteHabit(studyId, habitId)
-      .then(() => {
-        const updatedHabits = habits.filter((habit) => habit.id !== habitId);
-        setHabits(updatedHabits);
+      .deleteHabit(habitId)
+      .then((result) => {
+        if (result && result.success) {
+          console.log("삭제 성공");
+          const updatedHabits = habits.filter((habit) => habit.id !== habitId);
+          setHabits(updatedHabits);
+        } else {
+          console.error("삭제 실패:", result?.message || "알 수 없는 오류");
+        }
       })
       .catch((err) => {
         console.error("습관 삭제 실패:", err);
       });
   };
-
   return (
     <div className="habit-container">
       <nav className="habit-nav">

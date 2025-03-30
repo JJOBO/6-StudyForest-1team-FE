@@ -4,8 +4,9 @@ import trash from "../../assets/icons/ic_trash.svg";
 import modification from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
 import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 
-const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
+const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
+  const [pendingDeletions, setPendingDeletions] = useState([]);
 
   // 습관 수정
   const handleEditHabit = (index, newName) => {
@@ -20,29 +21,20 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 습관 삭제
   const handleDeleteHabit = (index) => {
+    const habitToDelete = editedHabits[index];
     const updatedHabits = editedHabits.filter((_, i) => i !== index);
     setEditedHabits(updatedHabits);
-    onDelete(index);
-  };
 
-  // 습관 생성
-  const handleAddHabit = () => {
-    setEditedHabits([
-      ...editedHabits,
-      { id: Date.now(), name: "", isActive: true },
-    ]);
+    if (habitToDelete.id) {
+      setPendingDeletions([...pendingDeletions, habitToDelete.id]);
+    }
   };
 
   const handleSave = async () => {
-    for (const habit of editedHabits) {
-      if (habit.isUpdated && habit.id) {
-        try {
-          await habitAPI.updateHabit(habit.id, { name: habit.name });
-        } catch (error) {
-          console.error("습관 수정 실패:", error);
-        }
-      }
+    for (const habitId of pendingDeletions) {
+      await onDelete(habitId);
     }
+
     onSave(editedHabits);
     onClose();
   };
@@ -50,12 +42,13 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   // 취소
   const handleCancel = () => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
     onClose();
   };
 
-  // 모달이 열릴 때마다 습관 데이터를 초기화
   useEffect(() => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
   }, [habits, isOpen]);
 
   if (!isOpen) return null;
@@ -69,7 +62,7 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
         <div className="habit-list">
           {editedHabits.map((habit, index) => (
-            <div key={habit.id} className="habit-item">
+            <div key={habit.id || index} className="habit-item">
               <input
                 type="text"
                 value={habit.name}
@@ -77,16 +70,14 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
                 className="habit-input"
               />
               <button
-                onClick={() => handleDeleteHabit(index)}
                 className="delete-btn"
+                onClick={() => handleDeleteHabit(index)}
               >
-                <img className="habit-trash" src={trash} />
+                <img className="habit-trash" src={trash} alt="삭제" />
               </button>
             </div>
           ))}
-          <button className="add-btn" onClick={handleAddHabit}>
-            +
-          </button>
+          <button className="add-btn">+</button>
         </div>
 
         <div className="modal-actions">
@@ -102,4 +93,4 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   );
 };
 
-export default Modal;
+export default HabitModal;
