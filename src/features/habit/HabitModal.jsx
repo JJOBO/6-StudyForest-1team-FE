@@ -4,7 +4,7 @@ import trash from "../../assets/icons/ic_trash.svg";
 import modification from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
 import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 
-const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
+const HabitModal = ({ isOpen, onClose, habits, onSave }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
 
   // 습관 수정
@@ -18,31 +18,8 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     setEditedHabits(updatedHabits);
   };
 
-  // 습관 삭제
-  const handleDeleteHabit = (index) => {
-    const updatedHabits = editedHabits.filter((_, i) => i !== index);
-    setEditedHabits(updatedHabits);
-    onDelete(index);
-  };
-
-  // 습관 생성
-  const handleAddHabit = () => {
-    setEditedHabits([
-      ...editedHabits,
-      { id: Date.now(), name: "", isActive: true },
-    ]);
-  };
-
+  // 수정 완료
   const handleSave = async () => {
-    for (const habit of editedHabits) {
-      if (habit.isUpdated && habit.id) {
-        try {
-          await habitAPI.updateHabit(habit.id, { name: habit.name });
-        } catch (error) {
-          console.error("습관 수정 실패:", error);
-        }
-      }
-    }
     onSave(editedHabits);
     onClose();
   };
@@ -53,7 +30,6 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     onClose();
   };
 
-  // 모달이 열릴 때마다 습관 데이터를 초기화
   useEffect(() => {
     setEditedHabits(habits);
   }, [habits, isOpen]);
@@ -68,25 +44,20 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
         </div>
 
         <div className="habit-list">
-          {editedHabits.map((habit, index) => (
+          {editedHabits.map((habit, studyId) => (
             <div key={habit.id} className="habit-item">
               <input
                 type="text"
                 value={habit.name}
-                onChange={(e) => handleEditHabit(index, e.target.value)}
+                onChange={(e) => handleEditHabit(studyId, e.target.value)}
                 className="habit-input"
               />
-              <button
-                onClick={() => handleDeleteHabit(index)}
-                className="delete-btn"
-              >
+              <button className="delete-btn">
                 <img className="habit-trash" src={trash} />
               </button>
             </div>
           ))}
-          <button className="add-btn" onClick={handleAddHabit}>
-            +
-          </button>
+          <button className="add-btn">+</button>
         </div>
 
         <div className="modal-actions">
@@ -102,4 +73,4 @@ const Modal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   );
 };
 
-export default Modal;
+export default HabitModal;
