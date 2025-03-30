@@ -9,9 +9,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/study" element={<Home />} />
-        <Route path="/study/:studyId/focus" element={<FocusPage />} />
-        <Route path="/study/:studyId/habits" element={<HabitPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/:studyId/focus" element={<FocusPage />} />
+        <Route path="/:studyId/habits" element={<HabitPage />} />
       </Routes>
     </BrowserRouter>
   );
