@@ -38,18 +38,24 @@ const habitAPI = {
   },
 
   // 습관 삭제하기
-  deleteHabit: async (habitId) => {
-    try {
-      console.log(`DELETE 요청 URL: ${BASE_URL}/habits/${habitId}`);
-      const response = await axios.delete(`${BASE_URL}/habits/${habitId}`);
-
-      console.log("DELETE 요청 응답:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error("습관 삭제 오류:", error.response?.data || error.message);
-      throw error;
+deleteHabit: async (habitId) => {
+  try {
+    console.log(`DELETE 요청 URL: ${BASE_URL}/habits/${habitId}`);
+    const response = await axios.delete(`${BASE_URL}/habits/${habitId}`);
+    
+    if (response.status === 200 || response.status === 204) {
+      console.log("서버에서 삭제 성공!");
+      return { success: true, data: response.data };
+    } else {
+      console.warn("서버 응답이 예상과 다릅니다:", response);
+      return { success: false, message: "삭제에 실패했습니다." };
     }
-  },
+  } catch (error) {
+    console.error("습관 삭제 오류:", error.response?.data || error.message);
+    console.error("에러 상태 코드:", error.response?.status);
+    throw error;
+  }
+},
 
   // 새로운 습관 추가하기 (POST 요청)
   createHabit: async (studyId, newHabit) => {

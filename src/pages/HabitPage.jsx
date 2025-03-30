@@ -53,6 +53,22 @@ const HabitPage = () => {
     setHabits(updatedHabits);
   };
 
+  const deleteHabit = (habitId) => {
+    habitAPI
+      .deleteHabit(habitId)
+      .then((result) => {
+        if (result && result.success) {
+          console.log("삭제 성공");
+          const updatedHabits = habits.filter((habit) => habit.id !== habitId);
+          setHabits(updatedHabits);
+        } else {
+          console.error("삭제 실패:", result?.message || "알 수 없는 오류");
+        }
+      })
+      .catch((err) => {
+        console.error("습관 삭제 실패:", err);
+      });
+  };
   return (
     <div className="habit-container">
       <nav className="habit-nav">
@@ -89,6 +105,7 @@ const HabitPage = () => {
               onClose={closeModal}
               habits={habits}
               onSave={saveHabits}
+              onDelete={deleteHabit}
             />
           </div>
           <div className="habit-list">

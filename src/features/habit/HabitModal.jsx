@@ -4,8 +4,9 @@ import trash from "../../assets/icons/ic_trash.svg";
 import modification from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
 import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 
-const HabitModal = ({ isOpen, onClose, habits, onSave }) => {
+const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
+  const [pendingDeletions, setPendingDeletions] = useState([]);
 
   // 습관 수정
   const handleEditHabit = (index, newName) => {
@@ -18,8 +19,22 @@ const HabitModal = ({ isOpen, onClose, habits, onSave }) => {
     setEditedHabits(updatedHabits);
   };
 
-  // 수정 완료
+  // 습관 삭제
+  const handleDeleteHabit = (index) => {
+    const habitToDelete = editedHabits[index];
+    const updatedHabits = editedHabits.filter((_, i) => i !== index);
+    setEditedHabits(updatedHabits);
+
+    if (habitToDelete.id) {
+      setPendingDeletions([...pendingDeletions, habitToDelete.id]);
+    }
+  };
+
   const handleSave = async () => {
+    for (const habitId of pendingDeletions) {
+      await onDelete(habitId);
+    }
+
     onSave(editedHabits);
     onClose();
   };
@@ -27,11 +42,13 @@ const HabitModal = ({ isOpen, onClose, habits, onSave }) => {
   // 취소
   const handleCancel = () => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
     onClose();
   };
 
   useEffect(() => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
   }, [habits, isOpen]);
 
   if (!isOpen) return null;
@@ -44,16 +61,19 @@ const HabitModal = ({ isOpen, onClose, habits, onSave }) => {
         </div>
 
         <div className="habit-list">
-          {editedHabits.map((habit, studyId) => (
-            <div key={habit.id} className="habit-item">
+          {editedHabits.map((habit, index) => (
+            <div key={habit.id || index} className="habit-item">
               <input
                 type="text"
                 value={habit.name}
-                onChange={(e) => handleEditHabit(studyId, e.target.value)}
+                onChange={(e) => handleEditHabit(index, e.target.value)}
                 className="habit-input"
               />
-              <button className="delete-btn">
-                <img className="habit-trash" src={trash} />
+              <button
+                className="delete-btn"
+                onClick={() => handleDeleteHabit(index)}
+              >
+                <img className="habit-trash" src={trash} alt="삭제" />
               </button>
             </div>
           ))}
