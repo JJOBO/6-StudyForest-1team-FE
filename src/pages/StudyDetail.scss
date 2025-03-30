@@ -1,0 +1,32 @@
+.study-detail-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // background-color: red; // 임시 스타일 추가
+
+  .study-detail-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      // background-color: blue; // 임시 스타일 추가
+
+      &:hover {
+        background-color: #367c39;
+      }
+    }
+  }
+}
