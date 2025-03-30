@@ -1,0 +1,17 @@
+.emoji-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; // 간격 조정
+  font-size: 12px; // 기본 텍스트 크기
+  width: 48px; // 이모지 너비
+  height: 26px; // 이모지 높이
+  border-radius: 50px; // 둥근 모서리
+  background-color: rgba(0, 0, 0, 0.5); // 배경색만 반투명
+  opacity: 1; // 컨테이너 자체는 투명도 없음
+}
+
+.emoji-count {
+  font-weight: bold; // 카운트 텍스트 굵기
+  color: #fff; // 카운트 텍스트 색상
+}

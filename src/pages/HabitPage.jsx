@@ -4,25 +4,8 @@ import habitAPI from "../features/habit/habitAPI";
 import arrow from "../assets/icons/ic_arrow_right.svg";
 import "./HabitPage.scss";
 import { Link } from "react-router-dom";
-import HabitModal from "../features/habit/HabitModal.jsx"
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
-dayjs.locale("ko");
-
-const FormattedDate = () => {
-  const [currentTime, setCurrentTime] = useState(dayjs());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(dayjs());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return <span className="current-time">{currentTime.format("YYYY-MM-DD A hh:mm")}</span>;
-};
-
+import HabitModal from "../features/habit/HabitModal.jsx";
+import FormattedDate from "../features/habit/FormattedDate";
 
 const HabitPage = () => {
   const { studyId } = useParams();
@@ -50,14 +33,14 @@ const HabitPage = () => {
   if (error) return <div>{error}</div>;
 
   const openModal = () => setIsModalOpen(true);
-
   const closeModal = () => setIsModalOpen(false);
 
+  // 습관 수정
   const saveHabits = (updatedHabits) => {
     updatedHabits.forEach((habit) => {
       if (habit.isUpdated) {
         habitAPI
-          .updateHabit(studyId, habit.id, { name: habit.name })
+          .updateHabit(habit.id, { name: habit.name })
           .then((updatedHabit) => {
             console.log("습관 수정 완료:", updatedHabit);
           })
@@ -68,18 +51,6 @@ const HabitPage = () => {
     });
 
     setHabits(updatedHabits);
-  };
-
-  const deleteHabit = (habitId) => {
-    habitAPI
-      .deleteHabit(studyId, habitId)
-      .then(() => {
-        const updatedHabits = habits.filter((habit) => habit.id !== habitId);
-        setHabits(updatedHabits);
-      })
-      .catch((err) => {
-        console.error("습관 삭제 실패:", err);
-      });
   };
 
   return (
@@ -118,7 +89,6 @@ const HabitPage = () => {
               onClose={closeModal}
               habits={habits}
               onSave={saveHabits}
-              onDelete={deleteHabit}
             />
           </div>
           <div className="habit-list">

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import GNB from "../components/common/Header.jsx";
+import Header from "../components/common/Header.jsx";
 import focusAPI from "../features/focus/focusAPI.js";
 import FocusContainer from "../features/focus/FocusContainer";
 import FocusTimer from "../features/focus/FocusTimer";
 import PointDisplay from "../features/focus/PointDisplay";
 import "./FocusPage.scss";
+
 
 const FocusPage = () => {
   const { studyId } = useParams();
@@ -30,7 +31,7 @@ const FocusPage = () => {
 
   return (
     <div className="focus-page">
-      <GNB isButtonDisabled={true} />
+      <Header isButtonDisabled={true} />
       <div className="focus-container">
         <FocusContainer studyInfo={studyInfo} />
         <PointDisplay points={points} />
