@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./HabitModal.scss";
-import trash from "../../assets/icons/ic_trash.svg";
-import modification from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
-import cancel from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
+import deleteBtn from "../../assets/buttons/btn_determinate.svg";
+import plusIcon from "../../assets/icons/ic_plus.svg";
+import cancelBtn from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
+import modifyBtn from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
-  const [pendingDeletions, setPendingDeletions] = useState([]);
 
-  // 습관 수정
+  // 습관 수정 함수
   const handleEditHabit = (index, newName) => {
     const updatedHabits = [...editedHabits];
     updatedHabits[index] = {
@@ -19,74 +19,70 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
     setEditedHabits(updatedHabits);
   };
 
-  // 습관 삭제
+  // 습관 삭제 함수
   const handleDeleteHabit = (index) => {
-    const habitToDelete = editedHabits[index];
+    const deletedHabits = editedHabits[index];
     const updatedHabits = editedHabits.filter((_, i) => i !== index);
     setEditedHabits(updatedHabits);
-
-    if (habitToDelete.id) {
-      setPendingDeletions([...pendingDeletions, habitToDelete.id]);
-    }
+    onDelete(deletedHabits.id);
   };
 
-  const handleSave = async () => {
-    for (const habitId of pendingDeletions) {
-      await onDelete(habitId);
-    }
+  // 습관 생성 함수
+  const handleAddHabit = () => {
+    setEditedHabits([...editedHabits, { id: null, name: "", isActive: true }]);
+  };
 
-    onSave(editedHabits);
+  // 수정 완료
+  const handleSave = async () => {
+    onSave(editedHabits); // 입력값만 전달하고 API 요청은 HabitPage에서 처리
     onClose();
   };
 
   // 취소
   const handleCancel = () => {
     setEditedHabits(habits);
-    setPendingDeletions([]);
     onClose();
   };
 
+  // 모달이 열릴 때마다 습관 데이터를 초기화
   useEffect(() => {
     setEditedHabits(habits);
-    setPendingDeletions([]);
   }, [habits, isOpen]);
 
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div>
-          <p className="habit-list-title">습관 목록</p>
-        </div>
-
+      <div className="container" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-title">습관 목록</div>
         <div className="habit-list">
           {editedHabits.map((habit, index) => (
-            <div key={habit.id || index} className="habit-item">
+            <div key={habit.id} className="habit-item">
               <input
                 type="text"
                 value={habit.name}
                 onChange={(e) => handleEditHabit(index, e.target.value)}
-                className="habit-input"
+                className="input"
               />
-              <button
-                className="delete-btn"
+              <img
+                src={deleteBtn}
                 onClick={() => handleDeleteHabit(index)}
-              >
-                <img className="habit-trash" src={trash} alt="삭제" />
-              </button>
+                alt="습관 삭제 버튼"
+              />
             </div>
           ))}
-          <button className="add-btn">+</button>
+          <button className="add-btn" onClick={handleAddHabit}>
+            <img src={plusIcon} alt="습관 추가 버튼" />
+          </button>
         </div>
 
         <div className="modal-actions">
-          <div className="cancel-btn" onClick={handleCancel}>
-            <img src={cancel} alt="취소" />
-          </div>
-          <div className="save-btn" onClick={handleSave}>
-            <img src={modification} alt="수정 완료" />
-          </div>
+          <button onClick={handleCancel}>
+            <img src={cancelBtn} alt="취소 버튼" />
+          </button>
+          <button onClick={handleSave}>
+            <img src={modifyBtn} alt="수정 완료 버튼" />
+          </button>
         </div>
       </div>
     </div>
