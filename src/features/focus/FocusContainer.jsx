@@ -12,7 +12,7 @@ const FocusContainer = ({ studyInfo }) => {
         <h1>{studyInfo.name}</h1>
       </div>
       <div className={styles.buttonContainer}>
-        <Link to={`/${studyId}/habit`} className={styles.focusButton}>
+        <Link to={`/${studyId}/habits`} className={styles.focusButton}>
           오늘의 습관<img src={arrow} alt="arrow" />
         </Link>
         <Link to="/" className={styles.homeButton}>
