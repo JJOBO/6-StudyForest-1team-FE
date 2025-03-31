@@ -122,7 +122,7 @@ export default function HabitPage() {
       <nav className="nav">
         <div className="study-title">연우의 개발공장</div>
         <div className="links">
-          <Link to="/:studyId/focus">
+          <Link to={`/${studyId}/focus`}>
             <button>오늘의 집중</button>
           </Link>
           <Link to="/">

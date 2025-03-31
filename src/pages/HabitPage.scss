@@ -36,6 +36,11 @@
   color: $gray-300;
 }
 
+.links button:hover {
+  background-color: $gray-100;
+  transition: background-color 0.3s;
+}
+
 .current-time {
   margin-top: 16px;
   flex-basis: 1;
