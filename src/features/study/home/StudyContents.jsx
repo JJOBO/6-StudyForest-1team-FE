@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./StudyContents.css";
 import StudyCard from "../../../components/layout/StudyCard";
-import { Link } from "react-router-dom"; // Link 컴포넌트 import
+import { Link } from "react-router-dom";
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -137,7 +137,7 @@ function StudyContents() {
         {cards.map((card) => (
           <Link to={`/${card.id}`} key={card.id} className="study-card-link">
             {" "}
-            {/* Link로 감싸기 */}
+            {}
             <StudyCard
               name={card.name}
               description={card.description}
