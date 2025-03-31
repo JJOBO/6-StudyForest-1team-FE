@@ -5,7 +5,7 @@ import FocusTimerDisplay from "./FocusTimerDisplay";
 import FocusControls from "./FocusControls";
 import "./FocusTimer.scss";
 
-function FocusTimer() {
+function FocusTimer({ setTotalPoints }) {
   const { studyId } = useParams();
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -66,13 +66,10 @@ function FocusTimer() {
   const handleClickStopTimer = async () => {
     setIsRunning(false);
     let totalPaused = pausedDuration;
-    if (isPaused && pauseStartTime) {
-      totalPaused += Date.now() - pauseStartTime;
-    }
-
     const elapsed = Math.floor((Date.now() - startTime - totalPaused) / 1000);
     try {
       const res = await focusAPI.stopFocus(studyId, elapsed, timeLeft);
+      setTotalPoints((prev) => prev + res.focusPoints);
       alert(`${res.focusPoints} 포인트를 획득했습니다!`);
       handleClickResetTimer();
     } catch (e) {
