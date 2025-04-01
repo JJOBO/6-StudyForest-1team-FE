@@ -154,6 +154,7 @@ function StudyContents() {
               emojis={card.emojis}
               background={card.background}
               calculateDays={calculateDays}
+              creatorNick={card.creatorNick}
             />
           </Link>
         ))}

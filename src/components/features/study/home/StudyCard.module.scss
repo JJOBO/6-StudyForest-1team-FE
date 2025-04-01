@@ -10,21 +10,33 @@
   position: relative;
   border: 1px solid #ddd;
   padding: 30px;
-
+  border-radius: 20px;
   &.green {
     background: #e1edde;
+    .creatorNick {
+      color: #578246;
+    }
   }
 
   &.yellow {
     background: #fff1cc;
+    .creatorNick {
+      color: #c18e1b;
+    }
   }
 
   &.blue {
     background: #e0f1f5;
+    .creatorNick {
+      color: #418099;
+    }
   }
 
   &.pink {
     background: #fde0e9;
+    .creatorNick {
+      color: #bc3c6a;
+    }
   }
 
   &.tablet {
@@ -54,6 +66,8 @@
   &.leaf {
     color: #fff;
 
+    background-blend-mode: multiply; /* 혼합 모드 */
+    background-color: rgba(0, 0, 0, 0.3); /* 배경색만 반투명 */
     .studyContent h3,
     .studyContent p,
     .studyStats {
@@ -87,16 +101,30 @@
 
 .studyContent {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    p {
+      font-size: 14px;
+    }
+  }
 }
 
 .studyContent h3 {
   font-size: 18px;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .studyContent p {
   color: #555;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .studyStats {

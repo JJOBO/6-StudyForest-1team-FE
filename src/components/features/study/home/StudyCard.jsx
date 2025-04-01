@@ -6,29 +6,36 @@ import Emoji from "../../../common/Emoji"; // Emoji 컴포넌트 추가
 function StudyCard({
   name,
   description,
-  image,
   points,
   createdAt,
   emojis,
   calculateDays,
   background,
+  creatorNick,
 }) {
   const backgroundClass = styles[background] || styles.default;
+
+  const darkBackgrounds = ["tablet", "laptop", "tile", "leaf"];
+  const pointType = darkBackgrounds.includes(background) ? "dark" : "light";
 
   return (
     <div className={`${styles.studyCard} ${backgroundClass}`}>
       <div className={styles.studyContent}>
-        <div className={styles.studyTitle}>
-          <h3>{name}</h3>
-          <Point points={points} type="light" className={styles.point} />
-        </div>
-        <p>{calculateDays(createdAt)}일째 진행 중</p>
+        <header>
+          <div className={styles.studyTitle}>
+            <h3>
+              <span className={styles.creatorNick}>{creatorNick}</span>의 {name}
+            </h3>
+            <Point points={points} type={pointType} className={styles.point} />
+          </div>
+          <p>{calculateDays(createdAt)}일째 진행 중</p>
+        </header>
         <p>{description}</p>
-        <div className={styles.studyStats}>
-          {emojis.map((emoji, index) => (
-            <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
-          ))}
-        </div>
+      </div>
+      <div className={styles.studyStats}>
+        {emojis.map((emoji, index) => (
+          <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
+        ))}
       </div>
     </div>
   );

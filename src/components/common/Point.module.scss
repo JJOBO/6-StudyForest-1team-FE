@@ -15,12 +15,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  padding: 5px 10px;
+  gap: 4px;
+  padding: 4px 12px; // Updated padding
   color: rgba(255, 255, 255, 0.3);
 
   &--dark {
-    @include point-style(94px, 22px, #00000080, #0000001a, 14px);
-
+    @include point-style(86px, 22px, #00000080, #0000001a, 14px);
     .pointText {
       color: white;
       font-size: 12px;
@@ -28,7 +28,7 @@
   }
 
   &--light {
-    @include point-style(94px, 22px, #ffffff4d, #0000001a, 14px);
+    @include point-style(86px, 22px, #ffffff4d, #0000001a, 14px);
 
     .pointText {
       color: #414141;
@@ -50,13 +50,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 5px;
-
-  svg,
-  img {
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .pointText {

@@ -81,6 +81,7 @@ function RecentStudy() {
                 emojis={study.emojis}
                 calculateDays={calculateDays}
                 background={study.background}
+                creatorNick={study.creatorNick}
               />
             </Link>
           ))
