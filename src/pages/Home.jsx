@@ -1,8 +1,8 @@
 import React from "react";
 import GNB from "../components/layout/Header";
 import "./Home.css"; // CSS 파일 추가
-import RecentStudy from "../components/features/study/home/RecentStudy";
-import StudyContents from "../components/features/study/home/StudyContents";
+import RecentStudy from "../components/common/features/study/home/RecentStudy";
+import StudyContents from "../components/common/features/study/home/StudyContents";
 
 function Home() {
   return (
