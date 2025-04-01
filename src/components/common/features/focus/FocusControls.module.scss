@@ -1,0 +1,51 @@
+@use "@/styles/variables" as *;
+
+.focusControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+/* 공통 버튼 스타일 */
+.pauseBtn,
+.resetBtn,
+.startBtn {
+  width: 333px;
+  height: 64px;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pauseBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-image: url("/src/assets/buttons/btn_pause/btn_pause_pc_active.svg");
+}
+
+.resetBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-image: url("/src/assets/buttons/btn_restart/btn_restart_pc_active.svg");
+}
+
+.start {
+  background-image: url("/src/assets/buttons/btn_start/btn_start_pc_active.svg");
+}
+
+.inactive {
+  background-image: url("/src/assets/buttons/btn_start/btn_start_pc_inactive.svg");
+  pointer-events: none;
+  cursor: default;
+}
+
+.stop {
+  background-image: url("/src/assets/buttons/btn_stop/btn_stop_pc_active.svg");
+}

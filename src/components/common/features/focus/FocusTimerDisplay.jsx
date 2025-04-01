@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./FocusTimer.scss";
+import styles from "./FocusTimerDisplay.module.scss";
 
 function FocusTimerDisplay({
   timeLeft,
@@ -38,14 +38,16 @@ function FocusTimerDisplay({
       <input
         type="text"
         id={type}
-        className="time-input"
+        className={`${styles.timeInput} ${
+          type === "minutes" ? styles.alignRight : styles.alignLeft
+        }`}
         value={displayValue}
         readOnly={!isEditing || isRunning}
         onClick={() => {
           if (!isRunning) onClick();
         }}
         onChange={(e) => {
-          const onlyNum = e.target.value.replace(/\D/g, ""); // 숫자가 아닌 값 삭제
+          const onlyNum = e.target.value.replace(/\D/g, "");
           if (onlyNum.length <= 2) onChange(onlyNum);
         }}
         onBlur={() => handleBlur(type)}
@@ -54,20 +56,19 @@ function FocusTimerDisplay({
     );
   };
 
-  // 상태에 따른 클래스 계산
-  const timerdisplayClass = [
-    "focus-timer-display",
+  const timerDisplayClass = [
+    styles.focusTimerDisplay,
     timeLeft < 0
-      ? "focus-timer-negative"
+      ? styles.negative
       : isRunning && timeLeft <= 10
-      ? "focus-timer-warning"
+      ? styles.warning
       : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <div className={timerdisplayClass}>
+    <div className={timerDisplayClass}>
       {prefix}
       {renderTimeInput(
         "minutes",
@@ -76,7 +77,7 @@ function FocusTimerDisplay({
         onClickMinutes,
         onChangeMinutes
       )}
-      <p className="colon">:</p>
+      <p className={styles.colon}>:</p>
       {renderTimeInput(
         "seconds",
         inputSeconds,

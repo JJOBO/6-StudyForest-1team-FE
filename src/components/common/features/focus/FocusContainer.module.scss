@@ -1,43 +1,37 @@
+@use "@/styles/variables" as *;
+
 .header {
   display: flex;
-  justify-content: space-between; /* 제목은 왼쪽, 버튼은 오른쪽으로 배치 */
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  width: 100%; /* 100% 너비 차지 */
-  padding: 20px 0; /* 위아래 여백 */
+  gap: 16px;
 }
 
 .titleContainer {
-  display: flex;
-  align-items: center; /* 제목을 세로로 중앙 정렬 */
-}
-
-.titleContainer h1 {
-  font-size: 32px;
   font-weight: 800;
-  color: #414141;
-  margin: 0;
+  font-size: 24px;
+  color: $black;
 }
 
-.buttonContainer {
+.btnContainer {
   display: flex;
-  gap: 16px; /* 버튼 간격 */
+  gap: 8px;
+  row-gap: 16px;
 }
 
-.focusButton, .homeButton {
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #818181;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: $gray-300;
   border-radius: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.focusButton:hover, .homeButton:hover {
-  background-color: #4caf50;
-  color: white;
+  border: 1px, solid, $gray-200;
+  padding: 7px 6px 7px 10px;
+  font-weight: 500;
+  font-size: 16px;
+  gap: 2px;
 }
 
     
