@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./StudyRegistration.module.scss";
-import studyAPI from "../components/common/features/study/studyAPI";
+import studyAPI from "../components/features/study/studyAPI";
 import { useNavigate } from "react-router-dom";
 
 function StudyRegistration() {

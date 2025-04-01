@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import "./StudyDetail.scss";
 import { useParams } from "react-router-dom";
 import GNB from "../components/layout/Header";
-import StudyResources from "../components/common/features/study/detail/StudyResources";
+import StudyResources from "../components/features/study/detail/StudyResources";
 
 function StudyDetail() {
   const { studyId } = useParams();
