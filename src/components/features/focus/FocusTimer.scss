@@ -30,7 +30,6 @@
   padding: 6px 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50px;
-  font-family: "Pretendard", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
@@ -66,7 +65,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Pretendard", sans-serif;
   font-size: 150px;
   font-weight: 800;
   color: #333;
@@ -82,11 +80,11 @@
   }
 
   &.focus-timer-negative {
-    color: #818181 !important;
+    color: $gray-300 !important;
 
     input.time-input,
     .colon {
-      color: #818181 !important;
+      color: $gray-300 !important;
     }
   }
 }
@@ -115,10 +113,6 @@
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  &[type="number"] {
-    -moz-appearance: textfield;
   }
 }
 
@@ -202,4 +196,42 @@
   &.stop {
     background-image: url("/src/assets/buttons/btn_stop/btn_stop_pc_active.svg");
   }
+}
+
+.Toastify__toast {
+  position: fixed !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: 223px !important;
+  height: 47px !important;
+  min-height: unset !important;
+  padding: 0;
+  margin: 0 auto !important;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 47px !important;
+  text-align: center;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 12px;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.toast-warning.Toastify__toast {
+  background-color: $pink !important;
+  color: $error-200;
+  padding: 0 28px !important;
+}
+
+.toast-point.Toastify__toast {
+  background-color: $green !important;
+  color: $green-text;
+  padding: 0 18px !important;
 }
