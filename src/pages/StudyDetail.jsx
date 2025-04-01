@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import "./StudyDetail.scss";
 import { useParams } from "react-router-dom";
-import GNB from "../components/common/Header";
-import StudyResources from "../features/study/detail/StudyResources";
+import GNB from "../components/layout/Header";
+import StudyResources from "../components/features/study/detail/StudyResources";
 
 function StudyDetail() {
   const { studyId } = useParams();

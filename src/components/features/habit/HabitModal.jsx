@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./HabitModal.scss";
-import deleteBtn from "../../assets/buttons/btn_determinate.svg";
-import plusIcon from "../../assets/icons/ic_plus.svg";
-import cancelBtn from "../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
-import modifyBtn from "../../assets/buttons/btn_modification/btn_modification_pc.svg";
+import deleteBtn from "../../../assets/buttons/btn_determinate.svg";
+import plusIcon from "../../../assets/icons/ic_plus.svg";
+import cancelBtn from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
+import modifyBtn from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
+  const [pendingDeletions, setPendingDeletions] = useState([]);
 
   // 습관 수정 함수
   const handleEditHabit = (index, newName) => {
@@ -21,10 +22,13 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 습관 삭제 함수
   const handleDeleteHabit = (index) => {
-    const deletedHabits = editedHabits[index];
+    const habitToDelete = editedHabits[index];
     const updatedHabits = editedHabits.filter((_, i) => i !== index);
     setEditedHabits(updatedHabits);
-    onDelete(deletedHabits.id);
+
+    if (habitToDelete.id) {
+      setPendingDeletions([...pendingDeletions, habitToDelete.id]);
+    }
   };
 
   // 습관 생성 함수
@@ -34,19 +38,25 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 수정 완료
   const handleSave = async () => {
-    onSave(editedHabits); // 입력값만 전달하고 API 요청은 HabitPage에서 처리
+    for (const habitId of pendingDeletions) {
+      await onDelete(habitId);
+    }
+
+    onSave(editedHabits);
     onClose();
   };
 
   // 취소
   const handleCancel = () => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
     onClose();
   };
 
   // 모달이 열릴 때마다 습관 데이터를 초기화
   useEffect(() => {
     setEditedHabits(habits);
+    setPendingDeletions([]);
   }, [habits, isOpen]);
 
   if (!isOpen) return null;

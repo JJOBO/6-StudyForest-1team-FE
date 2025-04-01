@@ -1,0 +1,205 @@
+@use "@/styles/variables" as *;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.focus-timer-wrapper {
+  width: 1168px;
+  height: 546px;
+  border-radius: 20px;
+  border: 1px solid $gray-200;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.focus-timer-title {
+  width: 1120px;
+  height: 29px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.focus-timer-badge {
+  width: 83px;
+  height: 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: #333;
+  width: fit-content;
+  margin: 0 auto 45px;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .timer-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url("/src/assets/icons/ic_timer.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .target-timer-text {
+    vertical-align: middle;
+  }
+}
+
+.focus-timer-display {
+  width: 437px;
+  height: 179px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard", sans-serif;
+  font-size: 150px;
+  font-weight: 800;
+  color: #333;
+  margin: 0 auto 96px;
+
+  &.focus-timer-warning {
+    color: $error-200 !important;
+
+    input.time-input,
+    .colon {
+      color: $error-200 !important;
+    }
+  }
+
+  &.focus-timer-negative {
+    color: #818181 !important;
+
+    input.time-input,
+    .colon {
+      color: #818181 !important;
+    }
+  }
+}
+
+.time-input {
+  width: 230px;
+  height: 100%;
+  font-size: 150px;
+  font-weight: 800;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: #333;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+
+  &::selection {
+    background: #cce6ff;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+#minutes {
+  text-align: right;
+}
+
+#seconds {
+  text-align: left;
+}
+
+.colon {
+  font-size: 150px;
+  line-height: 1;
+  padding: 0;
+}
+
+/* 타이머 버튼 */
+
+.focus-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 94px;
+}
+
+/* 일시정지 버튼 */
+.pause-btn {
+  width: 64px;
+  height: 64px;
+  background-image: url("/src/assets/buttons/btn_pause/btn_pause_pc_active.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 초기화 버튼 */
+.reset-btn {
+  width: 64px;
+  height: 64px;
+  background-image: url("/src/assets/buttons/btn_restart/btn_restart_pc_active.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 시작/중지 버튼 */
+.start-btn {
+  width: 333px;
+  height: 60px;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+
+  &.start {
+    background-image: url("/src/assets/buttons/btn_start/btn_start_pc_active.svg");
+  }
+
+  &.start.inactive {
+    background-image: url("/src/assets/buttons/btn_start/btn_start_pc_inactive.svg");
+    pointer-events: none;
+    cursor: default;
+    width: 333px;
+    height: 60px;
+    border-radius: 50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &.stop {
+    background-image: url("/src/assets/buttons/btn_stop/btn_stop_pc_active.svg");
+  }
+}

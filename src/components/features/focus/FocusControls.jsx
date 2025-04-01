@@ -14,7 +14,7 @@ function FocusControls({
   const isActive = isRunning && !hasCompleted;
 
   return (
-    <div className="controls">
+    <div className="focus-controls">
       {isRunning && timeLeft > 0 && (
         <button
           className="pause-btn"
