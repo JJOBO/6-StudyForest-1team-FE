@@ -1,5 +1,5 @@
 // src/pages/StudyDetail.jsx
-import React, { useEffect } from "react"; // useEffect 추가
+import React, { useEffect } from "react";
 import "./StudyDetail.scss";
 import { useParams } from "react-router-dom";
 import GNB from "../components/common/Header";

@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+.study-registration-page-layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.study-registration {
+  width: 100%;
+  max-width: 696px;
+
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 24px 24px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 140px auto;
+
+  .form-container {
+    width: 100%;
+    max-width: 648px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    h2 {
+      font-family: Pretendard;
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      position: relative;
+      min-height: 80px;
+
+      label {
+        font-family: pretendard;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 100%;
+        letter-spacing: 0%;
+        vertical-align: middle;
+        margin-bottom: 5px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        height: 48px;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 15px;
+        box-sizing: border-box;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .error-text {
+        color: red;
+        font-size: 14px;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    .background-selection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .bg-option {
+      width: 150px;
+      height: 150px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .color-bg {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+    .selected {
+      border: 2px solid blue;
+    }
+
+    .submit-button-wrapper {
+      margin-top: 24px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    button[type="submit"] {
+      background-color: #99c08e;
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 16px;
+      gap: 10px;
+      width: 648px;
+      height: 58px;
+      font-family: EF_jejudoldam;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #367c39;
+      }
+    }
+    .error {
+      border-color: red;
+    }
+  }
+}
