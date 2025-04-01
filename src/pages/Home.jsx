@@ -1,13 +1,11 @@
 import React from "react";
-import GNB from "../components/layout/Header";
-import "./Home.css"; // CSS 파일 추가
-import RecentStudy from "../components/features/study/home/RecentStudy";
+import styles from "./Home.module.scss";
+import RecentStudy from "../components/features/study/home/RecentStud";
 import StudyContents from "../components/features/study/home/StudyContents";
 
 function Home() {
   return (
-    <div className="home-container">
-      <GNB isButtonDisabled={false} />
+    <div className={styles.homeContainer}>
       <RecentStudy />
       <StudyContents />
     </div>

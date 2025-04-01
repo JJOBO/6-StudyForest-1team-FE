@@ -1,18 +1,37 @@
-.points {
-  display: block; /* flex를 block으로 변경하여 가운데 정렬을 방지 */
-  width: 100%; /* 전체 너비 차지 */
-  margin-top: 20px; /* 포인트 표시와 FocusContainer 간 간격 */
-  padding-left: 20px; /* 왼쪽 여백 추가 */
+@use "@/styles/variables" as *;
+
+.pointContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin: 16px 0 24px 0;
 }
 
-.points span {
+.currentPoint {
+  font-weight: 400;
+  font-size: 18px;
+  color: $gray-300;
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px, solid, $gray-200;
+  border-radius: 50px;
+  padding: 8px 12px;
+  gap: 4px;
+  height: 35px;
+  margin-right: auto;
+}
+
+.point img {
+  width: 19px;
+  height: 19px;
+}
+
+.totalPoint {
+  font-weight: 500;
   font-size: 16px;
-  color: #818181;
+  color: $black;
 }
-
-.pointsValue {
-  font-size: 24px;
-  font-weight: 600;
-  color: #414141;
-}
-

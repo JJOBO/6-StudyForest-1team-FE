@@ -1,0 +1,53 @@
+@mixin emojiSize($type: "default") {
+  @if $type == "general" {
+    width: 56px;
+    height: 31px;
+  } @else {
+    width: 48px;
+    height: 26px;
+  }
+}
+
+@mixin emojiIconSize($type: "default") {
+  @if $type == "general" {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  } @else {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+  }
+}
+
+.emojiContainer {
+  display: flex;
+  align-items: center; // 수직 정렬
+  justify-content: center;
+  gap: 8px; // 간격 조정
+  font-size: 12px; // 기본 텍스트 크기
+  @include emojiSize(); // 기본 타입 크기
+  border-radius: 50px; // 둥근 모서리
+  background-color: rgba(0, 0, 0, 0.5); // 배경색만 반투명
+  opacity: 1; // 컨테이너 자체는 투명도 없음
+}
+
+.emojiContainer.general {
+  @include emojiSize("general"); // general 타입 크기
+}
+
+.emojiIcon {
+  display: flex; // 플렉스 컨테이너로 설정
+  align-items: center; // 아이콘 수직 정렬
+  justify-content: center; // 아이콘 수평 정렬
+  @include emojiIconSize(); // 기본 타입 아이콘 크기
+}
+
+.emojiContainer.general .emojiIcon {
+  @include emojiIconSize("general"); // general 타입 아이콘 크기
+}
+
+.emojiCount {
+  font-weight: bold; // 카운트 텍스트 굵기
+  color: #fff; // 카운트 텍스트 색상
+}

@@ -1,0 +1,78 @@
+.recentStudy {
+  background-color: #ffffff;
+  width: 1200px;
+  height: 382px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column; // 제목과 카드를 수직으로 쌓기
+  gap: 30px;
+  font-size: 24px; // 컨테이너 글꼴 크기 설정
+  padding: 40px 38px 40px 40px; // 상하 40, 우 38, 좌 40
+  margin-top: 40px; // 위쪽 마진 40 추가
+  overflow-y: hidden; // 세로 스크롤 비활성화
+
+  h2 {
+    font-size: 24px; // 글꼴 크기 업데이트
+    font-weight: 800; // 제목을 굵게 표시
+  }
+
+  .studyCards {
+    display: flex;
+    gap: 24px; // 카드 간격 설정
+    justify-content: flex-start; // 카드를 왼쪽 정렬
+    overflow-x: auto; // 가로 스크롤 활성화
+    overflow-y: hidden; // 세로 스크롤 비활성화
+    white-space: nowrap; // 자식 요소가 줄바꿈되지 않도록 설정
+    padding-bottom: 260px; // 스크롤바와 콘텐츠 간격 추가
+    scrollbar-width: auto; // 스크롤바 두께 조정 (Firefox)
+    scrollbar-color: #ccc transparent; // 스크롤바 색상 조정 (Firefox)
+  }
+
+  .studyCards::-webkit-scrollbar {
+    height: 8px; // 스크롤바 높이 조정 (Webkit)
+  }
+
+  .studyCards::-webkit-scrollbar-thumb {
+    background-color: #ccc; // 스크롤바 색상 조정 (Webkit)
+    border-radius: 4px; // 스크롤바 모서리 둥글게
+  }
+
+  .studyCards::-webkit-scrollbar-track {
+    background: transparent; // 스크롤바 트랙 배경 투명
+  }
+}
+
+.studyCard {
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 358px;
+  height: 243px;
+  box-sizing: border-box;
+  text-align: center; // 카드 내부 텍스트 중앙 정렬
+  position: relative; // 자식 요소 위치 지정 가능
+  border: 1px solid #ddd; // 미세한 테두리 추가
+  background-image: url("path/to/image.jpg"); // 이미지를 배경으로 설정
+  background-size: cover; // 이미지가 카드 전체를 덮도록 설정
+  background-position: center; // 이미지를 중앙에 배치
+
+  .studyImage {
+    display: none; // 이미지 요소 제거
+  }
+
+  .studyContent {
+    text-align: left; // 텍스트를 왼쪽 정렬
+
+    h3 {
+      margin: 0;
+      font-size: 24px; // 글꼴 크기 업데이트
+      font-weight: bold; // 제목을 굵게 표시
+    }
+
+    p {
+      color: #555;
+      font-size: 24px; // 글꼴 크기 업데이트
+    }
+  }
+}

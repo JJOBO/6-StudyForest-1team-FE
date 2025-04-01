@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
-import "./StudyContents.css";
+import styles from "./StudyContents.module.scss";
 import StudyCard from "./StudyCard";
 import { Link } from "react-router-dom";
 
@@ -87,19 +87,19 @@ function StudyContents() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className={styles.error}>Error: {error.message}</div>;
   }
 
   return (
-    <div className="study-contents">
-      <h2>스터디 둘러보기</h2>
-      <div className="option-bar">
-        <div className="search-bar">
-          <div className="search-icon">
+    <div className={styles.studyContents}>
+      <h2 className={styles.title}>스터디 둘러보기</h2>
+      <div className={styles.optionBar}>
+        <div className={styles.searchBar}>
+          <div className={styles.searchIcon}>
             <img src="/src/assets/icons/ic_search.svg" alt="search" />
           </div>
           <input
@@ -108,10 +108,11 @@ function StudyContents() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+            className={styles.searchInput}
           />
         </div>
-        <div className="sort-dropdown">
-          <button>
+        <div className={styles.sortDropdown}>
+          <button className={styles.sortButton}>
             {
               {
                 createdAt: "최근 순",
@@ -121,10 +122,14 @@ function StudyContents() {
               }[sortOption]
             }
           </button>
-          <ul>
+          <ul className={styles.sortList}>
             {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
               (option) => (
-                <li key={option} onClick={() => handleSortChange(option)}>
+                <li
+                  key={option}
+                  onClick={() => handleSortChange(option)}
+                  className={styles.sortItem}
+                >
                   {option}
                 </li>
               )
@@ -133,11 +138,13 @@ function StudyContents() {
         </div>
       </div>
 
-      <div className="study-cards">
+      <div className={styles.studyCards}>
         {cards.map((card) => (
-          <Link to={`/${card.id}`} key={card.id} className="study-card-link">
-            {" "}
-            {}
+          <Link
+            to={`/${card.id}`}
+            key={card.id}
+            className={styles.studyCardLink}
+          >
             <StudyCard
               name={card.name}
               description={card.description}
@@ -147,12 +154,13 @@ function StudyContents() {
               emojis={card.emojis}
               background={card.background}
               calculateDays={calculateDays}
+              creatorNick={card.creatorNick}
             />
           </Link>
         ))}
       </div>
       {cards.length < total && (
-        <button className="load-more" onClick={handleLoadMore}>
+        <button className={styles.loadMore} onClick={handleLoadMore}>
           더보기
         </button>
       )}

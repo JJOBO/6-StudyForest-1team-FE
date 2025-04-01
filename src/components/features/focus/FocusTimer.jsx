@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import focusAPI from "./focusAPI";
 import FocusTimerDisplay from "./FocusTimerDisplay";
 import FocusControls from "./FocusControls";
-import "./FocusTimer.scss";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./FocusTimer.module.scss";
 
 function FocusTimer({ setTotalPoints }) {
   const { studyId } = useParams();
 
-  // 상태관리
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -23,19 +24,17 @@ function FocusTimer({ setTotalPoints }) {
   useEffect(() => {
     let timer;
     if (isRunning && !isPaused) {
-      timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000); // 1초씩 감소
+      timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     }
-    return () => clearInterval(timer); // 타이머 중단
+    return () => clearInterval(timer);
   }, [isRunning, isPaused]);
 
-  /** 목표 집중 시간 계산 */
   const getTargetTime = () => {
     const minutes = parseInt(inputMinutes, 10) || 0;
     const seconds = parseInt(inputSeconds, 10) || 0;
     return minutes * 60 + seconds;
   };
 
-  /** 뱃지에 들어갈 목표 집중 시간 */
   const formatTargetTime = () => {
     const total = getTargetTime();
     const m = String(Math.floor(total / 60)).padStart(2, "0");
@@ -45,7 +44,6 @@ function FocusTimer({ setTotalPoints }) {
 
   const updateTimeLeft = () => setTimeLeft(getTargetTime());
 
-  /** 타이머 시작 */
   const handleClickStartTimer = async () => {
     if (timeLeft <= 0 && isRunning) return handleClickStopTimer();
     const targetTime = getTargetTime();
@@ -61,18 +59,25 @@ function FocusTimer({ setTotalPoints }) {
     }
   };
 
-  /** 타이머 일시정지 */
   const handleClickPauseTimer = () => {
     if (isPaused) {
       setPausedDuration((prev) => prev + (Date.now() - pauseStartTime));
       setPauseStartTime(null);
+      toast.dismiss();
     } else {
       setPauseStartTime(Date.now());
+      toast.warning("🚨 집중이 중단되었습니다.", {
+        autoClose: false,
+        hideProgressBar: true,
+        closeButton: false,
+        icon: false,
+        className: `${styles.toast} ${styles.toastWarning}`,
+      });
     }
+
     setIsPaused((prev) => !prev);
   };
 
-  /** 타이머 중지 */
   const handleClickStopTimer = async () => {
     setIsRunning(false);
     const elapsedTime = Math.floor(
@@ -82,14 +87,19 @@ function FocusTimer({ setTotalPoints }) {
     try {
       const res = await focusAPI.stopFocus(studyId, elapsedTime, timeLeft);
       setTotalPoints((prev) => prev + res.focusPoints);
-      alert(`${res.focusPoints} 포인트를 획득했습니다!`);
+      toast.success(`🎉 ${res.focusPoints}포인트를 획득했습니다!`, {
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeButton: false,
+        icon: false,
+        className: `${styles.toast} ${styles.toastPoint}`,
+      });
       handleClickResetTimer();
     } catch (error) {
       console.error("타이머 중지 오류:", error);
     }
   };
 
-  /** 타이머 초기화 */
   const handleClickResetTimer = () => {
     setIsRunning(false);
     setIsPaused(false);
@@ -99,17 +109,19 @@ function FocusTimer({ setTotalPoints }) {
     setPausedDuration(0);
     setPauseStartTime(null);
     setStartTime(null);
-    setIsEditingMinutes(false);
-    setIsEditingSeconds(false);
   };
 
   return (
-    <div className="focus-timer-wrapper">
-      <div className="focus-timer-title">오늘의 집중</div>
+    <div className={styles.focusTimerWrapper}>
+      <div className={styles.focusTimerTitle}>오늘의 집중</div>
 
-      <div className={`focus-timer-badge ${isRunning ? "" : "hidden"}`}>
-        <div className="timer-icon" />
-        <span className="target-timer-text">{formatTargetTime()}</span>
+      <div
+        className={`${styles.focusTimerBadge} ${
+          isRunning ? "" : styles.hidden
+        }`}
+      >
+        <div className={styles.timerIcon} />
+        <span className={styles.targetTimerText}>{formatTargetTime()}</span>
       </div>
 
       <FocusTimerDisplay
@@ -148,6 +160,7 @@ function FocusTimer({ setTotalPoints }) {
         onClickStop={handleClickStopTimer}
         onClickReset={handleClickResetTimer}
       />
+      <ToastContainer />
     </div>
   );
 }

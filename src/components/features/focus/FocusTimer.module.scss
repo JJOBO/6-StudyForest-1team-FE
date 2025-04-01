@@ -1,0 +1,115 @@
+@use "@/styles/variables" as *;
+
+.focusTimerWrapper {
+  width: 100%;
+  max-width: 1168px;
+  padding: 40px 24px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid $gray-200;
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.focusTimerTitle {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.focusTimerBadge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: #333;
+  margin-bottom: 45px;
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .timerIcon {
+    width: 16px;
+    height: 16px;
+    background-image: url("/src/assets/icons/ic_timer.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .targetTimerText {
+    vertical-align: middle;
+  }
+}
+
+.toast {
+  position: fixed !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: 223px !important;
+  height: 47px !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 47px !important;
+  text-align: center;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 12px;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+// 경고용
+.toastWarning {
+  background-color: $pink !important;
+  color: $error-200 !important;
+  padding: 0 28px !important;
+}
+
+// 포인트용
+.toastPoint {
+  background-color: $green !important;
+  color: $green-text !important;
+  padding: 0 18px !important;
+}
+
+@media (max-width: 1023px) {
+  .focusTimerWrapper {
+    padding: 32px 20px;
+  }
+
+  .focusTimerTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .focusTimerWrapper {
+    padding: 24px 16px;
+  }
+
+  .focusTimerTitle {
+    font-size: 16px;
+  }
+}
