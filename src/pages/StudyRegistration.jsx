@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./StudyRegistration.scss";
+import styles from "./StudyRegistration.module.scss";
 import studyAPI from "../features/study/studyAPI";
 import { useNavigate } from "react-router-dom";
 
@@ -73,12 +73,16 @@ function StudyRegistration() {
   };
 
   return (
-    <div className="study-registration-page-layout">
-      <div className="study-registration">
-        <form onSubmit={handleSubmit} className="form-container">
+    <div className={styles.studyRegistrationPageLayout}>
+      <div className={styles.studyRegistration}>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
           <h2>스터디 만들기</h2>
-          {errors.api && <span className="error-text">{errors.api}</span>}
-          <div className="input-group">
+          {errors.api && <span className={styles.errorText}>{errors.api}</span>}
+          <div
+            className={`${styles.inputGroup} ${
+              errors.nickname ? styles.error : ""
+            }`}
+          >
             <label htmlFor="nickname">닉네임</label>
             <input
               id="nickname"
@@ -86,13 +90,17 @@ function StudyRegistration() {
               placeholder="닉네임을 입력해 주세요"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className={errors.nickname ? "error" : ""}
+              className={errors.nickname ? styles.error : ""}
             />
             {errors.nickname && (
-              <span className="error-text">{errors.nickname}</span>
+              <span className={styles.errorText}>{errors.nickname}</span>
             )}
           </div>
-          <div className="input-group">
+          <div
+            className={`${styles.inputGroup} ${
+              errors.studyName ? styles.error : ""
+            }`}
+          >
             <label htmlFor="studyName">스터디 이름</label>
             <input
               id="studyName"
@@ -100,44 +108,48 @@ function StudyRegistration() {
               placeholder="스터디 이름을 입력해주세요"
               value={studyName}
               onChange={(e) => setStudyName(e.target.value)}
-              className={errors.studyName ? "error" : ""}
+              className={errors.studyName ? styles.error : ""}
             />
             {errors.studyName && (
-              <span className="error-text">{errors.studyName}</span>
+              <span className={styles.errorText}>{errors.studyName}</span>
             )}
           </div>
-          <div className="input-group">
+          <div
+            className={`${styles.inputGroup} ${
+              errors.description ? styles.error : ""
+            }`}
+          >
             <label htmlFor="description">소개</label>
             <textarea
               id="description"
               placeholder="소개 멘트를 작성해 주세요"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className={errors.description ? "error" : ""}
+              className={errors.description ? styles.error : ""}
             ></textarea>
             {errors.description && (
-              <span className="error-text">{errors.description}</span>
+              <span className={styles.errorText}>{errors.description}</span>
             )}
           </div>
-          <div className="input-group">
+          <div className={styles.inputGroup}>
             <label>배경을 선택해주세요</label>
-            <div className="background-selection">
+            <div className={styles.backgroundSelection}>
               {backgrounds.map((bg, index) => (
                 <div
                   key={index}
-                  className={`bg-option ${
-                    background === bg.color ? "selected" : ""
+                  className={`${styles.bgOption} ${
+                    background === bg.color ? styles.selected : ""
                   }`}
                   onClick={() => setBackground(bg.color)}
                 >
                   {typeof bg.color === "string" && bg.color.startsWith("#") ? (
                     <div
-                      className="color-bg"
+                      className={styles.colorBg}
                       style={{ backgroundColor: bg.color }}
                     ></div>
                   ) : (
                     <img
-                      src={`/src/assets/background/${bg.color}.jpg`}
+                      src={"/src/assets/background/" + bg.color + ".jpg"}
                       alt="background"
                     />
                   )}
@@ -145,10 +157,14 @@ function StudyRegistration() {
               ))}
             </div>
             {errors.background && (
-              <span className="error-text">{errors.background}</span>
+              <span className={styles.errorText}>{errors.background}</span>
             )}
           </div>
-          <div className="input-group">
+          <div
+            className={`${styles.inputGroup} ${
+              errors.password ? styles.error : ""
+            }`}
+          >
             <label htmlFor="password">비밀번호</label>
             <input
               id="password"
@@ -156,13 +172,17 @@ function StudyRegistration() {
               placeholder="비밀번호를 입력해 주세요"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={errors.password ? "error" : ""}
+              className={errors.password ? styles.error : ""}
             />
             {errors.password && (
-              <span className="error-text">{errors.password}</span>
+              <span className={styles.errorText}>{errors.password}</span>
             )}
           </div>
-          <div className="input-group">
+          <div
+            className={`${styles.inputGroup} ${
+              errors.confirmPassword ? styles.error : ""
+            }`}
+          >
             <label htmlFor="confirmPassword">비밀번호 확인</label>
             <input
               id="confirmPassword"
@@ -170,13 +190,13 @@ function StudyRegistration() {
               placeholder="비밀번호를 다시 한 번 입력해 주세요"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className={errors.confirmPassword ? "error" : ""}
+              className={errors.confirmPassword ? styles.error : ""}
             />
             {errors.confirmPassword && (
-              <span className="error-text">{errors.confirmPassword}</span>
+              <span className={styles.errorText}>{errors.confirmPassword}</span>
             )}
           </div>
-          <div className="submit-button-wrapper">
+          <div className={styles.submitButtonWrapper}>
             <button type="submit">만들기</button>
           </div>
         </form>
