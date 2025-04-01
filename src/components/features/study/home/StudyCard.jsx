@@ -1,7 +1,7 @@
 import React from "react";
 import "./StudyCard.scss"; // 스타일 파일 분리
-import Point from "../common/Point"; // Point 컴포넌트 추가
-import Emoji from "../common/Emoji"; // Emoji 컴포넌트 추가
+import Point from "../../../common/Point"; // Point 컴포넌트 추가
+import Emoji from "../../../common/Emoji"; // Emoji 컴포넌트 추가
 
 function StudyCard({
   name,

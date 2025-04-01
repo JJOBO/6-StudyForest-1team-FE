@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../components/common/Header.jsx";
-import focusAPI from "../features/focus/focusAPI.js";
-import FocusContainer from "../features/focus/FocusContainer";
-import FocusTimer from "../features/focus/FocusTimer";
-import PointDisplay from "../features/focus/PointDisplay";
+import Header from "../components/layout/Header.jsx";
+import focusAPI from "../components/features/focus/focusAPI.js";
+import FocusContainer from "../components/features/focus/FocusContainer.jsx";
+import FocusTimer from "../components/features/focus/FocusTimer.jsx";
+import PointDisplay from "../components/features/focus/PointDisplay.jsx";
 import "./FocusPage.scss";
 
 const FocusPage = () => {
