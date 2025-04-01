@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import studyAPI from "../studyAPI";
 import { Link } from "react-router-dom";
 import Point from "../../../common/Point";
-import Emoji from "../../../common/Emoji"; // Emoji 컴포넌트 추가
-import "./StudyResources.scss"; // CSS 파일 추가
+import Emoji from "../../../common/Emoji";
+import styles from "./StudyResources.module.scss"; // Import SCSS module
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
@@ -27,13 +27,13 @@ function StudyResources({ studyId }) {
     <div>
       {studyDetail ? (
         <div>
-          <div className="study-header">
-            <div className="study-emojis">
+          <div className={styles.studyHeader}>
+            <div className={styles.studyEmojis}>
               {studyDetail.emojis.map((emoji, index) => (
                 <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
               ))}
             </div>
-            <div className="study-options">
+            <div className={styles.studyOptions}>
               <p>공유하기</p>
               <p>|</p>
               <p>수정하기</p>
@@ -41,8 +41,8 @@ function StudyResources({ studyId }) {
               <p>스터디 삭제하기</p>
             </div>
           </div>
-          <div className="study-container">
-            <div className="study-title">
+          <div className={styles.studyContainer}>
+            <div className={styles.studyTitle}>
               <h1>
                 {studyDetail.creatorNick}의 {studyDetail.name}
               </h1>
@@ -55,13 +55,16 @@ function StudyResources({ studyId }) {
                 </Link>
               </div>
             </div>
-            <div className="study-description">
+            <div className={styles.studyDescription}>
               <p>소개</p>
               <p>{studyDetail.description}</p>
             </div>
-            <div className="study-points">
+            <div className={styles.studyPoints}>
               <p>현재까지 획득한 포인트</p>
-              <Point points={studyDetail.totalPoints} className="point" />
+              <Point
+                points={studyDetail.totalPoints}
+                className={styles.point}
+              />
             </div>
           </div>
         </div>

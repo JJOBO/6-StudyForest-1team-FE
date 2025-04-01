@@ -1,4 +1,4 @@
-.study-detail-container {
+.studyDetailContainer {
   background-color: #f6f4ef;
   height: 100%;
   width: 100%;
@@ -6,10 +6,9 @@
   flex-direction: column;
   gap: 40px;
   align-items: center; // 자식 요소 가로 중앙 정렬
-  margin-top: 140px; // 상단 마진 추가
 }
 
-.study-detail-content {
+.studyDetailContent {
   width: 1200px;
   height: 80vh; // 화면 높이의 90%로 변경
   background-color: #ffffff;
