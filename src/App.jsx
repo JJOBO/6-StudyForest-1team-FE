@@ -16,6 +16,7 @@ function App() {
           <Route path=":studyId" element={<StudyDetail />} />
           <Route path=":studyId/focus" element={<FocusPage />} />
           <Route path=":studyId/habits" element={<HabitPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
