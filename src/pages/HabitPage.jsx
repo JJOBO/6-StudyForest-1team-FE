@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import habitAPI from "../features/habit/habitAPI";
+import habitAPI from "../components/features/habit/habitAPI";
 import "./HabitPage.scss";
 import { Link } from "react-router-dom";
-import HabitModal from "../features/habit/HabitModal";
-import FormatDate from "../features/habit/FormatDate";
-import HabitList from "../features/habit/HabitList";
+import HabitModal from "../components/features/habit/HabitModal";
+import FormatDate from "../components/features/habit/FormatDate";
+import HabitList from "../components/features/habit/HabitList";
 
 export default function HabitPage() {
   const { studyId } = useParams();

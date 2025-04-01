@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import studyAPI from "../../study/studyAPI";
+import studyAPI from "../studyAPI";
 import { Link } from "react-router-dom";
-import Point from "../../../components/common/Point";
-import Emoji from "../../../components/common/Emoji"; // Emoji 컴포넌트 추가
+import Point from "../../../common/Point";
+import Emoji from "../../../common/Emoji"; // Emoji 컴포넌트 추가
 import "./StudyResources.scss"; // CSS 파일 추가
 
 function StudyResources({ studyId }) {

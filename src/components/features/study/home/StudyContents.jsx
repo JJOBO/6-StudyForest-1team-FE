@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import "./StudyContents.css";
-import StudyCard from "../../../components/layout/StudyCard";
+import StudyCard from "./StudyCard";
 import { Link } from "react-router-dom";
 
 function StudyContents() {
