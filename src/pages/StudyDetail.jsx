@@ -16,7 +16,8 @@ function StudyDetail() {
       // 중복 체크
       if (!recentStudyIds.includes(id)) {
         recentStudyIds.unshift(id); // 맨 앞에 추가
-        if (recentStudyIds.length > 3) {
+        if (recentStudyIds.length > 10) {
+          // 최대 3개로 제한
           recentStudyIds.pop(); //
         }
         localStorage.setItem("recentStudyIds", JSON.stringify(recentStudyIds));

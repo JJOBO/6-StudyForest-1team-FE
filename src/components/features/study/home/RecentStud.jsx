@@ -61,7 +61,13 @@ function RecentStudy() {
   return (
     <div className={styles.recentStudy}>
       <h2>최근 조회한 스터디</h2>
-      <div className={styles.studyCards}>
+      <div
+        className={styles.studyCards}
+        style={{
+          overflowX: recentStudies.length > 3 ? "auto" : "hidden",
+          whiteSpace: "nowrap",
+        }}
+      >
         {recentStudies.length === 0 ? (
           <div className={styles.noStudies}>최근 조회한 스터디가 없습니다.</div>
         ) : (
