@@ -1,27 +1,25 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import arrow from "../../../assets/icons/ic_arrow_right.svg";
-import styles from "./FocusContainer.module.scss";
-
+import styles from '../../../pages/FocusPage.module.scss';
+import arrow from "../../../assets/icons/ic_arrow_right.svg"
 const FocusContainer = ({ studyInfo }) => {
   const { studyId } = useParams(); // studyId를 URL에서 가져오기
 
   return (
-    <div className={styles.header}>
-      <div className={styles.titleContainer}>
-        <h1>{studyInfo.name}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.focusTitle}>{studyInfo.name}</h1>
+        <div className={styles.focusBtnContainer}>
+          <Link to={`/${studyId}/habits`} className={styles.focusBtn}>
+            오늘의 습관
+            <img src= {arrow} alt="오른쪽 화살표" />
+          </Link>
+          <Link to="/" className={styles.focusBtn}>
+            <p>홈</p>
+            <img src={arrow} alt="오른쪽 화살표" />
+          </Link>
+        </div>
       </div>
-      <div className={styles.buttonContainer}>
-        <Link to={`/${studyId}/habits`} className={styles.focusButton}>
-          오늘의 습관
-          <img src={arrow} alt="arrow" />
-        </Link>
-        <Link to="/" className={styles.homeButton}>
-          홈<img src={arrow} alt="arrow" />
-        </Link>
-      </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default FocusContainer;

@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 942px;
+  margin: 0px 15px 0px 15px;
+  padding-top: 20px;
+}
+
+.box {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 1248px;
+  padding: 16px;
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.focusTitle {
+  font-weight: 800;
+  font-size: 24px;
+  color: #414141;
+}
+
+.focusBtnContainer {
+  display: flex;
+  gap: 8px;
+  row-gap: 16px;
+}
+
+.focusBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #818181;
+  border-radius: 15px;
+  border: 1px, solid, #dddddd;
+  padding: 7px 6px 7px 10px;
+  font-weight: 500;
+  font-size: 16px;
+  gap: 2px;
+}
+
+.pointContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin: 16px 0 24px 0;
+}
+
+.pointTxt {
+  font-weight: 400;
+  font-size: 18px;
+  color: #818181;
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px, solid, #dddddd;
+  border-radius: 50px;
+  padding: 8px 12px;
+  gap: 4px;
+  height: 35px;
+  margin-right: auto;
+}
+
+.point img {
+  width: 19px;
+  height: 19px;
+}
+
+.pointTotalTxt {
+  font-weight: 500;
+  font-size: 16px;
+  color: #414141;
+}
+
+.focusContainer {
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  border: 1px, solid, #dddddd;
+  padding: 24px 16px 50px 16px;
+  height: 358px;
+}
+
+.focus {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.focusTxt {
+  color: #414141;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+
+
+
+
+
+
+
