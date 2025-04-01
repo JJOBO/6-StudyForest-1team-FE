@@ -1,0 +1,39 @@
+.study-header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.study-title {
+  margin-bottom: 16px;
+}
+
+.study-description {
+  margin-bottom: 24px;
+
+  p:first-child {
+    margin-bottom: 8px;
+  }
+}
+
+.study-points {
+  p:first-child {
+    margin-bottom: 8px;
+  }
+
+  .point {
+    width: 116px;
+    height: 35px;
+  }
+}
+
+.study-options {
+  display: flex;
+  gap: 16px;
+}
+
+.study-emojis {
+  display: flex;
+  gap: 8px;
+}

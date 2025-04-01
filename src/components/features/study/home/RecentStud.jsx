@@ -1,7 +1,7 @@
 // src/features/study/home/RecentStudy.jsx
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
-import "./RecentStudy.css";
+import styles from "./RecentStudy.module.scss";
 import StudyCard from "./StudyCard";
 import { Link } from "react-router-dom"; // Link 추가
 
@@ -59,17 +59,17 @@ function RecentStudy() {
   }
 
   return (
-    <div className="recent-study">
+    <div className={styles.recentStudy}>
       <h2>최근 조회한 스터디</h2>
-      <div className="study-cards">
+      <div className={styles.studyCards}>
         {recentStudies.length === 0 ? (
-          <div>최근 조회한 스터디가 없습니다.</div>
+          <div className={styles.noStudies}>최근 조회한 스터디가 없습니다.</div>
         ) : (
           recentStudies.map((study) => (
             <Link
               to={`/${study.id}`}
               key={study.id}
-              className="study-card-link"
+              className={styles.studyCardLink}
             >
               <StudyCard
                 key={study.id}
@@ -80,6 +80,7 @@ function RecentStudy() {
                 createdAt={study.createdAt}
                 emojis={study.emojis}
                 calculateDays={calculateDays}
+                background={study.background}
               />
             </Link>
           ))

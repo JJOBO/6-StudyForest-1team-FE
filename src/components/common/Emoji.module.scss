@@ -1,4 +1,4 @@
-.emoji-container {
+.emojiContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,7 @@
   opacity: 1; // 컨테이너 자체는 투명도 없음
 }
 
-.emoji-count {
+.emojiCount {
   font-weight: bold; // 카운트 텍스트 굵기
   color: #fff; // 카운트 텍스트 색상
 }

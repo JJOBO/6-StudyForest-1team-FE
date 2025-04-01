@@ -1,0 +1,61 @@
+.recentStudy {
+  background-color: #ffffff;
+  width: 1200px;
+  height: 382px;
+  border-radius: 20px;
+  padding: 20px 20px 20px 40px; // 섹션 왼쪽 여백 추가
+  display: flex;
+  flex-direction: column; // 제목과 카드를 수직으로 쌓기
+  gap: 10px;
+  margin-top: 140px; // 상단 여백 추가
+  font-size: 24px; // 컨테이너 글꼴 크기 설정
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px; // 글꼴 크기 업데이트
+  }
+
+  .studyCards {
+    display: flex;
+    gap: 24px; // 카드 간격 설정
+    justify-content: flex-start; // 카드를 왼쪽 정렬
+    margin-top: 20px; // 제목 아래 간격 추가
+  }
+}
+
+.studyCard {
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 358px;
+  height: 243px;
+  box-sizing: border-box;
+  text-align: center; // 카드 내부 텍스트 중앙 정렬
+  position: relative; // 자식 요소 위치 지정 가능
+  border: 1px solid #ddd; // 미세한 테두리 추가
+  background-image: url("path/to/image.jpg"); // 이미지를 배경으로 설정
+  background-size: cover; // 이미지가 카드 전체를 덮도록 설정
+  background-position: center; // 이미지를 중앙에 배치
+
+  .studyImage {
+    display: none; // 이미지 요소 제거
+  }
+
+  .studyContent {
+    padding: 15px;
+    text-align: left; // 텍스트를 왼쪽 정렬
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 24px; // 글꼴 크기 업데이트
+      font-weight: bold; // 제목을 굵게 표시
+    }
+
+    p {
+      margin: 5px 0;
+      color: #555;
+      font-size: 24px; // 글꼴 크기 업데이트
+    }
+  }
+}

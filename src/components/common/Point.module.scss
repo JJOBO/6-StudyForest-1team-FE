@@ -1,4 +1,4 @@
-.point-container {
+.pointContainer {
   display: inline-flex;
   align-items: center;
   justify-content: center; // Center vertical alignment
@@ -11,7 +11,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3); // Added 1px border with 30% white opacity
 }
 
-.point-icon {
+.pointIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@
   }
 }
 
-.point-text {
+.pointText {
   white-space: nowrap;
   color: black;
 }

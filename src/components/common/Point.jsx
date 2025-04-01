@@ -1,14 +1,14 @@
 import React from "react";
-import "./Point.scss";
+import styles from "./Point.module.scss";
 import pointIcon from "../../assets/icons/ic_point.svg";
 
 function Point({ points }) {
   return (
-    <div className="point-container">
-      <span className="point-icon">
+    <div className={styles.pointContainer}>
+      <span className={styles.pointIcon}>
         <img src={pointIcon} alt="Point Icon" />
       </span>
-      <span className="point-text">{points}P 획득</span>
+      <span className={styles.pointText}>{points}P 획득</span>
     </div>
   );
 }

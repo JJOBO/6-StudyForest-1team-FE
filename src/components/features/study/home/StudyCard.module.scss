@@ -1,4 +1,4 @@
-.study-card {
+.studyCard {
   background: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -54,9 +54,9 @@
   &.leaf {
     color: #fff;
 
-    .study-content h3,
-    .study-content p,
-    .study-stats {
+    .studyContent h3,
+    .studyContent p,
+    .studyStats {
       color: #fff;
     }
   }
@@ -66,9 +66,9 @@
   &.blue,
   &.pink,
   &.default {
-    .study-content h3,
-    .study-content p,
-    .study-stats {
+    .studyContent h3,
+    .studyContent p,
+    .studyStats {
       color: inherit;
     }
   }
@@ -85,24 +85,24 @@
   }
 }
 
-.study-content {
+.studyContent {
   padding: 15px;
   text-align: left;
 }
 
-.study-content h3 {
+.studyContent h3 {
   margin: 0 0 10px;
   font-size: 18px;
   font-weight: bold;
 }
 
-.study-content p {
+.studyContent p {
   margin: 5px 0;
   color: #555;
   font-size: 14px;
 }
 
-.study-stats {
+.studyStats {
   display: flex;
   margin-top: 10px;
   font-size: 12px;
@@ -113,7 +113,7 @@
   gap: 5px;
 }
 
-.study-title {
+.studyTitle {
   display: flex;
   justify-content: space-between;
 }

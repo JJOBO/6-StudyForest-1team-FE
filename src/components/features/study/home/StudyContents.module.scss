@@ -1,0 +1,158 @@
+body {
+  background-color: #ffffff; // Maintain background color on scroll
+}
+
+.studyContents {
+  background-color: #ffffff;
+  width: 1200px;
+  min-height: 70vh;
+  margin: 0 auto 40px;
+  position: static;
+  border-radius: 20px;
+  overflow-y: visible;
+
+  h2.title {
+    font-size: 24px;
+    margin: 40px 0 0 40px;
+  }
+}
+
+.optionBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 40px;
+  margin-bottom: 16px;
+}
+
+.searchBar {
+  position: relative;
+  margin-right: 16px;
+
+  .searchInput {
+    width: 335px;
+    height: 42px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding-left: 40px;
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+}
+
+.sortDropdown {
+  position: relative;
+  margin-bottom: 16px;
+
+  .sortButton {
+    width: 180px;
+    height: 42px;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+
+  .sortList {
+    width: 180px;
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #ffffff;
+    position: absolute;
+    top: calc(100% + 8px);
+    display: none;
+    z-index: 10;
+
+    .sortItem {
+      width: 100%;
+      height: 42px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+      text-align: center;
+      line-height: 42px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+
+  .sortButton:focus + .sortList,
+  .sortList:hover {
+    display: block;
+  }
+}
+
+.studyCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  justify-items: center;
+  margin-top: 0;
+}
+
+.studyCard {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  background-color: #ffffff;
+
+  img {
+    max-width: 100%;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    margin: 8px 0;
+    font-size: 18px;
+  }
+
+  p {
+    margin: 8px 0;
+    color: #666;
+  }
+}
+
+.loadMore {
+  display: block;
+  margin: 16px auto;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: red;
+}
