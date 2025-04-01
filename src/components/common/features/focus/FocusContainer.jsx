@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import arrow from "../../../assets/icons/ic_arrow_right.svg";
+import arrow from "../../../../assets/icons/ic_arrow_right.svg";
 import styles from "./FocusContainer.module.scss";
 
 const FocusContainer = ({ studyInfo }) => {

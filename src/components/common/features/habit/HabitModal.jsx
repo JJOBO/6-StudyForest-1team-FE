@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./HabitModal.scss";
-import deleteBtn from "../../../assets/buttons/btn_determinate.svg";
-import plusIcon from "../../../assets/icons/ic_plus.svg";
-import cancelBtn from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
-import modifyBtn from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
+import deleteBtn from "../../../../assets/buttons/btn_determinate.svg";
+import plusIcon from "../../../../assets/icons/ic_plus.svg";
+import cancelBtn from "../../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
+import modifyBtn from "../../../../assets/buttons/btn_modification/btn_modification_pc.svg";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
