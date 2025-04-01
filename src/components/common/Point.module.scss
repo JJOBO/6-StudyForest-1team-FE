@@ -1,38 +1,66 @@
+@mixin point-style($width, $height, $bg-color, $border-color, $icon-size) {
+  width: $width;
+  height: $height;
+  background-color: $bg-color;
+  border: 1px solid $border-color;
+
+  .pointIcon {
+    width: $icon-size;
+    height: $icon-size;
+  }
+}
+
 .pointContainer {
   display: inline-flex;
   align-items: center;
-  justify-content: center; // Center vertical alignment
-  background-color: transparent; // Removed background color
+  justify-content: center;
   border-radius: 20px;
   padding: 5px 10px;
-  font-size: 12px; // Updated font size
-  color: rgba(255, 255, 255, 0.3); // White with 30% opacity
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.3); // Added 1px border with 30% white opacity
+  color: rgba(255, 255, 255, 0.3);
+
+  &--dark {
+    @include point-style(94px, 22px, #00000080, #0000001a, 14px);
+
+    .pointText {
+      color: white;
+      font-size: 12px;
+    }
+  }
+
+  &--light {
+    @include point-style(94px, 22px, #ffffff4d, #0000001a, 14px);
+
+    .pointText {
+      color: #414141;
+      font-size: 12px;
+    }
+  }
+
+  &--general {
+    @include point-style(116px, 31px, #ffffff4d, #0000001a, 19px);
+
+    .pointText {
+      color: #414141;
+      font-size: 16px;
+    }
+  }
 }
 
 .pointIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
   margin-right: 5px;
-  margin-bottom: 0;
 
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-
+  svg,
   img {
     width: 100%;
     height: 100%;
-    margin-bottom: 0 !important; //상속여부와 상관없이 마진0
   }
 }
 
 .pointText {
   white-space: nowrap;
   color: black;
+  font-size: 12px; // Reduced font size
 }

@@ -17,11 +17,10 @@ function StudyCard({
 
   return (
     <div className={`${styles.studyCard} ${backgroundClass}`}>
-      <img src={image} alt={name} className={styles.studyImage} />
       <div className={styles.studyContent}>
         <div className={styles.studyTitle}>
           <h3>{name}</h3>
-          <Point points={points} className={styles.point} />
+          <Point points={points} type="light" className={styles.point} />
         </div>
         <p>{calculateDays(createdAt)}일째 진행 중</p>
         <p>{description}</p>

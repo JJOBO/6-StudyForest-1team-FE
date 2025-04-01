@@ -3,15 +3,13 @@
   width: 1200px;
   height: 382px;
   border-radius: 20px;
-  padding: 20px 20px 20px 40px; // 섹션 왼쪽 여백 추가
   display: flex;
   flex-direction: column; // 제목과 카드를 수직으로 쌓기
   gap: 10px;
-  margin-top: 140px; // 상단 여백 추가
   font-size: 24px; // 컨테이너 글꼴 크기 설정
+  padding: 40px 38px 40px 40px; // 상하 40, 우 38, 좌 40
 
   h2 {
-    margin-bottom: 20px;
     font-size: 24px; // 글꼴 크기 업데이트
   }
 
@@ -19,7 +17,6 @@
     display: flex;
     gap: 24px; // 카드 간격 설정
     justify-content: flex-start; // 카드를 왼쪽 정렬
-    margin-top: 20px; // 제목 아래 간격 추가
   }
 }
 
@@ -43,17 +40,15 @@
   }
 
   .studyContent {
-    padding: 15px;
     text-align: left; // 텍스트를 왼쪽 정렬
 
     h3 {
-      margin: 0 0 10px;
+      margin: 0;
       font-size: 24px; // 글꼴 크기 업데이트
       font-weight: bold; // 제목을 굵게 표시
     }
 
     p {
-      margin: 5px 0;
       color: #555;
       font-size: 24px; // 글꼴 크기 업데이트
     }
