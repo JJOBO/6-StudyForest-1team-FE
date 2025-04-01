@@ -1,5 +1,5 @@
 import React from "react";
-import "./FocusTimer.scss";
+import styles from "./FocusControls.module.scss";
 
 function FocusControls({
   isRunning,
@@ -14,26 +14,26 @@ function FocusControls({
   const isActive = isRunning && !hasCompleted;
 
   return (
-    <div className="focus-controls">
+    <div className={styles.focusControls}>
       {isRunning && timeLeft > 0 && (
         <button
-          className="pause-btn"
+          className={styles.pauseBtn}
           onClick={onClickPause}
           aria-label={isPaused ? "resume" : "pause"}
         />
       )}
 
       <button
-        className={`start-btn ${hasCompleted ? "stop" : "start"} ${
-          isActive ? "inactive" : ""
-        }`}
+        className={`${styles.startBtn} ${
+          hasCompleted ? styles.stop : styles.start
+        } ${isActive ? styles.inactive : ""}`}
         onClick={hasCompleted ? onClickStop : onClickStart}
         aria-label={hasCompleted ? "stop" : "start"}
       />
 
       {isRunning && timeLeft > 0 && (
         <button
-          className="reset-btn"
+          className={styles.resetBtn}
           onClick={onClickReset}
           aria-label="restart"
         />
