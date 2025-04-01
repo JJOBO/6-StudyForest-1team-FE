@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import HabitModal from "../components/features/habit/HabitModal";
 import FormatDate from "../components/features/habit/FormatDate";
 import HabitList from "../components/features/habit/HabitList";
+import Header from "../components/layout/Header";
 
 export default function HabitPage() {
   const { studyId } = useParams();
@@ -118,58 +119,63 @@ export default function HabitPage() {
   };
 
   return (
-    <div className="container">
-      <nav className="nav">
-        <div className="study-title">연우의 개발공장</div>
-        <div className="links">
-          <Link to={`/${studyId}/focus`}>
-            <button>오늘의 집중</button>
-          </Link>
-          <Link to="/">
-            <button>홈</button>
-          </Link>
-        </div>
-        <div className="current-time">
-          <div className="text">현재 시간</div>
-          <div className="tag">
-            <FormatDate />
+    <>
+      <header>
+        <Header isButtonDisabled={true} />
+      </header>
+      <main className="container">
+        <nav className="nav">
+          <div className="study-title">연우의 개발공장</div>
+          <div className="links">
+            <Link to={`/${studyId}/focus`}>
+              <button>오늘의 집중</button>
+            </Link>
+            <Link to="/">
+              <button>홈</button>
+            </Link>
           </div>
-        </div>
-      </nav>
+          <div className="current-time">
+            <div className="text">현재 시간</div>
+            <div className="tag">
+              <FormatDate />
+            </div>
+          </div>
+        </nav>
 
-      <section className="section">
-        <div className="habit-bar">
-          <div className="habit-title">오늘의 습관</div>
-          <button onClick={openModal} className="edit-btn">
-            목록수정
-          </button>
-          <HabitModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            habits={habits}
-            onSave={saveHabits}
-            onDelete={deleteHabit}
-          />
-        </div>
-        <div className="habit-list">
-          {habits.length > 0 ? (
-            habits.map((habit) => (
-              <HabitList
-                key={habit.id}
-                habit={habit}
-                toggleCheckHabit={toggleCheckHabit}
-                checkedHabits={checkedHabits}
-              />
-            ))
-          ) : (
-            <p>
-              아직 습관이 없어요
-              <br />
-              목록 수정을 눌러서 습관을 생성해 보세요
-            </p>
-          )}
-        </div>
-      </section>
-    </div>
+        <section className="section">
+          <div className="habit-bar">
+            <div className="habit-title">오늘의 습관</div>
+            <button onClick={openModal} className="edit-btn">
+              목록수정
+            </button>
+            <HabitModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              habits={habits}
+              onSave={saveHabits}
+              onDelete={deleteHabit}
+            />
+          </div>
+          <div className="habit-list">
+            {habits.length > 0 ? (
+              habits.map((habit) => (
+                <HabitList
+                  key={habit.id}
+                  habit={habit}
+                  toggleCheckHabit={toggleCheckHabit}
+                  checkedHabits={checkedHabits}
+                />
+              ))
+            ) : (
+              <p>
+                아직 습관이 없어요
+                <br />
+                목록 수정을 눌러서 습관을 생성해 보세요
+              </p>
+            )}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
