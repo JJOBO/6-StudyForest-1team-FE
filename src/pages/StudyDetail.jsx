@@ -4,6 +4,7 @@ import "./StudyDetail.scss";
 import { useParams } from "react-router-dom";
 import GNB from "../components/layout/Header";
 import StudyResources from "../components/features/study/detail/StudyResources";
+import HabitTracker from "../components/features/study/habit/HabitTracker";
 
 function StudyDetail() {
   const { studyId } = useParams();
@@ -31,6 +32,7 @@ function StudyDetail() {
       <GNB isButtonDisabled={false} />
       <div className="study-detail-content">
         <StudyResources studyId={studyId} />
+        <HabitTracker studyId={studyId} />
       </div>
     </div>
   );
