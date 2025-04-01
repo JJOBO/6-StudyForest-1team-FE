@@ -24,7 +24,8 @@ function StudyCard({
         <header>
           <div className={styles.studyTitle}>
             <h3>
-              <span className={styles.creatorNick}>{creatorNick}</span>의 {name}
+              <span className={styles.creatorNick}>{creatorNick}</span> 의{" "}
+              {name}
             </h3>
             <Point points={points} type={pointType} className={styles.point} />
           </div>

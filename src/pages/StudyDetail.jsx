@@ -2,7 +2,6 @@
 import React, { useEffect } from "react"; // useEffect 추가
 import styles from "./StudyDetail.module.scss";
 import { useParams } from "react-router-dom";
-import GNB from "../components/layout/Header";
 import StudyResources from "../components/features/study/detail/StudyResources";
 
 function StudyDetail() {
@@ -28,7 +27,6 @@ function StudyDetail() {
 
   return (
     <div className={styles.studyDetailContainer}>
-      <GNB isButtonDisabled={false} />
       <div className={styles.studyDetailContent}>
         <StudyResources studyId={studyId} />
       </div>

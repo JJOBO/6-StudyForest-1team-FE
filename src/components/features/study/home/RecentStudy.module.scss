@@ -5,12 +5,13 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column; // 제목과 카드를 수직으로 쌓기
-  gap: 10px;
+  gap: 30px;
   font-size: 24px; // 컨테이너 글꼴 크기 설정
   padding: 40px 38px 40px 40px; // 상하 40, 우 38, 좌 40
 
   h2 {
     font-size: 24px; // 글꼴 크기 업데이트
+    font-weight: 800; // 제목을 굵게 표시
   }
 
   .studyCards {
