@@ -47,6 +47,15 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 습관 생성 함수
   const handleAddHabit = () => {
+    const hasEmptyInput = editedHabits.some(
+      (habit) => habit.name.trim() === ""
+    );
+
+    if (hasEmptyInput) {
+      alert("빈 습관 이름이 있습니다. 먼저 채워주세요!");
+      return;
+    }
+
     setEditedHabits([...editedHabits, { id: null, name: "", isActive: true }]);
   };
 
@@ -96,7 +105,10 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
         <div className={styles.modalTitle}>습관 목록</div>
         <div className={styles.habitList}>
           {editedHabits.map((habit, index) => (
-            <div key={habit.id} className={styles.habitItem}>
+            <div
+              key={habit.id != null ? habit.id : `new-${index}`}
+              className={styles.habitItem}
+            >
               <input
                 type="text"
                 value={habit.name}
