@@ -7,19 +7,26 @@
 
 .studyTitle {
   margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .studyDescription {
   margin-bottom: 24px;
-
+  font-size: 18px;
   p:first-child {
     margin-bottom: 8px;
+    color: #818181; // Updated font color for "소개"
   }
 }
 
 .studyPoints {
+  gap: 8px;
+  margin-top: 24px;
   p:first-child {
     margin-bottom: 8px;
+    color: #818181; // Updated font color for "현재까지 획득한 포인트"
+    font-size: 18px;
   }
 
   .point {
@@ -31,9 +38,22 @@
 .studyOptions {
   display: flex;
   gap: 16px;
+
+  p {
+    color: #578246; // Font color for "공유하기" and "수정하기"
+  }
+
+  p:last-child {
+    color: #818181; // Updated font color for "스터디 삭제하기"
+  }
 }
 
 .studyEmojis {
   display: flex;
   gap: 8px;
+}
+
+.linkButtons {
+  display: flex;
+  gap: 16px;
 }

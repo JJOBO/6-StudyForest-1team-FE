@@ -1,7 +1,9 @@
+@use "../../styles/_variables.scss";
+
 .globalNavigationBar {
   width: 100%; // 반응형을 위한 전체 너비
   height: 100px;
-  background-color: #f6f4ef;
+  background-color: $bg;
   display: flex;
   justify-content: space-between; // 로고와 버튼 간 간격 조정
   align-items: center;
@@ -20,11 +22,11 @@
     margin-right: calc(220px - 10vw); // 뷰포트 너비에 따라 우측 여백 조정
     width: 252px; // 버튼 너비
     height: 58px; // 버튼 높이
-    background-color: #99c08e; // 버튼 배경 색상
+    background-color: $brand; // 버튼 배경 색상
     color: #ffffff; // 버튼 텍스트 색상
     text-align: center;
     line-height: 58px; // 텍스트 수직 정렬
-    border-radius: 16px; // 둥근 모서리
+    border-radius: $radius-sm; // 둥근 모서리
     font-size: 16px; // 텍스트 크기
     font-weight: bold; // 텍스트 굵기
     cursor: pointer;

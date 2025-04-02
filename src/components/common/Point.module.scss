@@ -1,3 +1,5 @@
+@use "../../styles/_variables.scss" as vars;
+
 @mixin point-style($width, $height, $bg-color, $border-color, $icon-size) {
   width: $width;
   height: $height;
@@ -14,9 +16,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: vars.$radius-md;
   gap: 4px;
-  padding: 4px 12px; // Updated padding
+  padding: 4px 12px;
   color: rgba(255, 255, 255, 0.3);
 
   &--dark {
@@ -28,19 +30,19 @@
   }
 
   &--light {
-    @include point-style(86px, 22px, #ffffff4d, #0000001a, 14px);
+    @include point-style(86px, 22px, vars.$gray-100, #0000001a, 14px);
 
     .pointText {
-      color: #414141;
+      color: vars.$black;
       font-size: 12px;
     }
   }
 
   &--general {
-    @include point-style(116px, 31px, #ffffff4d, #0000001a, 19px);
+    @include point-style(116px, 31px, vars.$gray-100, #0000001a, 19px);
 
     .pointText {
-      color: #414141;
+      color: vars.$black;
       font-size: 16px;
     }
   }
@@ -54,6 +56,6 @@
 
 .pointText {
   white-space: nowrap;
-  color: black;
-  font-size: 12px; // Reduced font size
+  color: vars.$black;
+  font-size: 12px;
 }

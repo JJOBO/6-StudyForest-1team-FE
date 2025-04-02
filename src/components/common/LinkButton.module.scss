@@ -1,0 +1,33 @@
+.habitButton,
+.focusButton {
+  width: 144px;
+  height: 48px;
+  border: 1px solid #dddddd;
+  border-radius: 15px;
+  background-color: #ffffff;
+  color: #818181;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeButton {
+  width: 82px;
+  height: 48px;
+  border: 1px solid #dddddd;
+  border-radius: 15px;
+  background-color: #ffffff;
+  color: #818181;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}

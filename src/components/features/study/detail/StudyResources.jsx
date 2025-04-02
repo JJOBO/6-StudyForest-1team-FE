@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import styles from "./StudyResources.module.scss"; // Import SCSS module
+import LinkButton from "../../../common/LinkButton";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
@@ -30,7 +31,12 @@ function StudyResources({ studyId }) {
           <div className={styles.studyHeader}>
             <div className={styles.studyEmojis}>
               {studyDetail.emojis.map((emoji, index) => (
-                <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
+                <Emoji
+                  type="general"
+                  key={index}
+                  emoji={emoji.emoji}
+                  count={emoji.count}
+                />
               ))}
             </div>
             <div className={styles.studyOptions}>
@@ -46,13 +52,9 @@ function StudyResources({ studyId }) {
               <h1>
                 {studyDetail.creatorNick}의 {studyDetail.name}
               </h1>
-              <div>
-                <Link to={`/${studyId}/habits`}>
-                  <button>오늘의 습관</button>
-                </Link>
-                <Link to={`/${studyId}/focus`}>
-                  <button>오늘의 집중</button>
-                </Link>
+              <div className={styles.linkButtons}>
+                <LinkButton type={"habit"} studyId={studyId} />
+                <LinkButton type={"focus"} studyId={studyId} />
               </div>
             </div>
             <div className={styles.studyDescription}>
@@ -62,6 +64,7 @@ function StudyResources({ studyId }) {
             <div className={styles.studyPoints}>
               <p>현재까지 획득한 포인트</p>
               <Point
+                type="general"
                 points={studyDetail.totalPoints}
                 className={styles.point}
               />
