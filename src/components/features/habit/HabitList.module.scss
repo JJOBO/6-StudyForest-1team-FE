@@ -1,4 +1,6 @@
-.habit-list button {
+@use "@/styles/_variables" as *;
+
+.habitList {
   width: 400px;
   height: 54px;
   border-radius: 20px;
@@ -6,12 +8,17 @@
   font-weight: 700;
 }
 
-.habit-list .active {
+.active {
   background-color: $brand;
   color: #fff;
 }
 
-.habit-list .inactive {
+.inActive {
   background-color: $gray-100;
-  color: $gray-300;
+}
+
+@media (max-width: 767px) {
+  .habitList {
+    width: 280px;
+  }
 }

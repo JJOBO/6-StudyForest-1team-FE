@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import habitAPI from "../components/features/habit/habitAPI";
-import "./HabitPage.scss";
+import styles from "./HabitPage.module.scss";
 import { Link } from "react-router-dom";
 import HabitModal from "../components/features/habit/HabitModal";
 import FormatDate from "../components/features/habit/FormatDate";
 import HabitList from "../components/features/habit/HabitList";
-import { useHabit } from "../components/features/study/habit/HabitContext";
 
 export default function HabitPage() {
   const { studyId } = useParams();
@@ -15,22 +14,25 @@ export default function HabitPage() {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkedHabits, setCheckedHabits] = useState([]);
-
-  const { triggerRefresh } = useHabit();
+  const [studyName, setStudyName] = useState(null);
+  const [studyNickName, setStudyNickName] = useState(null);
 
   useEffect(() => {
     if (studyId) {
       Promise.all([
         habitAPI.getHabits(studyId),
         habitAPI.getCheckedHabits(studyId),
+        habitAPI.getStudyInfo(studyId),
       ])
-        .then(([data, records]) => {
-          const sortedHabits = data.sort((a, b) => a.id - b.id);
+        .then(([habitsData, checkedData, studyData]) => {
+          const sortedHabits = habitsData.sort((a, b) => a.id - b.id);
           setHabits(sortedHabits);
 
-          const checked = records.map((record) => record.habitId);
+          const checked = checkedData.map((record) => record.habitId);
           setCheckedHabits(checked);
 
+          setStudyNickName(studyData.creatorNick);
+          setStudyName(studyData.name);
           setLoading(false);
         })
         .catch((err) => {
@@ -45,7 +47,6 @@ export default function HabitPage() {
   if (error) return <div>{error}</div>;
 
   const openModal = () => setIsModalOpen(true);
-
   const closeModal = () => setIsModalOpen(false);
 
   const saveHabits = async (updatedHabits) => {
@@ -54,7 +55,6 @@ export default function HabitPage() {
 
     for (const habit of updatedHabits) {
       if (habit.id === null) {
-        // 신규 습관인 경우 create
         try {
           const created = await habitAPI.createHabit(studyId, {
             name: habit.name,
@@ -97,10 +97,9 @@ export default function HabitPage() {
   const toggleCheckHabit = async (habit) => {
     const isChecked = checkedHabits.includes(habit.id);
 
-    // Optimistic UI 적용(UI 먼저 업데이트 -> 서버 요청 이후에 처리)
     const updatedHabits = isChecked
-      ? checkedHabits.filter((id) => id !== habit.id) // 이미 체크되어 있으면 현재 목록에서 해당 습관 ID 제거
-      : [...checkedHabits, habit.id]; // 체크 안되어 있으면 기존 목록에 해당 습관 ID 추가
+      ? checkedHabits.filter((id) => id !== habit.id)
+      : [...checkedHabits, habit.id];
 
     setCheckedHabits(updatedHabits);
 
@@ -110,7 +109,6 @@ export default function HabitPage() {
       } else {
         await habitAPI.checkHabit(habit.id);
       }
-      triggerRefresh();
     } catch (err) {
       if (isChecked) {
         console.error("습관 체크 실패", err);
@@ -122,58 +120,62 @@ export default function HabitPage() {
   };
 
   return (
-    <main className="container">
-      <nav className="nav">
-        <div className="study-title">연우의 개발공장</div>
-        <div className="links">
-          <Link to={`/${studyId}/focus`}>
-            <button>오늘의 집중</button>
-          </Link>
-          <Link to="/">
-            <button>홈</button>
-          </Link>
-        </div>
-        <div className="current-time">
-          <div className="text">현재 시간</div>
-          <div className="tag">
-            <FormatDate />
+    <>
+      <div className={styles.container}>
+        <nav className={styles.nav}>
+          <div className={styles.studyTitle}>
+            {studyNickName}의 {studyName}
           </div>
-        </div>
-      </nav>
+          <div className={styles.links}>
+            <Link to={`/${studyId}/focus`}>
+              <button>오늘의 집중</button>
+            </Link>
+            <Link to="/">
+              <button>홈</button>
+            </Link>
+          </div>
+          <div className={styles.currentTime}>
+            <div className={styles.text}>현재 시간</div>
+            <div className={styles.tag}>
+              <FormatDate />
+            </div>
+          </div>
+        </nav>
 
-      <section className="section">
-        <div className="habit-bar">
-          <div className="habit-title">오늘의 습관</div>
-          <button onClick={openModal} className="edit-btn">
-            목록수정
-          </button>
-          <HabitModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            habits={habits}
-            onSave={saveHabits}
-            onDelete={deleteHabit}
-          />
-        </div>
-        <div className="habit-list">
-          {habits.length > 0 ? (
-            habits.map((habit) => (
-              <HabitList
-                key={habit.id}
-                habit={habit}
-                toggleCheckHabit={toggleCheckHabit}
-                checkedHabits={checkedHabits}
-              />
-            ))
-          ) : (
-            <p>
-              아직 습관이 없어요
-              <br />
-              목록 수정을 눌러서 습관을 생성해 보세요
-            </p>
-          )}
-        </div>
-      </section>
-    </main>
+        <section className={styles.section}>
+          <div className={styles.habitBar}>
+            <div className={styles.habitTitle}>오늘의 습관</div>
+            <button onClick={openModal} className={styles.editBtn}>
+              목록수정
+            </button>
+            <HabitModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              habits={habits}
+              onSave={saveHabits}
+              onDelete={deleteHabit}
+            />
+          </div>
+          <div className={styles.habitList}>
+            {habits.length > 0 ? (
+              habits.map((habit) => (
+                <HabitList
+                  key={habit.id}
+                  habit={habit}
+                  toggleCheckHabit={toggleCheckHabit}
+                  checkedHabits={checkedHabits}
+                />
+              ))
+            ) : (
+              <p>
+                아직 습관이 없어요
+                <br />
+                목록 수정을 눌러서 습관을 생성해 보세요
+              </p>
+            )}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
