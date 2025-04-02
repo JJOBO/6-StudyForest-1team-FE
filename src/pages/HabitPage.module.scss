@@ -1,10 +1,12 @@
+@use "@/styles/_variables" as *;
+
 .container {
   background-color: #ffffff;
-  margin: 0 200px;
   padding: 40px;
   border-radius: 20px;
   position: relative;
-  top: 139px;
+  top: 39px;
+  margin: 0 220px;
 }
 
 .nav {
@@ -13,7 +15,7 @@
   margin-bottom: 24px;
 }
 
-.study-title {
+.studyTitle {
   font-size: 32px;
   font-weight: 800;
 }
@@ -28,7 +30,7 @@
   padding: 12px 44px 12px 24px;
   border: 1px solid $gray-200;
   border-radius: 15px;
-  background: url("../assets/icons/ic_arrow_right.svg") no-repeat right 12px
+  background: url("../assets/icons/ic_arrow_right.svg") no-repeat right 16px
     center;
   background-color: #fff;
   font-size: 16px;
@@ -41,10 +43,9 @@
   transition: background-color 0.3s;
 }
 
-.current-time {
+.currentTime {
   margin-top: 16px;
   flex-basis: 1;
-  order: 3;
 
   .text {
     margin-bottom: 8px;
@@ -69,23 +70,23 @@
   border-radius: 20px;
 }
 
-.habit-bar {
+.habitBar {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   margin-bottom: 24px;
-  padding: 0 135px;
+  padding: 0;
 }
 
-.habit-title {
-  color: #414141;
+.habitTitle {
+  color: $black;
   font-size: 24px;
   font-weight: 800;
   line-height: 100%;
 }
 
-.edit-btn {
+.editBtn {
   position: absolute;
   right: 0;
   background: none;
@@ -95,7 +96,7 @@
   color: $gray-300;
 }
 
-.habit-list {
+.habitList {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,18 +112,59 @@
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1023px) {
   .container {
+    padding: 24px;
+    top: 16px;
     margin: 0 24px;
+  }
+
+  .nav {
+    margin-bottom: 40px;
   }
 }
 
-@media (max-width: 743px) {
+@media (max-width: 767px) {
   .container {
+    padding: 16px 16px 24px 16px;
     margin: 0 16px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .links {
+      justify-content: left;
+      gap: 8px;
+    }
+
+    .links button {
+      padding: 12px 34px 12px 10px;
+      background: url("../assets/icons/ic_arrow_right.svg") no-repeat right 6px
+        center;
+    }
+  }
+
+  .studyTitle {
+    font-size: 24px;
+  }
+
+  .currentTime {
+    margin-top: 0;
   }
 
   .section {
     padding: 24px 16px;
+  }
+
+  .habitTitle {
+    font-size: 18px;
+  }
+
+  .habitList {
+    gap: 12px;
   }
 }

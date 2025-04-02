@@ -24,6 +24,50 @@ function StudyResources({ studyId }) {
     }
   }, [studyId]);
 
+  const handleShare = async () => {
+    const shareUrl = `${window.location.origin}/study/${studyId}`;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      alert(`링크가 복사되었습니다: ${shareUrl}`);
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+      alert("링크 복사에 실패했습니다.");
+    }
+  };
+
+  const handleEdit = async () => {
+    const newName = prompt(
+      "새로운 스터디 이름을 입력하세요:",
+      studyDetail.name
+    );
+    if (newName && newName !== studyDetail.name) {
+      try {
+        const updatedStudy = await studyAPI.updateStudy(studyId, {
+          name: newName,
+        });
+        setStudyDetail({ ...studyDetail, name: updatedStudy.name });
+        alert("스터디 이름이 수정되었습니다.");
+      } catch (error) {
+        console.error("Failed to update study:", error);
+        alert("스터디 수정에 실패했습니다.");
+      }
+    }
+  };
+
+  const handleDelete = async () => {
+    const password = prompt("스터디 삭제를 위해 비밀번호를 입력하세요:");
+    if (password) {
+      try {
+        await studyAPI.deleteStudy(studyId, password);
+        alert("스터디가 삭제되었습니다.");
+        window.location.href = "/"; // Redirect to home or another page
+      } catch (error) {
+        console.error("Failed to delete study:", error);
+        alert("스터디 삭제에 실패했습니다.");
+      }
+    }
+  };
+
   return (
     <div>
       {studyDetail ? (
@@ -40,11 +84,11 @@ function StudyResources({ studyId }) {
               ))}
             </div>
             <div className={styles.studyOptions}>
-              <p>공유하기</p>
+              <p onClick={handleShare}>공유하기</p>
               <p>|</p>
-              <p>수정하기</p>
+              <p onClick={handleEdit}>수정하기</p>
               <p>|</p>
-              <p>스터디 삭제하기</p>
+              <p onClick={handleDelete}>스터디 삭제하기</p>
             </div>
           </div>
           <div className={styles.studyContainer}>

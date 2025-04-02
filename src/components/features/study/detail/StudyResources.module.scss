@@ -40,6 +40,7 @@
   gap: 16px;
 
   p {
+    cursor: pointer; // Add pointer cursor for clickable items
     color: #578246; // Font color for "공유하기" and "수정하기"
   }
 

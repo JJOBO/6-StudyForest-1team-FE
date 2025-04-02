@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
-import "./HabitModal.scss";
+import styles from "./HabitModal.module.scss";
 import deleteBtn from "../../../assets/buttons/btn_determinate.svg";
 import plusIcon from "../../../assets/icons/ic_plus.svg";
-import cancelBtn from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
-import modifyBtn from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
+import cancelBtnPC from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
+import cancelBtnMobile from "../../../assets/buttons/btn_cancel/btn_cancel_mobile.svg";
+import modifyBtnPC from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
+import modifyBtnMobile from "../../../assets/buttons/btn_modification/btn_modification_mobile.svg";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
   const [pendingDeletions, setPendingDeletions] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767); // 모바일 여부 체크
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // 습관 수정 함수
   const handleEditHabit = (index, newName) => {
@@ -62,17 +74,17 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="container" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-title">습관 목록</div>
-        <div className="habit-list">
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalTitle}>습관 목록</div>
+        <div className={styles.habitList}>
           {editedHabits.map((habit, index) => (
-            <div key={habit.id} className="habit-item">
+            <div key={habit.id} className={styles.habitItem}>
               <input
                 type="text"
                 value={habit.name}
                 onChange={(e) => handleEditHabit(index, e.target.value)}
-                className="input"
+                className={styles.input}
               />
               <img
                 src={deleteBtn}
@@ -81,17 +93,23 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
               />
             </div>
           ))}
-          <button className="add-btn" onClick={handleAddHabit}>
+          <button className={styles.addBtn} onClick={handleAddHabit}>
             <img src={plusIcon} alt="습관 추가 버튼" />
           </button>
         </div>
 
-        <div className="modal-actions">
+        <div className={styles.modalActions}>
           <button onClick={handleCancel}>
-            <img src={cancelBtn} alt="취소 버튼" />
+            <img
+              src={isMobile ? cancelBtnMobile : cancelBtnPC}
+              alt="취소 버튼"
+            />
           </button>
           <button onClick={handleSave}>
-            <img src={modifyBtn} alt="수정 완료 버튼" />
+            <img
+              src={isMobile ? modifyBtnMobile : modifyBtnPC}
+              alt="수정 완료 버튼"
+            />
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import studyAPI from "../studyAPI";
 import styles from "./StudyContents.module.scss";
 import StudyCard from "./StudyCard";
 import { Link } from "react-router-dom";
+import searchIcon from "../../../../../src/assets/icons/ic_search.svg";
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -100,7 +101,7 @@ function StudyContents() {
       <div className={styles.optionBar}>
         <div className={styles.searchBar}>
           <div className={styles.searchIcon}>
-            <img src="/src/assets/icons/ic_search.svg" alt="search" />
+            <img src={searchIcon} alt="searchIcon" />
           </div>
           <input
             type="text"
