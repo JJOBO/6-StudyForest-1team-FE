@@ -5,9 +5,11 @@ import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import styles from "./StudyResources.module.scss"; // Import SCSS module
 import LinkButton from "../../../common/LinkButton";
+import PasswordPrompt from "../../../common/PasswordPrompt"; // PasswordPrompt 컴포넌트 추가
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
   useEffect(() => {
     const fetchStudyDetail = async () => {
@@ -54,11 +56,18 @@ function StudyResources({ studyId }) {
     }
   };
 
-  const handleDelete = async () => {
-    const password = prompt("스터디 삭제를 위해 비밀번호를 입력하세요:");
+  const handleDelete = async (password) => {
     if (password) {
       try {
         await studyAPI.deleteStudy(studyId, password);
+
+        // Remove the study ID from localStorage
+        const recentStudyIds = JSON.parse(
+          localStorage.getItem("recentStudyIds") || "[]"
+        );
+        const updatedStudyIds = recentStudyIds.filter((id) => id !== studyId);
+        localStorage.setItem("recentStudyIds", JSON.stringify(updatedStudyIds));
+
         alert("스터디가 삭제되었습니다.");
         window.location.href = "/"; // Redirect to home or another page
       } catch (error) {
@@ -66,6 +75,7 @@ function StudyResources({ studyId }) {
         alert("스터디 삭제에 실패했습니다.");
       }
     }
+    setShowPasswordPrompt(false); // 팝업 닫기
   };
 
   return (
@@ -88,7 +98,7 @@ function StudyResources({ studyId }) {
               <p>|</p>
               <p onClick={handleEdit}>수정하기</p>
               <p>|</p>
-              <p onClick={handleDelete}>스터디 삭제하기</p>
+              <p onClick={() => setShowPasswordPrompt(true)}>스터디 삭제하기</p>
             </div>
           </div>
           <div className={styles.studyContainer}>
@@ -117,6 +127,13 @@ function StudyResources({ studyId }) {
         </div>
       ) : (
         <p>스터디 디테일 로딩중...</p>
+      )}
+      {showPasswordPrompt && (
+        <PasswordPrompt
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`} // h1 내용 전달
+          onSubmit={handleDelete}
+          onCancel={() => setShowPasswordPrompt(false)}
+        />
       )}
     </div>
   );

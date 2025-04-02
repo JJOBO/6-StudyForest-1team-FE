@@ -26,22 +26,18 @@ function RecentStudy() {
         }
 
         // 스터디 ID 목록을 사용하여 스터디 정보를 가져옵니다.
-        const validStudies = [];
-        for (const studyId of recentStudyIds) {
-          try {
-            const studyDetail = await studyAPI.getStudyDetail(studyId);
-            validStudies.push(studyDetail);
-          } catch {
-            // 해당 ID가 유효하지 않으면 무시
-            console.warn(`Invalid study ID: ${studyId}`);
+        const studyPromises = recentStudyIds.map(async (studyId) => {
+          if (!studyId) {
+            return null; // 유효하지 않은 ID는 무시
           }
-        }
+          const studyDetail = await studyAPI.getStudyDetail(studyId);
+          return studyDetail;
+        });
 
-        setRecentStudies(validStudies);
-
-        // 유효한 ID만 localStorage에 저장
-        const validStudyIds = validStudies.map((study) => study.id);
-        localStorage.setItem("recentStudyIds", JSON.stringify(validStudyIds));
+        const studyDetails = (await Promise.all(studyPromises)).filter(
+          (study) => study !== null
+        );
+        setRecentStudies(studyDetails);
       } catch (err) {
         setError(err);
       } finally {
