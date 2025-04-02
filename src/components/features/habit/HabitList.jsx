@@ -1,13 +1,11 @@
-import "./HabitList.scss";
+import styles from "./HabitList.module.scss";
 
 function HabitList({ habit, toggleCheckHabit, checkedHabits }) {
   return (
     <button
-      className={
-        habit.isActive && checkedHabits.includes(habit.id)
-          ? "active"
-          : "inactive"
-      }
+      className={`${styles.habitList} ${
+        checkedHabits.includes(habit.id) ? styles.active : styles.inActive
+      }`}
       onClick={() => toggleCheckHabit(habit)}
     >
       {habit.name}
