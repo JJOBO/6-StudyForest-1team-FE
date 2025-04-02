@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styles from "./StudyRegistration.module.scss";
 import studyAPI from "../components/features/study/studyAPI";
 import { useNavigate } from "react-router-dom";
+import tablet from "../assets/background/tablet.jpg";
+import laptop from "../assets/background/laptop.jpg";
+import tile from "../assets/background/tile.jpg";
+import leaf from "../assets/background/leaf.jpg";
 
 function StudyRegistration() {
   const [studyName, setStudyName] = useState("");
@@ -18,16 +22,18 @@ function StudyRegistration() {
     { color: "#FFF1CC", name: "yellow" },
     { color: "#E0F1F5", name: "blue" },
     { color: "#FDE0E9", name: "pink" },
-    { color: "tablet", name: "tablet" },
-    { color: "laptop", name: "laptop" },
-    { color: "tile", name: "tile" },
-    { color: "leaf", name: "leaf" },
+    { color: tablet, name: "tablet" },
+    { color: laptop, name: "laptop" },
+    { color: tile, name: "tile" },
+    { color: leaf, name: "leaf" },
   ];
 
+  // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
 
+    // 유효성 검사
     if (!studyName) validationErrors.studyName = "스터디 이름을 입력해주세요";
     if (!nickname) validationErrors.nickname = "닉네임을 입력해주세요";
     if (!description)
@@ -39,6 +45,7 @@ function StudyRegistration() {
 
     setErrors(validationErrors);
 
+    // 오류가 있으면 함수 종료
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
@@ -52,6 +59,7 @@ function StudyRegistration() {
         ? selectedBackground.name
         : background;
 
+      // 스터디 생성에 필요한 데이터
       const studyData = {
         name: studyName,
         creatorNick: nickname,
@@ -62,12 +70,10 @@ function StudyRegistration() {
       };
       const response = await studyAPI.createStudy(studyData);
       console.log("Study created:", response);
-      // 스터디 생성 후, 로컬 스토리지에 배경 저장
       localStorage.setItem(`studyBackground-${response.id}`, background);
       navigate(`/${response.id}`);
     } catch (error) {
       console.error("Failed to create study:", error);
-
       setErrors({ api: "스터디 생성에 실패했습니다." });
     }
   };
@@ -148,10 +154,7 @@ function StudyRegistration() {
                       style={{ backgroundColor: bg.color }}
                     ></div>
                   ) : (
-                    <img
-                      src={"/src/assets/background/" + bg.color + ".jpg"}
-                      alt="background"
-                    />
+                    <img src={bg.color} alt={bg.name} />
                   )}
                 </div>
               ))}
