@@ -136,6 +136,7 @@ function StudyResources({ studyId }) {
           studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`} // 프롬프트에 표시할 스터디 제목 전달
           onSubmit={handleDelete} // 비밀번호 입력 후 삭제 처리 함수
           onCancel={() => setShowPasswordPrompt(false)} // 취소 시 프롬프트 닫기
+          isDelete={true} // 삭제 모드
         />
       )}
     </div>

@@ -1,27 +1,11 @@
 import React, { useState } from "react";
 import styles from "./PasswordPrompt.module.scss"; // 비밀번호 프롬프트 스타일
-
-/**
- * PasswordPrompt 컴포넌트
- *
- * Props:
- * - studyTitle (string): 모달 헤더에 표시할 스터디 제목.
- * - onSubmit (function): 비밀번호 제출 시 호출되는 콜백 함수.
- * - onCancel (function): 모달 취소 시 호출되는 콜백 함수.
- *
- * 사용법:
- * <PasswordPrompt
- *   studyTitle="스터디 제목"
- *   onSubmit={(password) => console.log(password)}
- *   onCancel={() => console.log("취소됨")}
- * />
- */
-
 import modificationButton from "../../assets/buttons/btn_modification/btn_modification_md.svg";
 import visibilityOnIcon from "../../assets/buttons/btn_visibility/btn_visibility_on_24px.svg";
 import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg"; // 비밀번호 표시 아이콘
+import confirmButton from "../../assets/buttons/btn_confirm/btn_confirm_lg.svg"; // 확인 버튼 아이콘
 
-function PasswordPrompt({ studyTitle, onSubmit, onCancel }) {
+function PasswordPrompt({ studyTitle, onSubmit, onCancel, isDelete }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
 
@@ -64,7 +48,10 @@ function PasswordPrompt({ studyTitle, onSubmit, onCancel }) {
         </div>
         <div className={styles.buttonGroup}>
           <button onClick={handleSubmit} className={styles.modificationButton}>
-            <img src={modificationButton} alt="수정하러 가기" />
+            <img
+              src={isDelete ? confirmButton : modificationButton}
+              alt={isDelete ? "확인" : "수정하러 가기"}
+            />
           </button>
         </div>
       </div>
