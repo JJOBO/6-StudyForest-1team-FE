@@ -3,6 +3,21 @@ import axios from "axios";
 const BASE_URL = "https://studyforest-xdk5.onrender.com/study";
 
 const habitAPI = {
+  authenticateHabit: async (studyId, password) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/${studyId}/habits/auth`, {
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      console.error(
+        `Error authenticating habit for study ID ${studyId}:`,
+        error
+      );
+      throw error;
+    }
+  },
+
   // 습관 목록 가져오기
   getHabits: async (studyId) => {
     const response = await axios.get(`${BASE_URL}/${studyId}/habits`);
