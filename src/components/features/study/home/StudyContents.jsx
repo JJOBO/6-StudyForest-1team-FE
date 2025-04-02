@@ -11,12 +11,14 @@ function StudyContents() {
   const [cards, setCards] = useState([]);
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // 실제 검색에 사용될 쿼리
 
   useEffect(() => {
     const fetchStudies = async () => {
+      if (offset === 0) setIsInitialLoading(true);
       setIsLoading(true);
       setError(null);
       try {
@@ -33,6 +35,7 @@ function StudyContents() {
         setError(err);
       } finally {
         setIsLoading(false);
+        if (offset === 0) setIsInitialLoading(false);
       }
     };
 
@@ -86,8 +89,8 @@ function StudyContents() {
       setSearchQuery(searchTerm); // 실제 검색 쿼리 업데이트
     }
   };
-
-  if (isLoading) {
+// 최초 로딩일 때만 전체 로딩 화면 표시
+  if (isInitialLoading) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
@@ -161,9 +164,13 @@ function StudyContents() {
         ))}
       </div>
       {cards.length < total && (
-        <button className={styles.loadMore} onClick={handleLoadMore}>
-          더보기
-        </button>
+        <div className={styles.loadMoreWrapper}>
+          <button className={styles.loadMore} onClick={handleLoadMore}>
+            더보기
+          </button>
+          {/* 추가 로딩 중일 때 아래쪽 로딩 메시지 표시 */}
+          {isLoading && <div className={styles.loadingMore}>불러오는 중...</div>}
+        </div>
       )}
     </div>
   );
