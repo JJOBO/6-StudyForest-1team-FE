@@ -1,11 +1,13 @@
+@use "../../styles/_variables.scss" as vars;
+
 .habitButton,
 .focusButton {
   width: 144px;
   height: 48px;
-  border: 1px solid #dddddd;
-  border-radius: 15px;
-  background-color: #ffffff;
-  color: #818181;
+  border: 1px solid vars.$gray-200;
+  border-radius: vars.$radius-sm;
+  background-color: #ffffff; /* No matching variable, kept as is */
+  color: vars.$gray-300;
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -15,10 +17,10 @@
 .homeButton {
   width: 82px;
   height: 48px;
-  border: 1px solid #dddddd;
-  border-radius: 15px;
-  background-color: #ffffff;
-  color: #818181;
+  border: 1px solid vars.$gray-200;
+  border-radius: vars.$radius-sm;
+  background-color: #ffffff; /* No matching variable, kept as is */
+  color: vars.$gray-300;
   font-size: 16px;
   display: flex;
   justify-content: center;

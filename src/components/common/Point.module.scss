@@ -30,7 +30,7 @@
   }
 
   &--light {
-    @include point-style(86px, 22px, vars.$gray-100, #0000001a, 14px);
+    @include point-style(86px, 22px, #ffffff4d, #0000001a, 14px);
 
     .pointText {
       color: vars.$black;
@@ -39,7 +39,7 @@
   }
 
   &--general {
-    @include point-style(116px, 31px, vars.$gray-100, #0000001a, 19px);
+    @include point-style(116px, 31px, #ffffff4d, #0000001a, 19px);
 
     .pointText {
       color: vars.$black;
