@@ -12,7 +12,7 @@
 
 .studyDetailContent {
   width: 1200px;
-  height: 80vh;
+  height: fit-content;
   background-color: white; // _variables.scss의 색상 사용 (필요 시 추가)
   border-radius: vars.$radius-md; // _variables.scss의 $radius-md 사용
   padding: 40px;

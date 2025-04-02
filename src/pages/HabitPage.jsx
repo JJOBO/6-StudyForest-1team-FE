@@ -34,10 +34,6 @@ export default function HabitPage() {
           const checked = checkedData
             .filter((habit) => habit.records[dayInNumber])
             .map((record) => record.habitId);
-          console.log(
-            dayInNumber,
-            checkedData.filter((habit) => habit.records[dayInNumber])
-          );
           setCheckedHabits(checked);
 
           setStudyNickName(studyData.creatorNick);
