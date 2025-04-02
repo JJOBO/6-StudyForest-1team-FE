@@ -1,0 +1,82 @@
+@use "@/styles/variables" as *;
+
+.focusTimerDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 96px;
+
+  &.warning {
+    color: $error-200 !important;
+  }
+
+  &.negative {
+    color: $gray-300 !important;
+  }
+}
+
+.timeInput {
+  max-width: 230px;
+  font-size: 150px;
+  font-weight: 800;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+  display: inline-block;
+
+  &::selection {
+    background: #cce6ff;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.colon {
+  font-size: 150px;
+  line-height: 1;
+  color: inherit;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+@media (max-width: 1023px) {
+  .focusTimerDisplay {
+    width: 90%;
+    font-size: 120px;
+    margin-bottom: 72px;
+  }
+
+  .timeInput,
+  .colon {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .focusTimerDisplay {
+    font-size: 90px;
+    margin-bottom: 48px;
+  }
+
+  .timeInput,
+  .colon {
+    font-size: 90px;
+  }
+}

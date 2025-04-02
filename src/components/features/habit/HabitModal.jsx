@@ -4,10 +4,13 @@ import deleteBtn from "../../../assets/buttons/btn_determinate.svg";
 import plusIcon from "../../../assets/icons/ic_plus.svg";
 import cancelBtn from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 import modifyBtn from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
+import { useHabit } from "../study/habit/HabitContext";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
   const [pendingDeletions, setPendingDeletions] = useState([]);
+
+  const { triggerRefresh } = useHabit();
 
   // 습관 수정 함수
   const handleEditHabit = (index, newName) => {
@@ -38,12 +41,27 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 수정 완료
   const handleSave = async () => {
+    const isHabitNameEmpty = editedHabits.some(
+      (habit) => habit.name.trim() === ""
+    );
+    const habitName = editedHabits.map((habit) => habit.name.trim());
+    const isHabitNameExist = new Set(habitName).size !== habitName.length;
+
+    if (isHabitNameEmpty) {
+      alert("습관 이름을 입력해 주세요.");
+      return;
+    } else if (isHabitNameExist) {
+      alert("이미 존재하는 습관입니다.");
+      return;
+    }
+
     for (const habitId of pendingDeletions) {
       await onDelete(habitId);
     }
 
     onSave(editedHabits);
     onClose();
+    triggerRefresh();
   };
 
   // 취소

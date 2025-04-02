@@ -1,11 +1,15 @@
 import React from "react";
-import "./Emoji.scss";
+import styles from "./Emoji.module.scss";
 
-function Emoji({ emoji, count }) {
+function Emoji({ emoji, count, type = "default" }) {
   return (
-    <div className="emoji-container">
-      <span className="emoji-icon">{emoji}</span>
-      <span className="emoji-count">{count}</span>
+    <div
+      className={`${styles.emojiContainer} ${
+        type === "general" ? styles.general : ""
+      }`}
+    >
+      <span className={styles.emojiIcon}>{emoji}</span>
+      <span className={styles.emojiCount}>{count}</span>
     </div>
   );
 }

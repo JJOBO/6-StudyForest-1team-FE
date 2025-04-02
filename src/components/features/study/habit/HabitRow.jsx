@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./HabitRow.module.scss";
 import emptySticker from "../../../../assets/stickers/sticker_empty.svg";
-import doneSticker from "../../../../assets/stickers/sticker_light_green_100_01.svg";
+import { stickerSet } from "./stickerSet.js";
 
-function HabitRow({ habitName, records }) {
+function HabitRow({ habitName, records, stickerIndex = 0 }) {
+  const doneSticker = stickerSet[stickerIndex % stickerSet.length];
   return (
     <>
       <div className={styles.habitName}>{habitName}</div>
