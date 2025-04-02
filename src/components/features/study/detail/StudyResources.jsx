@@ -61,7 +61,7 @@ function StudyResources({ studyId }) {
       try {
         await studyAPI.deleteStudy(studyId, password);
 
-        // Remove the study ID from localStorage
+        // localStorage에서 스터디 ID 제거
         const recentStudyIds = JSON.parse(
           localStorage.getItem("recentStudyIds") || "[]"
         );
@@ -69,13 +69,13 @@ function StudyResources({ studyId }) {
         localStorage.setItem("recentStudyIds", JSON.stringify(updatedStudyIds));
 
         alert("스터디가 삭제되었습니다.");
-        window.location.href = "/"; // Redirect to home or another page
+        window.location.href = "/"; // 홈 또는 다른 페이지로 리다이렉트
       } catch (error) {
         console.error("Failed to delete study:", error);
         alert("스터디 삭제에 실패했습니다.");
       }
     }
-    setShowPasswordPrompt(false); // 팝업 닫기
+    setShowPasswordPrompt(false); // 비밀번호 프롬프트 닫기
   };
 
   return (
@@ -98,6 +98,7 @@ function StudyResources({ studyId }) {
               <p>|</p>
               <p onClick={handleEdit}>수정하기</p>
               <p>|</p>
+              {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
               <p onClick={() => setShowPasswordPrompt(true)}>스터디 삭제하기</p>
             </div>
           </div>
@@ -130,9 +131,11 @@ function StudyResources({ studyId }) {
       )}
       {showPasswordPrompt && (
         <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`} // h1 내용 전달
-          onSubmit={handleDelete}
-          onCancel={() => setShowPasswordPrompt(false)}
+          // 비밀번호 프롬프트 컴포넌트
+          // 스터디 삭제 시 사용자에게 비밀번호를 입력받기 위해 사용
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`} // 프롬프트에 표시할 스터디 제목 전달
+          onSubmit={handleDelete} // 비밀번호 입력 후 삭제 처리 함수
+          onCancel={() => setShowPasswordPrompt(false)} // 취소 시 프롬프트 닫기
         />
       )}
     </div>
