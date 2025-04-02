@@ -6,11 +6,13 @@ import cancelBtnPC from "../../../assets/buttons/btn_cancel/btn_cancel_pc.svg";
 import cancelBtnMobile from "../../../assets/buttons/btn_cancel/btn_cancel_mobile.svg";
 import modifyBtnPC from "../../../assets/buttons/btn_modification/btn_modification_pc.svg";
 import modifyBtnMobile from "../../../assets/buttons/btn_modification/btn_modification_mobile.svg";
+import { useHabit } from "../study/habit/HabitContext";
 
 const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
   const [editedHabits, setEditedHabits] = useState(habits);
   const [pendingDeletions, setPendingDeletions] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767); // 모바일 여부 체크
+  const { triggerRefresh } = useHabit();
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,12 +52,27 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
 
   // 수정 완료
   const handleSave = async () => {
+    const isHabitNameEmpty = editedHabits.some(
+      (habit) => habit.name.trim() === ""
+    );
+    const habitName = editedHabits.map((habit) => habit.name.trim());
+    const isHabitNameExist = new Set(habitName).size !== habitName.length;
+
+    if (isHabitNameEmpty) {
+      alert("습관 이름을 입력해 주세요.");
+      return;
+    } else if (isHabitNameExist) {
+      alert("이미 존재하는 습관입니다.");
+      return;
+    }
+
     for (const habitId of pendingDeletions) {
       await onDelete(habitId);
     }
 
     onSave(editedHabits);
     onClose();
+    triggerRefresh();
   };
 
   // 취소
