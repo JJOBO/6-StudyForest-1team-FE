@@ -96,7 +96,10 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
         <div className={styles.modalTitle}>습관 목록</div>
         <div className={styles.habitList}>
           {editedHabits.map((habit, index) => (
-            <div key={habit.id} className={styles.habitItem}>
+            <div
+              key={habit.id != null ? habit.id : `new-${index}`}
+              className={styles.habitItem}
+            >
               <input
                 type="text"
                 value={habit.name}
