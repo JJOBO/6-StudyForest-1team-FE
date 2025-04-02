@@ -18,6 +18,7 @@ export default function HabitPage() {
   const [studyName, setStudyName] = useState(null);
   const [studyNickName, setStudyNickName] = useState(null);
   const { triggerRefresh } = useHabit();
+  const dayInNumber = (new Date().getDay() + 6) % 7;
 
   useEffect(() => {
     if (studyId) {
@@ -30,7 +31,13 @@ export default function HabitPage() {
           const sortedHabits = habitsData.sort((a, b) => a.id - b.id);
           setHabits(sortedHabits);
 
-          const checked = checkedData.map((record) => record.habitId);
+          const checked = checkedData
+            .filter((habit) => habit.records[dayInNumber])
+            .map((record) => record.habitId);
+          console.log(
+            dayInNumber,
+            checkedData.filter((habit) => habit.records[dayInNumber])
+          );
           setCheckedHabits(checked);
 
           setStudyNickName(studyData.creatorNick);
