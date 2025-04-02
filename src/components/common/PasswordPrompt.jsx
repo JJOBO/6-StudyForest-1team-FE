@@ -5,7 +5,7 @@ import visibilityOnIcon from "../../assets/buttons/btn_visibility/btn_visibility
 import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg"; // 비밀번호 표시 아이콘
 import confirmButton from "../../assets/buttons/btn_confirm/btn_confirm_lg.svg"; // 확인 버튼 아이콘
 
-function PasswordPrompt({ studyTitle, onSubmit, onCancel, isDelete }) {
+function PasswordPrompt({ studyTitle, onSubmit, onCancel, isConfirm }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
 
@@ -49,8 +49,8 @@ function PasswordPrompt({ studyTitle, onSubmit, onCancel, isDelete }) {
         <div className={styles.buttonGroup}>
           <button onClick={handleSubmit} className={styles.modificationButton}>
             <img
-              src={isDelete ? confirmButton : modificationButton}
-              alt={isDelete ? "확인" : "수정하러 가기"}
+              src={isConfirm ? confirmButton : modificationButton}
+              alt={isConfirm ? "확인" : "수정하러 가기"}
             />
           </button>
         </div>
