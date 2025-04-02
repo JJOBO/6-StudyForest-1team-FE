@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StudyRegistration from "./pages/StudyRegistration";
+import StudyModification from "./pages/StudyModification";
 import StudyDetail from "./pages/StudyDetail";
 import FocusPage from "./pages/FocusPage";
 import HabitPage from "./pages/HabitPage";
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/registration" element={<StudyRegistration />} />
+            <Route path="/modification" element={<StudyModification />} />
             <Route path=":studyId" element={<StudyDetail />} />
             <Route path=":studyId/focus" element={<FocusPage />} />
             <Route path=":studyId/habits" element={<HabitPage />} />

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import HabitModal from "../components/features/habit/HabitModal";
 import FormatDate from "../components/features/habit/FormatDate";
 import HabitList from "../components/features/habit/HabitList";
+import { useHabit } from "../components/features/study/habit/HabitContext";
 
 export default function HabitPage() {
   const { studyId } = useParams();
@@ -16,6 +17,7 @@ export default function HabitPage() {
   const [checkedHabits, setCheckedHabits] = useState([]);
   const [studyName, setStudyName] = useState(null);
   const [studyNickName, setStudyNickName] = useState(null);
+  const { triggerRefresh } = useHabit();
 
   useEffect(() => {
     if (studyId) {
@@ -109,6 +111,7 @@ export default function HabitPage() {
       } else {
         await habitAPI.checkHabit(habit.id);
       }
+      triggerRefresh();
     } catch (err) {
       if (isChecked) {
         console.error("습관 체크 실패", err);
