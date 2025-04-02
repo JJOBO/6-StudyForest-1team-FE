@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/breakpoints" as *;
 
 .focusTimerWrapper {
   width: 100%;
@@ -12,13 +13,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include mobile {
+    padding: 24px 16px 24px 16px;
+  }
 }
 
 .focusTimerTitle {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 24px;
+
+  @include mobile {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
 }
 
 .focusTimerBadge {
@@ -54,62 +64,3 @@
   }
 }
 
-.toast {
-  position: fixed !important;
-  bottom: 40px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  width: 223px !important;
-  height: 47px !important;
-  min-height: unset !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
-
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 47px !important;
-  text-align: center;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  border-radius: 12px;
-  box-shadow: none !important;
-  white-space: nowrap !important;
-}
-
-// 경고용
-.toastWarning {
-  background-color: $pink !important;
-  color: $error-200 !important;
-  padding: 0 28px !important;
-}
-
-// 포인트용
-.toastPoint {
-  background-color: $green !important;
-  color: $green-text !important;
-  padding: 0 18px !important;
-}
-
-@media (max-width: 1023px) {
-  .focusTimerWrapper {
-    padding: 32px 20px;
-  }
-
-  .focusTimerTitle {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 767px) {
-  .focusTimerWrapper {
-    padding: 24px 16px;
-  }
-
-  .focusTimerTitle {
-    font-size: 16px;
-  }
-}

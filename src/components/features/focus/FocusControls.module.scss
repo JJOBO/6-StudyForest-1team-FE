@@ -1,10 +1,15 @@
 @use "@/styles/variables" as *;
+@use "@/styles/breakpoints" as *;
 
 .focusControls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 24px;
+
+  @include mobile {
+    gap: 16px;
+  }
 }
 
 /* 공통 버튼 스타일 */
@@ -14,12 +19,19 @@
   width: 333px;
   height: 64px;
   border-radius: 50px;
+  
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   border: none;
   cursor: pointer;
   flex-shrink: 0;
+
+  @include mobile {
+    width: 48px;
+    max-width: 300px;
+    height: 48px;
+  }
 }
 
 .pauseBtn {
@@ -27,6 +39,11 @@
   height: 64px;
   border-radius: 50%;
   background-image: url("/src/assets/buttons/btn_pause/btn_pause_pc_active.svg");
+
+  @include mobile {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .resetBtn {
@@ -34,18 +51,41 @@
   height: 64px;
   border-radius: 50%;
   background-image: url("/src/assets/buttons/btn_restart/btn_restart_pc_active.svg");
+
+  @include mobile {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .start {
   background-image: url("/src/assets/buttons/btn_start/btn_start_pc_active.svg");
+
+  @include mobile {
+    background-image: url("/src/assets/buttons/btn_start/btn_start_mobile_active.svg");
+    width: 140px;
+    max-width: 300px;
+    height: 45px;
+  }
 }
 
 .inactive {
   background-image: url("/src/assets/buttons/btn_start/btn_start_pc_inactive.svg");
   pointer-events: none;
   cursor: default;
+
+  @include mobile {
+    background-image: url("/src/assets/buttons/btn_start/btn_start_mobile_inactive.svg");
+  }
 }
 
 .stop {
   background-image: url("/src/assets/buttons/btn_stop/btn_stop_pc_active.svg");
+
+  @include mobile {
+    background-image: url("/src/assets/buttons/btn_stop/btn_stop_mobile_active.svg");
+    width: 140px;
+    max-width: 300px;
+    height: 45px;
+}
 }

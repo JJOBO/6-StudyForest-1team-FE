@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../components/layout/Header.jsx";
 import focusAPI from "../components/features/focus/focusAPI.js";
 import FocusContainer from "../components/features/focus/FocusContainer.jsx";
 import FocusTimer from "../components/features/focus/FocusTimer.jsx";
 import PointDisplay from "../components/features/focus/PointDisplay.jsx";
 import styles from "./FocusPage.module.scss";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const FocusPage = () => {
   const { studyId } = useParams();
@@ -30,11 +32,11 @@ const FocusPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header isButtonDisabled={true} />
       <div className={styles.focusContainer}>
         <FocusContainer studyInfo={studyInfo} />
         <PointDisplay totalPoints={totalPoints} />
         <FocusTimer totalPoints={totalPoints} setTotalPoints={setTotalPoints} />
+        <ToastContainer />
       </div>
     </div>
   );
