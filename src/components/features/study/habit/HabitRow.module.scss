@@ -1,0 +1,14 @@
+.habitCell {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 64px;
+}
+
+.habitName {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+}
