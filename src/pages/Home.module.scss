@@ -1,5 +1,7 @@
+@use "../styles/_variables.scss" as vars; // _variables.scss 파일을 가져옴
+
 .homeContainer {
-  background-color: #f6f4ef;
+  background-color: vars.$bg;
   height: 100%;
   width: 100%;
   display: flex;

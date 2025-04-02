@@ -27,11 +27,16 @@ function RecentStudy() {
 
         // 스터디 ID 목록을 사용하여 스터디 정보를 가져옵니다.
         const studyPromises = recentStudyIds.map(async (studyId) => {
+          if (!studyId) {
+            return null; // 유효하지 않은 ID는 무시
+          }
           const studyDetail = await studyAPI.getStudyDetail(studyId);
           return studyDetail;
         });
 
-        const studyDetails = await Promise.all(studyPromises);
+        const studyDetails = (await Promise.all(studyPromises)).filter(
+          (study) => study !== null
+        );
         setRecentStudies(studyDetails);
       } catch (err) {
         setError(err);

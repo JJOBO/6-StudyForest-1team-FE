@@ -15,14 +15,16 @@ function StudyDetail() {
         localStorage.getItem("recentStudyIds") || "[]"
       );
       // 중복 체크
-      if (!recentStudyIds.includes(id)) {
-        recentStudyIds.unshift(id); // 맨 앞에 추가
-        if (recentStudyIds.length > 10) {
-          // 최대 3개로 제한
-          recentStudyIds.pop(); //
-        }
-        localStorage.setItem("recentStudyIds", JSON.stringify(recentStudyIds));
+      const index = recentStudyIds.indexOf(id);
+      if (index !== -1) {
+        recentStudyIds.splice(index, 1); // 기존 위치에서 제거
       }
+      recentStudyIds.unshift(id); // 맨 앞에 추가
+      if (recentStudyIds.length > 10) {
+        // 최대 10개로 제한
+        recentStudyIds.pop();
+      }
+      localStorage.setItem("recentStudyIds", JSON.stringify(recentStudyIds));
     };
     saveRecentStudyId(studyId);
   }, [studyId]);

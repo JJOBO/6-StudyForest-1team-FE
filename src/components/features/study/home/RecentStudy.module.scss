@@ -1,8 +1,10 @@
+@use "../../../../styles/_variables" as vars;
+
 .recentStudy {
-  background-color: #ffffff;
+  background-color: white;
   width: 1200px;
   height: 382px;
-  border-radius: 20px;
+  border-radius: vars.$radius-md;
   display: flex;
   flex-direction: column; // 제목과 카드를 수직으로 쌓기
   gap: 30px;
@@ -25,7 +27,7 @@
     white-space: nowrap; // 자식 요소가 줄바꿈되지 않도록 설정
     padding-bottom: 260px; // 스크롤바와 콘텐츠 간격 추가
     scrollbar-width: auto; // 스크롤바 두께 조정 (Firefox)
-    scrollbar-color: #ccc transparent; // 스크롤바 색상 조정 (Firefox)
+    scrollbar-color: vars.$gray-200 transparent; // 스크롤바 색상 조정 (Firefox)
   }
 
   .studyCards::-webkit-scrollbar {
@@ -33,7 +35,7 @@
   }
 
   .studyCards::-webkit-scrollbar-thumb {
-    background-color: #ccc; // 스크롤바 색상 조정 (Webkit)
+    background-color: vars.$gray-200; // 스크롤바 색상 조정 (Webkit)
     border-radius: 4px; // 스크롤바 모서리 둥글게
   }
 
@@ -43,16 +45,16 @@
 }
 
 .studyCard {
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: vars.$gray-100;
+  border-radius: vars.$radius-sm;
+  box-shadow: 0 2px 5px rgba(vars.$black, 0.1);
   overflow: hidden;
   width: 358px;
   height: 243px;
   box-sizing: border-box;
   text-align: center; // 카드 내부 텍스트 중앙 정렬
   position: relative; // 자식 요소 위치 지정 가능
-  border: 1px solid #ddd; // 미세한 테두리 추가
+  border: 1px solid vars.$gray-200; // 미세한 테두리 추가
   background-image: url("path/to/image.jpg"); // 이미지를 배경으로 설정
   background-size: cover; // 이미지가 카드 전체를 덮도록 설정
   background-position: center; // 이미지를 중앙에 배치
@@ -71,7 +73,7 @@
     }
 
     p {
-      color: #555;
+      color: vars.$gray-300;
       font-size: 24px; // 글꼴 크기 업데이트
     }
   }

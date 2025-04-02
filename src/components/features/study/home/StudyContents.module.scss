@@ -1,13 +1,15 @@
+@use "../../../../styles/variables" as vars;
+
 body {
-  background-color: #ffffff; // Maintain background color on scroll
+  background-color: vars.$bg;
 }
 
 .studyContents {
-  background-color: #ffffff;
+  background-color: white;
   width: 1200px;
   min-height: 70vh;
   position: static;
-  border-radius: 20px;
+  border-radius: vars.$radius-md;
   overflow-y: visible;
   padding: 40px;
   display: flex;
@@ -30,8 +32,8 @@ body {
   .searchInput {
     width: 335px;
     height: 42px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
+    border: 1px solid vars.$gray-200;
+    border-radius: vars.$radius-sm;
     padding-left: 40px;
   }
 
@@ -52,18 +54,18 @@ body {
   .sortButton {
     width: 180px;
     height: 42px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    background-color: #f9f9f9;
+    border: 1px solid vars.$gray-200;
+    border-radius: vars.$radius-sm;
+    background-color: vars.$bg;
     cursor: pointer;
   }
 
   .sortList {
     width: 180px;
     list-style: none;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    background-color: #ffffff;
+    border: 1px solid vars.$gray-200;
+    border-radius: vars.$radius-md;
+    background-color: vars.$bg;
     position: absolute;
     top: calc(100% + 8px);
     display: none;
@@ -72,7 +74,7 @@ body {
     .sortItem {
       width: 100%;
       height: 42px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid vars.$gray-200;
       cursor: pointer;
       text-align: center;
       line-height: 42px;
@@ -82,7 +84,7 @@ body {
       }
 
       &:hover {
-        background-color: #e0e0e0;
+        background-color: vars.$gray-100;
       }
     }
   }
@@ -101,14 +103,14 @@ body {
 }
 
 .studyCard {
-  border: 1px solid #ccc;
-  border-radius: 20px;
+  border: 1px solid vars.$gray-200;
+  border-radius: vars.$radius-md;
   text-align: center;
-  background-color: #ffffff;
+  background-color: vars.$bg;
 
   img {
     max-width: 100%;
-    border-radius: 20px;
+    border-radius: vars.$radius-md;
   }
 
   h3 {
@@ -116,15 +118,15 @@ body {
   }
 
   p {
-    color: #666;
+    color: vars.$gray-300;
   }
 }
 
 .loadMore {
   display: block;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  background-color: #f9f9f9;
+  border: 1px solid vars.$gray-200;
+  border-radius: vars.$radius-md;
+  background-color: vars.$bg;
   cursor: pointer;
   margin-top: 36px;
   width: 280px;
@@ -133,20 +135,20 @@ body {
   margin-right: auto;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: vars.$gray-100;
   }
 }
 
 .loading {
   text-align: center;
   font-size: 18px;
-  color: #666;
+  color: vars.$gray-300;
 }
 
 .error {
   text-align: center;
   font-size: 18px;
-  color: red;
+  color: vars.$error-200;
 }
 
 .loadingMore {
