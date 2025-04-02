@@ -3,6 +3,7 @@ import React, { useEffect } from "react"; // useEffect 추가
 import styles from "./StudyDetail.module.scss";
 import { useParams } from "react-router-dom";
 import StudyResources from "../components/features/study/detail/StudyResources";
+import HabitTracker from "../components/features/study/habit/HabitTracker";
 
 function StudyDetail() {
   const { studyId } = useParams();
@@ -30,6 +31,7 @@ function StudyDetail() {
     <div className={styles.studyDetailContainer}>
       <div className={styles.studyDetailContent}>
         <StudyResources studyId={studyId} />
+        <HabitTracker studyId={studyId} />
       </div>
     </div>
   );

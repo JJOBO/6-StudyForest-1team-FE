@@ -9,6 +9,17 @@ const habitAPI = {
     return response.data;
   },
 
+  // studyName 불러오기
+  getStudyInfo: async (studyId) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/${studyId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch study info:", error);
+      throw error;
+    }
+  },
+
   // 습관 수정하기
   updateHabit: async (habitId, updatedHabit) => {
     const response = await axios.patch(

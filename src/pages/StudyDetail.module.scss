@@ -10,7 +10,7 @@
 
 .studyDetailContent {
   width: 1200px;
-  height: 80vh; // 화면 높이의 90%로 변경
+  height: fit-content; // 화면 높이의 90%로 변경
   background-color: #ffffff;
   border-radius: 20px;
   padding: 40px; // 상하좌우 패딩 추가

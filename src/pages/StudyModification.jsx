@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styles from "./StudyRegistration.module.scss";
+import React, { useState, useEffect } from "react"; // useEffect 추가
+import styles from "./StudyModification.module.scss";
 import studyAPI from "../components/features/study/studyAPI";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
 import tablet from "../assets/background/tablet.jpg";
 import laptop from "../assets/background/laptop.jpg";
 import tile from "../assets/background/tile.jpg";
 import leaf from "../assets/background/leaf.jpg";
 
-function StudyRegistration() {
+function StudyModification() {
   const [studyName, setStudyName] = useState("");
   const [nickname, setNickname] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +16,7 @@ function StudyRegistration() {
   const [background, setBackground] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const { studyId } = useParams(); // studyId 가져오기
 
   const backgrounds = [
     { color: "#E1EDDE", name: "green" },
@@ -28,20 +29,35 @@ function StudyRegistration() {
     { color: leaf, name: "leaf" },
   ];
 
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 스터디 정보를 가져와서 상태를 업데이트
+    const fetchStudyData = async () => {
+      try {
+        const studyData = await studyAPI.getStudyInfo(studyId); // 스터디 정보 가져오기
+        setStudyName(studyData.name);
+        setNickname(studyData.creatorNick);
+        setDescription(studyData.description);
+        setBackground(studyData.background); // 기존 배경 설정
+      } catch (error) {
+        console.error("Failed to fetch study data:", error);
+        setErrors({ api: "스터디 정보를 가져오는데 실패했습니다." });
+      }
+    };
+
+    if (studyId) {
+      fetchStudyData();
+    }
+  }, [studyId]);
+
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
 
     // 유효성 검사
-    if (!studyName) validationErrors.studyName = "스터디 이름을 입력해주세요";
-    if (!nickname) validationErrors.nickname = "닉네임을 입력해주세요";
-    if (!description)
-      validationErrors.description = "소개 멘트를 작성해주세요.";
     if (!password) validationErrors.password = "비밀번호를 입력해주세요.";
     if (password !== confirmPassword)
       validationErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
-    if (!background) validationErrors.background = "배경을 선택해주세요.";
 
     setErrors(validationErrors);
 
@@ -59,7 +75,7 @@ function StudyRegistration() {
         ? selectedBackground.name
         : background;
 
-      // 스터디 생성에 필요한 데이터
+      // 스터디 수정에 필요한 데이터
       const studyData = {
         name: studyName,
         creatorNick: nickname,
@@ -68,21 +84,23 @@ function StudyRegistration() {
         passwordConfirm: confirmPassword,
         background: backgroundName, // 파일명 저장
       };
-      const response = await studyAPI.createStudy(studyData);
-      console.log("Study created:", response);
-      localStorage.setItem(`studyBackground-${response.id}`, background);
-      navigate(`/${response.id}`);
+      // 스터디 수정 API 호출
+      const response = await studyAPI.updateStudy(studyId, studyData);
+      console.log("Study updated:", response);
+      localStorage.setItem(`studyBackground-${studyId}`, background);
+      navigate(`/${studyId}`);
     } catch (error) {
-      console.error("Failed to create study:", error);
-      setErrors({ api: "스터디 생성에 실패했습니다." });
+      console.error("Failed to update study:", error);
+      window.alert("스터디 정보를 가져오는데 실패했습니다.");
+      setErrors({ api: "스터디 수정에 실패했습니다." });
     }
   };
 
   return (
-    <div className={styles.studyRegistrationPageLayout}>
-      <div className={styles.studyRegistration}>
+    <div className={styles.studyModificationPageLayout}>
+      <div className={styles.studyModification}>
         <form onSubmit={handleSubmit} className={styles.formContainer}>
-          <h2>스터디 만들기</h2>
+          <h2>스터디 수정하기</h2>
           {errors.api && <span className={styles.errorText}>{errors.api}</span>}
           <div
             className={`${styles.inputGroup} ${
@@ -200,7 +218,7 @@ function StudyRegistration() {
             )}
           </div>
           <div className={styles.submitButtonWrapper}>
-            <button type="submit">만들기</button>
+            <button type="submit">수정하기</button>
           </div>
         </form>
       </div>
@@ -208,4 +226,4 @@ function StudyRegistration() {
   );
 }
 
-export default StudyRegistration;
+export default StudyModification;
