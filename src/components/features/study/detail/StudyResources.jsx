@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import studyAPI from "../studyAPI";
-import { Link } from "react-router-dom";
+import focusAPI from "../../focus/focusAPI";
+import habitAPI from "../../habit/habitAPI";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import styles from "./StudyResources.module.scss"; // Import SCSS module
-import LinkButton from "../../../common/LinkButton";
 import PasswordPrompt from "../../../common/PasswordPrompt"; // PasswordPrompt 컴포넌트 추가
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(null);
 
   useEffect(() => {
     const fetchStudyDetail = async () => {
@@ -78,6 +78,26 @@ function StudyResources({ studyId }) {
     setShowPasswordPrompt(false); // 비밀번호 프롬프트 닫기
   };
 
+  const handleHabitAccess = async (password) => {
+    try {
+      await habitAPI.authenticateHabit(studyId, password);
+      window.location.href = `/${studyId}/habits`;
+    } catch (error) {
+      console.error(error);
+      alert("비밀번호가 틀렸습니다.");
+    }
+  };
+
+  const handleFocusAccess = async (password) => {
+    try {
+      await focusAPI.authenticateFocus(studyId, password);
+      window.location.href = `/${studyId}/focus`;
+    } catch (error) {
+      console.error(error);
+      alert("비밀번호가 틀렸습니다.");
+    }
+  };
+
   return (
     <div>
       {studyDetail ? (
@@ -99,7 +119,9 @@ function StudyResources({ studyId }) {
               <p onClick={handleEdit}>수정하기</p>
               <p>|</p>
               {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
-              <p onClick={() => setShowPasswordPrompt(true)}>스터디 삭제하기</p>
+              <p onClick={() => setShowPasswordPrompt("delete")}>
+                스터디 삭제하기
+              </p>
             </div>
           </div>
           <div className={styles.studyContainer}>
@@ -108,8 +130,12 @@ function StudyResources({ studyId }) {
                 {studyDetail.creatorNick}의 {studyDetail.name}
               </h1>
               <div className={styles.linkButtons}>
-                <LinkButton type={"habit"} studyId={studyId} />
-                <LinkButton type={"focus"} studyId={studyId} />
+                <button onClick={() => setShowPasswordPrompt("habit")}>
+                  오늘의 습관
+                </button>
+                <button onClick={() => setShowPasswordPrompt("focus")}>
+                  오늘의 집중
+                </button>
               </div>
             </div>
             <div className={styles.studyDescription}>
@@ -129,13 +155,28 @@ function StudyResources({ studyId }) {
       ) : (
         <p>스터디 디테일 로딩중...</p>
       )}
-      {showPasswordPrompt && (
+      {studyDetail && showPasswordPrompt === "delete" && (
         <PasswordPrompt
-          // 비밀번호 프롬프트 컴포넌트
-          // 스터디 삭제 시 사용자에게 비밀번호를 입력받기 위해 사용
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`} // 프롬프트에 표시할 스터디 제목 전달
-          onSubmit={handleDelete} // 비밀번호 입력 후 삭제 처리 함수
-          onCancel={() => setShowPasswordPrompt(false)} // 취소 시 프롬프트 닫기
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+          actionType="삭제"
+          onSubmit={handleDelete}
+          onCancel={() => setShowPasswordPrompt(null)}
+        />
+      )}
+      {studyDetail && showPasswordPrompt === "habit" && (
+        <PasswordPrompt
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+          actionType="습관"
+          onSubmit={handleHabitAccess}
+          onCancel={() => setShowPasswordPrompt(null)}
+        />
+      )}
+      {studyDetail && showPasswordPrompt === "focus" && (
+        <PasswordPrompt
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+          actionType="집중"
+          onSubmit={handleFocusAccess}
+          onCancel={() => setShowPasswordPrompt(null)}
         />
       )}
     </div>

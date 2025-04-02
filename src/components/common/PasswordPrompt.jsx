@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import styles from "./PasswordPrompt.module.scss"; // 비밀번호 프롬프트 스타일
-
 /**
  * PasswordPrompt 컴포넌트
  *
@@ -17,17 +14,33 @@ import styles from "./PasswordPrompt.module.scss"; // 비밀번호 프롬프트 
  * />
  */
 
+import React, { useState } from "react";
+import styles from "./PasswordPrompt.module.scss";
+
+import habitButton from "../../assets/buttons/btn_habit/btn_habit_md.svg";
+import focusButton from "../../assets/buttons/btn_focus/btn_focus_md.svg";
 import modificationButton from "../../assets/buttons/btn_modification/btn_modification_md.svg";
 import visibilityOnIcon from "../../assets/buttons/btn_visibility/btn_visibility_on_24px.svg";
-import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg"; // 비밀번호 표시 아이콘
+import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg";
 
-function PasswordPrompt({ studyTitle, onSubmit, onCancel }) {
+function PasswordPrompt({
+  studyTitle,
+  onSubmit,
+  onCancel,
+  actionType = "수정", // "삭제", "습관", "집중"
+}) {
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
+  const [showPassword, setShowPassword] = useState(false);
+
+  const getButtonImage = () => {
+    if (actionType === "습관") return habitButton;
+    if (actionType === "집중") return focusButton;
+    return modificationButton; // 기본값은 수정(삭제 포함)
+  };
 
   const handleSubmit = () => {
     if (password.trim()) {
-      onSubmit(password); // 부모 컴포넌트로 비밀번호 전달
+      onSubmit(password);
     } else {
       alert("비밀번호를 입력해주세요.");
     }
@@ -45,7 +58,7 @@ function PasswordPrompt({ studyTitle, onSubmit, onCancel }) {
           <p>비밀번호</p>
           <div className={styles.inputWrapper}>
             <input
-              type={showPassword ? "text" : "password"} // 타입 변경
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력하세요"
@@ -64,7 +77,7 @@ function PasswordPrompt({ studyTitle, onSubmit, onCancel }) {
         </div>
         <div className={styles.buttonGroup}>
           <button onClick={handleSubmit} className={styles.modificationButton}>
-            <img src={modificationButton} alt="수정하러 가기" />
+            <img src={getButtonImage()} alt={`${actionType} 버튼`} />
           </button>
         </div>
       </div>
