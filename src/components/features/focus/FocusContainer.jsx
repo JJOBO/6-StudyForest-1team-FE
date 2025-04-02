@@ -5,11 +5,12 @@ import styles from "./FocusContainer.module.scss";
 
 const FocusContainer = ({ studyInfo }) => {
   const { studyId } = useParams(); // studyId를 URL에서 가져오기
+  
 
   return (
     <div className={styles.header}>
       <div className={styles.titleContainer}>
-        <h1>{studyInfo.name}</h1>
+        <h1>{studyInfo.creatorNick}의 {studyInfo.name}</h1>
       </div>
       <div className={styles.btnContainer}>
         <Link to={`/${studyId}/habits`} className={styles.btn}>

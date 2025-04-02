@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import focusAPI from "./focusAPI";
 import FocusTimerDisplay from "./FocusTimerDisplay";
 import FocusControls from "./FocusControls";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./FocusTimer.module.scss";
+import {showPauseToast, showPointToast} from "./FocusToast";
 
 function FocusTimer({ setTotalPoints }) {
   const { studyId } = useParams();
@@ -63,16 +64,10 @@ function FocusTimer({ setTotalPoints }) {
     if (isPaused) {
       setPausedDuration((prev) => prev + (Date.now() - pauseStartTime));
       setPauseStartTime(null);
-      toast.dismiss();
+      toast.dismiss(); 
     } else {
       setPauseStartTime(Date.now());
-      toast.warning("🚨 집중이 중단되었습니다.", {
-        autoClose: false,
-        hideProgressBar: true,
-        closeButton: false,
-        icon: false,
-        className: `${styles.toast} ${styles.toastWarning}`,
-      });
+      showPauseToast(); 
     }
 
     setIsPaused((prev) => !prev);
@@ -87,16 +82,11 @@ function FocusTimer({ setTotalPoints }) {
     try {
       const res = await focusAPI.stopFocus(studyId, elapsedTime, timeLeft);
       setTotalPoints((prev) => prev + res.focusPoints);
-      toast.success(`🎉 ${res.focusPoints}포인트를 획득했습니다!`, {
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeButton: false,
-        icon: false,
-        className: `${styles.toast} ${styles.toastPoint}`,
-      });
+      showPointToast(res.focusPoints);
       handleClickResetTimer();
     } catch (error) {
       console.error("타이머 중지 오류:", error);
+      showErrorToast("타이머 종료에 실패했어요.");
     }
   };
 
@@ -160,7 +150,6 @@ function FocusTimer({ setTotalPoints }) {
         onClickStop={handleClickStopTimer}
         onClickReset={handleClickResetTimer}
       />
-      <ToastContainer />
     </div>
   );
 }
