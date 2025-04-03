@@ -28,7 +28,7 @@ const FocusPage = () => {
     fetchData();
   }, [studyId]);
 
-  if (!studyInfo) return <div>Loading...</div>;
+  if (!studyInfo) return <div></div>;
 
   return (
     <div className={styles.container}>

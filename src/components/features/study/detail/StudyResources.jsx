@@ -163,7 +163,7 @@ function StudyResources({ studyId }) {
           </div>
         </div>
       ) : (
-        <p>스터디 디테일 로딩중...</p>
+        <p></p>
       )}
 
       {/* 비밀번호 입력 모달 - 삭제 */}
