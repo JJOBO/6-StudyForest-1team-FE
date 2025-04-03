@@ -44,34 +44,40 @@ function StudyResources({ studyId }) {
       alert("링크 복사에 실패했습니다.");
     }
   };
-  
+
   // 스터디 삭제
   const handleDelete = async (password) => {
     if (!password) return;
     try {
       await studyAPI.deleteStudy(studyId, password);
-
-      // 최근 스터디 ID localStorage에서 제거
       const recentStudyIds = JSON.parse(
         localStorage.getItem("recentStudyIds") || "[]"
       );
       const updatedIds = recentStudyIds.filter((id) => id !== studyId);
       localStorage.setItem("recentStudyIds", JSON.stringify(updatedIds));
-
       alert("스터디가 삭제되었습니다.");
-      navigate("/"); // 홈으로 이동
+      navigate("/");
     } catch (error) {
       console.error("Failed to delete study:", error);
       showErrorToast();
+      return; // 실패 시 모달 유지
     }
-    setShowPasswordPrompt(null); // 프롬프트 닫기
+    setShowPasswordPrompt(null);
   };
 
   // 스터디 수정 페이지로 이동
-  const handleEdit = (password) => {
-    if (password) {
-      navigate(`/${studyId}/modification`);
-      setShowPasswordPrompt(null);
+  const handleEdit = async (password) => {
+    try {
+      const result = await studyAPI.authenticateStudy(studyId, password);
+      if (result.success) {
+        navigate(`/${studyId}/modification`);
+        setShowPasswordPrompt(null);
+      } else {
+        throw new Error("Unauthorized");
+      }
+    } catch (error) {
+      console.error("Failed to authenticate for modification:", error);
+      showErrorToast();
     }
   };
 
@@ -80,6 +86,7 @@ function StudyResources({ studyId }) {
     try {
       await habitAPI.authenticateHabit(studyId, password);
       navigate(`/${studyId}/habits`);
+      setShowPasswordPrompt(null);
     } catch (error) {
       console.error(error);
       showErrorToast();
@@ -91,6 +98,7 @@ function StudyResources({ studyId }) {
     try {
       await focusAPI.authenticateFocus(studyId, password);
       navigate(`/${studyId}/focus`);
+      setShowPasswordPrompt(null);
     } catch (error) {
       console.error(error);
       showErrorToast();
@@ -115,12 +123,10 @@ function StudyResources({ studyId }) {
             <div className={styles.studyOptions}>
               <p onClick={handleShare}>공유하기</p>
               <p>|</p>
-              {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
               <p onClick={() => setShowPasswordPrompt("modification")}>
                 수정하기
               </p>
               <p>|</p>
-              {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
               <p onClick={() => setShowPasswordPrompt("delete")}>
                 스터디 삭제하기
               </p>
@@ -132,7 +138,6 @@ function StudyResources({ studyId }) {
                 {studyDetail.creatorNick}의 {studyDetail.name}
               </h1>
               <div className={styles.linkButtons}>
-                {/* 습관/집중 페이지 이동 전 인증을 위해 PasswordPrompt 열기 */}
                 <LinkButton
                   type="habit"
                   onClick={() => setShowPasswordPrompt("habit")}
@@ -200,6 +205,7 @@ function StudyResources({ studyId }) {
           onCancel={() => setShowPasswordPrompt(null)}
         />
       )}
+      <ToastContainer />
     </div>
   );
 }
