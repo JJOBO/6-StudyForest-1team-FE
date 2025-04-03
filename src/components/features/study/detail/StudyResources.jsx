@@ -6,15 +6,18 @@ import habitAPI from "../../habit/habitAPI";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import LinkButton from "../../../common/LinkButton";
-import styles from "./StudyResources.module.scss"; // SCSS 모듈
-import PasswordPrompt from "../../../common/PasswordPrompt"; // 비밀번호 프롬프트
+import styles from "./StudyResources.module.scss";
+import PasswordPrompt from "../../../common/PasswordPrompt";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { showErrorToast } from "./PasswordToast";
+import Picker from "emoji-picker-react";
+import AddButtonIcon from "/src/assets/buttons/btn_add.svg";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(null); // "delete" | "habit" | "focus" | "modification"
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(null);
+  const [showPicker, setShowPicker] = useState(false);
   const navigate = useNavigate();
 
   // 스터디 상세 정보 불러오기
@@ -32,6 +35,24 @@ function StudyResources({ studyId }) {
       fetchStudyDetail();
     }
   }, [studyId]);
+
+  // 이모지 피커에서 이모지 선택 시 호출되는 함수
+  const onEmojiClick = async (emojiData) => {
+    setShowPicker(false);
+    try {
+      await studyAPI.addEmojiToStudy(studyId, emojiData.emoji);
+      // 이모지 추가 후 스터디 상세 정보를 다시 불러와서 이모지 목록을 업데이트
+      const data = await studyAPI.getStudyDetail(studyId);
+      setStudyDetail(data);
+    } catch (error) {
+      console.error("Failed to add emoji:", error);
+    }
+  };
+
+  // 이모지 추가 버튼 클릭 시 호출되는 함수
+  const handleAddEmojiClick = () => {
+    setShowPicker(!showPicker);
+  };
 
   // 공유하기 링크 복사
   const handleShare = async () => {
@@ -60,7 +81,7 @@ function StudyResources({ studyId }) {
     } catch (error) {
       console.error("Failed to delete study:", error);
       showErrorToast();
-      return; // 실패 시 모달 유지
+      return;
     }
     setShowPasswordPrompt(null);
   };
@@ -119,6 +140,21 @@ function StudyResources({ studyId }) {
                   count={emoji.count}
                 />
               ))}
+              {/* 이모지 추가 버튼 */}
+              <button
+                className={styles.emojiAddButton}
+                onClick={handleAddEmojiClick}
+              >
+                <img src={AddButtonIcon} alt="이모지 추가" />
+              </button>
+
+              {/* 이모지 피커 */}
+              {showPicker && (
+                <Picker
+                  onEmojiClick={onEmojiClick}
+                  pickerStyle={{ width: "100%" }}
+                />
+              )}
             </div>
             <div className={styles.studyOptions}>
               <p onClick={handleShare}>공유하기</p>
