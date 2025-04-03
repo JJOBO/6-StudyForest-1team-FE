@@ -21,6 +21,13 @@
   align-items: center;
   margin: 40px auto 107px;
 
+  @include mobile {
+    padding: 16px 16px 20px 16px;
+    margin: 40px 16px 100px 16px;
+    width: calc(50%);
+    min-width: 350px;
+  }
+
   .formContainer {
     width: 100%;
     max-width: 648px;
@@ -86,7 +93,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
-      justify-content: flex-end; /* 추가: 오른쪽 정렬 */
+      justify-content: center; /* 추가: 오른쪽 정렬 */
       width: 100%;
     }
 
