@@ -55,9 +55,7 @@ function RecentStudy() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  if (isLoading) {
-    return <div></div>;
-  }
+  if (isLoading) return;
 
   if (error) {
     return <div>Error: {error.message}</div>;
