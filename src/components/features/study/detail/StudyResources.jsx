@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import studyAPI from "../studyAPI";
-import focusAPI from "../../focus/focusAPI";
-import habitAPI from "../../habit/habitAPI";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import LinkButton from "../../../common/LinkButton";
@@ -44,7 +42,7 @@ function StudyResources({ studyId }) {
       alert("링크 복사에 실패했습니다.");
     }
   };
-  
+
   // 스터디 삭제
   const handleDelete = async (password) => {
     if (!password) return;
