@@ -12,9 +12,11 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/_variables.scss" as *;`,
+        additionalData: `
+        @use "@/styles/_variables.scss" as *;
+        @use "@/styles/_breakpoints.scss" as *;`,
       },
     },
   },
-  server:{watch:{usePolling:true}}
+  server: { watch: { usePolling: true } },
 });
