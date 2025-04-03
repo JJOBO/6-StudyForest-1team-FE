@@ -91,6 +91,19 @@ const updateStudy = async (studyId, studyData) => {
   }
 };
 
+// 스터디 인증 추가
+const authenticateStudy = async (studyId, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/study/${studyId}/auth`, {
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error authenticating study ID ${studyId}:`, error);
+    throw error;
+  }
+};
+
 const studyAPI = {
   getStudyList,
   createStudy,
@@ -98,6 +111,7 @@ const studyAPI = {
   addEmojiToStudy,
   deleteStudy,
   updateStudy,
+  authenticateStudy,
 };
 
 export default studyAPI;

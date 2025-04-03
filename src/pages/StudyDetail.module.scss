@@ -1,19 +1,29 @@
-@use "../styles/_variables.scss" as vars; // _variables.scss를 가져옴
-
 .studyDetailContainer {
-  background-color: vars.$bg; // _variables.scss의 $bg 사용
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  align-items: center; // 자식 요소를 가로 중앙 정렬
+  align-items: center;
 }
 
 .studyDetailContent {
-  width: 1200px;
+  max-width: 1200px;
+  width: 100vw;
   height: fit-content;
-  background-color: white; // _variables.scss의 색상 사용 (필요 시 추가)
-  border-radius: vars.$radius-md; // _variables.scss의 $radius-md 사용
+  background-color: white;
+  border-radius: $radius-md;
   padding: 40px;
+}
+
+@media (max-width: $tablet) {
+  .studyDetailContent {
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: $mobile) {
+  .studyDetailContent {
+    width: calc(100% - 32px);
+  }
 }

@@ -24,9 +24,9 @@ function HabitTracker({ studyId }) {
 
   return (
     <div className={styles.habitTrackerContainer}>
+      <div className={styles.title}>습관 기록표</div>
       {weeklyHabits.length > 0 ? (
         <>
-          <div className={styles.title}>습관 기록표</div>
           <div className={styles.habitTrackerContent}>
             <div></div>
             <div className={styles.days}>
