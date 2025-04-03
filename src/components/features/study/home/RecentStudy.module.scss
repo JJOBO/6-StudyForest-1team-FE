@@ -84,9 +84,16 @@
   height: 243px;
 }
 
-@media (max-width: 744px) {
+@media (max-width: $mobile) {
   .studyCardContainer {
     width: 240px;
     height: 180px;
+  }
+}
+
+@media (max-width: $tablet) {
+  .studyCardContainer {
+    width: 358px;
+    height: 243px;
   }
 }

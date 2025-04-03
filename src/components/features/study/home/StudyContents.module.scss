@@ -182,9 +182,16 @@ body {
   height: 243px;
 }
 
-@media (max-width: 744px) {
+@media (max-width: $mobile) {
   .studyCardContainer {
     width: 312px;
     height: 180px;
+  }
+}
+
+@media (max-width: $tablet) {
+  .studyCardContainer {
+    width: 312px;
+    height: 243px;
   }
 }
