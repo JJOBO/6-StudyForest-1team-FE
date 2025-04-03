@@ -14,7 +14,7 @@ import { showErrorToast } from "./PasswordToast";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(null); // "delete" | "habit" | "focus"
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(null); // "delete" | "habit" | "focus" | "modification"
   const navigate = useNavigate();
 
   // 스터디 상세 정보 불러오기
@@ -35,7 +35,7 @@ function StudyResources({ studyId }) {
 
   // 공유하기 링크 복사
   const handleShare = async () => {
-    const shareUrl = `${window.location.origin}/study/${studyId}`;
+    const shareUrl = `${window.location.origin}/${studyId}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
       alert(`링크가 복사되었습니다: ${shareUrl}`);
@@ -44,27 +44,7 @@ function StudyResources({ studyId }) {
       alert("링크 복사에 실패했습니다.");
     }
   };
-
-  // 스터디 이름 수정
-  const handleEdit = async () => {
-    const newName = prompt(
-      "새로운 스터디 이름을 입력하세요:",
-      studyDetail.name
-    );
-    if (newName && newName !== studyDetail.name) {
-      try {
-        const updatedStudy = await studyAPI.updateStudy(studyId, {
-          name: newName,
-        });
-        setStudyDetail({ ...studyDetail, name: updatedStudy.name });
-        alert("스터디 이름이 수정되었습니다.");
-      } catch (error) {
-        console.error("Failed to update study:", error);
-        showErrorToast();
-      }
-    }
-  };
-
+  
   // 스터디 삭제
   const handleDelete = async (password) => {
     if (!password) return;
@@ -85,6 +65,14 @@ function StudyResources({ studyId }) {
       showErrorToast();
     }
     setShowPasswordPrompt(null); // 프롬프트 닫기
+  };
+
+  // 스터디 수정 페이지로 이동
+  const handleEdit = (password) => {
+    if (password) {
+      navigate(`/${studyId}/modification`);
+      setShowPasswordPrompt(null);
+    }
   };
 
   // 습관 페이지 인증 후 이동
@@ -127,7 +115,10 @@ function StudyResources({ studyId }) {
             <div className={styles.studyOptions}>
               <p onClick={handleShare}>공유하기</p>
               <p>|</p>
-              <p onClick={handleEdit}>수정하기</p>
+              {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
+              <p onClick={() => setShowPasswordPrompt("modification")}>
+                수정하기
+              </p>
               <p>|</p>
               {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
               <p onClick={() => setShowPasswordPrompt("delete")}>
@@ -199,7 +190,16 @@ function StudyResources({ studyId }) {
           onCancel={() => setShowPasswordPrompt(null)}
         />
       )}
-      <ToastContainer />
+
+      {/* 비밀번호 입력 모달 - 수정 */}
+      {studyDetail && showPasswordPrompt === "modification" && (
+        <PasswordPrompt
+          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+          actionType="수정"
+          onSubmit={handleEdit}
+          onCancel={() => setShowPasswordPrompt(null)}
+        />
+      )}
     </div>
   );
 }
