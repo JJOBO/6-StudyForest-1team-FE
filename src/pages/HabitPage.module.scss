@@ -1,4 +1,3 @@
-@use "@/styles/_variables" as *;
 .habitContainer {
   display: flex;
   justify-content: center;
@@ -9,9 +8,10 @@
   padding: 40px;
   border-radius: 20px;
   position: relative;
-  top: 39px;
   width: 100%;
   max-width: 1248px;
+  top: 40px;
+  margin: 0 220px;
 }
 
 .nav {
@@ -137,6 +137,7 @@
 @media (max-width: 767px) {
   .container {
     padding: 16px 16px 24px 16px;
+    top: 20px;
     margin: 0 16px;
   }
 

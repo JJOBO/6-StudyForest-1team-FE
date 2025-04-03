@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 150px;
+  font-size: 120px;
   font-weight: 800;
   color: #333;
   margin-bottom: 96px;
@@ -21,7 +21,7 @@
 
 .timeInput {
   max-width: 230px;
-  font-size: 150px;
+  font-size: 120px;
   font-weight: 800;
   text-align: center;
   background: transparent;
@@ -44,8 +44,7 @@
 }
 
 .colon {
-  font-size: 150px;
-  line-height: 1;
+  font-size: 120px;
   color: inherit;
 }
 
@@ -55,4 +54,18 @@
 
 .alignLeft {
   text-align: left;
+}
+
+@media (max-width: 767px) {
+  .focusTimerDisplay{
+    font-size: 80px;
+  }
+
+  .timeInput {
+    font-size: 80px;
+  }
+
+  .colon {
+    font-size: 80px;
+  }
 }

@@ -48,7 +48,7 @@ export default function HabitPage() {
     }
   }, [studyId]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) return <div></div>;
   if (error) return <div>{error}</div>;
 
   const openModal = () => setIsModalOpen(true);
