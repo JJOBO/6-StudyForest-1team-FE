@@ -100,6 +100,7 @@ function StudyContents() {
     }
   };
   // 최초 로딩일 때만 전체 로딩 화면 표시
+
   if (isInitialLoading) return;
 
   if (error) {

@@ -6,6 +6,20 @@ import tablet from "../assets/background/tablet.jpg";
 import laptop from "../assets/background/laptop.jpg";
 import tile from "../assets/background/tile.jpg";
 import leaf from "../assets/background/leaf.jpg";
+import confirmBtnPC from "../assets/buttons/btn_confirm/btn_confirm_lg.svg";
+import confirmBtnMobile from "../assets/buttons/btn_confirm/btn_confirm_md.svg";
+import selectedIcon from "../assets/icons/ic_bg_selected.svg";
+
+const backgrounds = [
+  { color: "#E1EDDE", name: "green" },
+  { color: "#FFF1CC", name: "yellow" },
+  { color: "#E0F1F5", name: "blue" },
+  { color: "#FDE0E9", name: "pink" },
+  { color: tablet, name: "tablet" },
+  { color: laptop, name: "laptop" },
+  { color: tile, name: "tile" },
+  { color: leaf, name: "leaf" },
+];
 
 function StudyModification() {
   const [studyName, setStudyName] = useState("");
@@ -13,21 +27,20 @@ function StudyModification() {
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [background, setBackground] = useState("");
+  const [background, setBackground] = useState(backgrounds[0].color);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const { studyId } = useParams();
+  const navigate = useNavigate();
 
-  const backgrounds = [
-    { color: "#E1EDDE", name: "green" },
-    { color: "#FFF1CC", name: "yellow" },
-    { color: "#E0F1F5", name: "blue" },
-    { color: "#FDE0E9", name: "pink" },
-    { color: tablet, name: "tablet" },
-    { color: laptop, name: "laptop" },
-    { color: tile, name: "tile" },
-    { color: leaf, name: "leaf" },
-  ];
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchStudyDetail = async () => {
@@ -181,6 +194,14 @@ function StudyModification() {
                   ) : (
                     <img src={bg.color} alt={bg.name} />
                   )}
+
+                  {background === bg.color && (
+                    <img
+                      src={selectedIcon}
+                      alt="선택된 배경 아이콘"
+                      className={styles.selectedIcon}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -224,9 +245,12 @@ function StudyModification() {
               <span className={styles.errorText}>{errors.confirmPassword}</span>
             )}
           </div>
-          <div className={styles.submitButtonWrapper}>
-            <button type="submit">수정하기</button>
-          </div>
+          <button className={styles.submitButtonWrapper}>
+            <img
+              src={isMobile ? confirmBtnMobile : confirmBtnPC}
+              alt="확인 버튼"
+            />
+          </button>
         </form>
       </div>
     </div>

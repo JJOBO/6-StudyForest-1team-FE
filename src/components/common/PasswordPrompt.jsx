@@ -17,10 +17,6 @@
 import React, { useState } from "react";
 import styles from "./PasswordPrompt.module.scss";
 
-import habitButton from "../../assets/buttons/btn_habit/btn_habit_md.svg";
-import focusButton from "../../assets/buttons/btn_focus/btn_focus_md.svg";
-import modificationButton from "../../assets/buttons/btn_modification/btn_modification_md.svg";
-import confirmButton from "../../assets/buttons/btn_confirm/btn_confirm_lg.svg";
 import visibilityOnIcon from "../../assets/buttons/btn_visibility/btn_visibility_on_24px.svg";
 import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg";
 import { toast } from "react-toastify";
@@ -33,13 +29,6 @@ function PasswordPrompt({
 }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const getButtonImage = () => {
-    if (actionType === "삭제") return confirmButton;
-    if (actionType === "습관") return habitButton;
-    if (actionType === "집중") return focusButton;
-    return modificationButton; // 기본값
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,10 +81,22 @@ function PasswordPrompt({
             </div>
           </div>
           <div className={styles.buttonGroup}>
-            <button type="submit" className={styles.modificationButton}>
-              <img src={getButtonImage()} alt={`${actionType} 버튼`} />
-            </button>
+            <button
+              type="submit"
+              className={`${styles.modalButton} ${styles[actionType]}`}
+            ></button>
           </div>
+
+          <button
+            type="button"
+            className={styles.exitButtonMobile}
+            onClick={() => {
+              toast.dismiss();
+              onCancel();
+            }}
+          >
+            나가기
+          </button>
         </form>
       </div>
     </div>

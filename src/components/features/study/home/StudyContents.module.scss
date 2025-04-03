@@ -35,7 +35,14 @@ body {
     height: 2.625rem; // 42px -> 2.625rem
     border: 1px solid $gray-200;
     border-radius: $radius-sm;
+
     padding-left: 2.5rem; // 40px -> 2.5rem
+
+    &:focus {
+      outline: none;
+      border-color: $black;
+      transition-duration: 0.3s;
+    }
   }
 
   .searchIcon {
@@ -187,6 +194,10 @@ body {
   .studyCardContainer {
     width: 19.5rem; // 312px -> 19.5rem
     height: 11.25rem; // 180px -> 11.25rem
+  }
+
+  .optionBar {
+    justify-content: right;
   }
 }
 
