@@ -8,6 +8,21 @@ const client = axios.create({
 });
 
 /**
+ * 비밀번호 인증
+ */
+const authenticateFocus = async (studyId, password) => {
+  try {
+    const response = await client.post(`/study/${studyId}/focus/auth`, {
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error authenticating focus for study ID ${studyId}:`, error);
+    throw error;
+  }
+};
+
+/**
  * 집중 시작
  */
 const startFocus = async (studyId, targetTime) => {
@@ -50,6 +65,7 @@ const focusAPI = {
   stopFocus,
   getStudyInfo,
   updateStudyPoint,
+  authenticateFocus,
 };
 
 export default focusAPI;

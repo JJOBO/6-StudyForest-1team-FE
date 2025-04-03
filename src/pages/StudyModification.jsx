@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"; // useEffect 추가
+import React, { useState, useEffect } from "react";
 import styles from "./StudyModification.module.scss";
 import studyAPI from "../components/features/study/studyAPI";
-import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
+import { useNavigate, useParams } from "react-router-dom";
 import tablet from "../assets/background/tablet.jpg";
 import laptop from "../assets/background/laptop.jpg";
 import tile from "../assets/background/tile.jpg";
@@ -16,7 +16,7 @@ function StudyModification() {
   const [background, setBackground] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const { studyId } = useParams(); // studyId 가져오기
+  const { studyId } = useParams();
 
   const backgrounds = [
     { color: "#E1EDDE", name: "green" },
@@ -30,24 +30,29 @@ function StudyModification() {
   ];
 
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 스터디 정보를 가져와서 상태를 업데이트
-    const fetchStudyData = async () => {
+    const fetchStudyDetail = async () => {
       try {
-        const studyData = await studyAPI.getStudyInfo(studyId); // 스터디 정보 가져오기
-        setStudyName(studyData.name);
-        setNickname(studyData.creatorNick);
-        setDescription(studyData.description);
-        setBackground(studyData.background); // 기존 배경 설정
+        const studyDetail = await studyAPI.getStudyDetail(studyId);
+        setStudyName(studyDetail.name);
+        setNickname(studyDetail.creatorNick);
+        setDescription(studyDetail.description);
+        const foundBackground = backgrounds.find(
+          (bg) => bg.name === studyDetail.background
+        );
+        setBackground(
+          foundBackground ? foundBackground.color : studyDetail.background
+        );
       } catch (error) {
-        console.error("Failed to fetch study data:", error);
-        setErrors({ api: "스터디 정보를 가져오는데 실패했습니다." });
+        window.alert("스터디 정보를 가져오는데 실패했습니다.");
+        navigate("/");
+      } finally {
       }
     };
 
     if (studyId) {
-      fetchStudyData();
+      fetchStudyDetail();
     }
-  }, [studyId]);
+  }, [studyId, navigate]);
 
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
@@ -55,19 +60,25 @@ function StudyModification() {
     let validationErrors = {};
 
     // 유효성 검사
-    if (!password) validationErrors.password = "비밀번호를 입력해주세요.";
-    if (password !== confirmPassword)
-      validationErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
+    if (!studyName) validationErrors.studyName = "스터디 이름을 입력해주세요";
+    if (!nickname) validationErrors.nickname = "닉네임을 입력해주세요";
+    if (!description)
+      validationErrors.description = "소개 멘트를 작성해주세요.";
+    if (!background) validationErrors.background = "배경을 선택해주세요.";
+
+    if (password) {
+      if (password !== confirmPassword) {
+        validationErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
+      }
+    }
 
     setErrors(validationErrors);
 
-    // 오류가 있으면 함수 종료
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
     try {
-      // 선택된 배경의 이름을 찾음
       const selectedBackground = backgrounds.find(
         (bg) => bg.color === background
       );
@@ -75,24 +86,20 @@ function StudyModification() {
         ? selectedBackground.name
         : background;
 
-      // 스터디 수정에 필요한 데이터
       const studyData = {
         name: studyName,
         creatorNick: nickname,
         description: description,
         password: password,
         passwordConfirm: confirmPassword,
-        background: backgroundName, // 파일명 저장
+        background: backgroundName,
       };
-      // 스터디 수정 API 호출
       const response = await studyAPI.updateStudy(studyId, studyData);
       console.log("Study updated:", response);
       localStorage.setItem(`studyBackground-${studyId}`, background);
       navigate(`/${studyId}`);
     } catch (error) {
-      console.error("Failed to update study:", error);
-      window.alert("스터디 정보를 가져오는데 실패했습니다.");
-      setErrors({ api: "스터디 수정에 실패했습니다." });
+      window.alert("올바른 비밀번호를 입력해주세요.");
     }
   };
 
