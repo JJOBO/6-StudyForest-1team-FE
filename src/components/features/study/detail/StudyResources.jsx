@@ -8,6 +8,9 @@ import Emoji from "../../../common/Emoji";
 import LinkButton from "../../../common/LinkButton";
 import styles from "./StudyResources.module.scss"; // SCSS 모듈
 import PasswordPrompt from "../../../common/PasswordPrompt"; // 비밀번호 프롬프트
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { showErrorToast } from "./PasswordToast";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
@@ -57,7 +60,7 @@ function StudyResources({ studyId }) {
         alert("스터디 이름이 수정되었습니다.");
       } catch (error) {
         console.error("Failed to update study:", error);
-        alert("스터디 수정에 실패했습니다.");
+        showErrorToast();
       }
     }
   };
@@ -79,7 +82,7 @@ function StudyResources({ studyId }) {
       navigate("/"); // 홈으로 이동
     } catch (error) {
       console.error("Failed to delete study:", error);
-      alert("스터디 삭제에 실패했습니다.");
+      showErrorToast();
     }
     setShowPasswordPrompt(null); // 프롬프트 닫기
   };
@@ -91,7 +94,7 @@ function StudyResources({ studyId }) {
       navigate(`/${studyId}/habits`);
     } catch (error) {
       console.error(error);
-      alert("비밀번호가 틀렸습니다.");
+      showErrorToast();
     }
   };
 
@@ -102,7 +105,7 @@ function StudyResources({ studyId }) {
       navigate(`/${studyId}/focus`);
     } catch (error) {
       console.error(error);
-      alert("비밀번호가 틀렸습니다.");
+      showErrorToast();
     }
   };
 
@@ -196,6 +199,7 @@ function StudyResources({ studyId }) {
           onCancel={() => setShowPasswordPrompt(null)}
         />
       )}
+      <ToastContainer />
     </div>
   );
 }
