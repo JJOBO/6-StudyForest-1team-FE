@@ -36,6 +36,12 @@ body {
     border: 1px solid $gray-200;
     border-radius: $radius-sm;
     padding-left: 40px;
+
+    &:focus {
+      outline: none;
+      border-color: $black;
+      transition-duration: 0.3s;
+    }
   }
 
   .searchIcon {

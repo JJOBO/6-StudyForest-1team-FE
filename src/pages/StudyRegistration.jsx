@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./StudyRegistration.module.scss";
 import studyAPI from "../components/features/study/studyAPI";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,20 @@ import tablet from "../assets/background/tablet.jpg";
 import laptop from "../assets/background/laptop.jpg";
 import tile from "../assets/background/tile.jpg";
 import leaf from "../assets/background/leaf.jpg";
+import makeBtnPC from "../assets/buttons/btn_make/btn_make_pc.svg";
+import makeBtnMobile from "../assets/buttons/btn_make/btn_make_mobile.svg";
+import selectedIcon from "../assets/icons/ic_bg_selected.svg";
+
+const backgrounds = [
+  { color: "#E1EDDE", name: "green" },
+  { color: "#FFF1CC", name: "yellow" },
+  { color: "#E0F1F5", name: "blue" },
+  { color: "#FDE0E9", name: "pink" },
+  { color: tablet, name: "tablet" },
+  { color: laptop, name: "laptop" },
+  { color: tile, name: "tile" },
+  { color: leaf, name: "leaf" },
+];
 
 function StudyRegistration() {
   const [studyName, setStudyName] = useState("");
@@ -13,20 +27,19 @@ function StudyRegistration() {
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [background, setBackground] = useState("");
+  const [background, setBackground] = useState(backgrounds[0].color);
   const [errors, setErrors] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const navigate = useNavigate();
 
-  const backgrounds = [
-    { color: "#E1EDDE", name: "green" },
-    { color: "#FFF1CC", name: "yellow" },
-    { color: "#E0F1F5", name: "blue" },
-    { color: "#FDE0E9", name: "pink" },
-    { color: tablet, name: "tablet" },
-    { color: laptop, name: "laptop" },
-    { color: tile, name: "tile" },
-    { color: leaf, name: "leaf" },
-  ];
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
@@ -34,14 +47,14 @@ function StudyRegistration() {
     let validationErrors = {};
 
     // 유효성 검사
-    if (!studyName) validationErrors.studyName = "스터디 이름을 입력해주세요";
-    if (!nickname) validationErrors.nickname = "닉네임을 입력해주세요";
+    if (!studyName) validationErrors.studyName = "*스터디 이름을 입력해주세요";
+    if (!nickname) validationErrors.nickname = "*닉네임을 입력해주세요";
     if (!description)
-      validationErrors.description = "소개 멘트를 작성해주세요.";
-    if (!password) validationErrors.password = "비밀번호를 입력해주세요.";
+      validationErrors.description = "*소개 멘트를 작성해주세요.";
+    if (!password) validationErrors.password = "*비밀번호를 입력해주세요.";
     if (password !== confirmPassword)
-      validationErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
-    if (!background) validationErrors.background = "배경을 선택해주세요.";
+      validationErrors.confirmPassword = "*비밀번호가 일치하지 않습니다";
+    if (!background) validationErrors.background = "*배경을 선택해주세요.";
 
     setErrors(validationErrors);
 
@@ -86,8 +99,9 @@ function StudyRegistration() {
           {errors.api && <span className={styles.errorText}>{errors.api}</span>}
           <div
             className={`${styles.inputGroup} ${
-              errors.nickname ? styles.error : ""
-            }`}
+              errors.studyName ? styles.error : ""
+            }
+            `}
           >
             <label htmlFor="nickname">닉네임</label>
             <input
@@ -156,6 +170,14 @@ function StudyRegistration() {
                   ) : (
                     <img src={bg.color} alt={bg.name} />
                   )}
+
+                  {background === bg.color && (
+                    <img
+                      src={selectedIcon}
+                      alt="선택된 배경 아이콘"
+                      className={styles.selectedIcon}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -199,9 +221,9 @@ function StudyRegistration() {
               <span className={styles.errorText}>{errors.confirmPassword}</span>
             )}
           </div>
-          <div className={styles.submitButtonWrapper}>
-            <button type="submit">만들기</button>
-          </div>
+          <button className={styles.submitButtonWrapper}>
+            <img src={isMobile ? makeBtnMobile : makeBtnPC} alt="만들기 버튼" />
+          </button>
         </form>
       </div>
     </div>
