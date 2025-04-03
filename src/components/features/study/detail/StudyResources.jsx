@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import studyAPI from "../studyAPI";
+import focusAPI from "../../focus/focusAPI";
+import habitAPI from "../../habit/habitAPI";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import LinkButton from "../../../common/LinkButton";
