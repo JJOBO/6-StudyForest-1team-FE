@@ -11,7 +11,6 @@ function HabitRow({ habitName, records, stickerIndex = 0 }) {
       <div className={styles.habitCell}>
         {records.map((isDone, index) => {
           const stickerSrc = isDone ? doneSticker : emptySticker;
-
           return (
             <div key={index}>
               <img src={stickerSrc} alt="습관 체크 스티커" />

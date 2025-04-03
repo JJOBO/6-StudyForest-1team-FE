@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import studyAPI from "../studyAPI";
-import { Link } from "react-router-dom";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import styles from "./StudyResources.module.scss"; // Import SCSS module
