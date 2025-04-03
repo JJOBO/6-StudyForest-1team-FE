@@ -20,8 +20,7 @@
 
 .btnContainer {
   display: flex;
-  gap: 8px;
-  row-gap: 16px;
+  gap: 16px;
 }
 
 .btn {
@@ -41,4 +40,21 @@
   background-color: $gray-100;
   transition: background-color 0.3s;
 }
-    
+
+@media (max-width: 767px) {
+  .header{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .titleContainer {
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  .btn {
+    padding: 8px 6px 8px 10px;
+  }
+}

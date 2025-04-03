@@ -1,29 +1,30 @@
-@use "../../../../styles/variables" as vars;
-
 body {
-  background-color: vars.$bg;
+  background-color: $bg;
 }
 
 .studyContents {
   background-color: white;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   min-height: 70vh;
-  position: static;
-  border-radius: vars.$radius-md;
+  margin: 0 auto 10vh auto; // 가운데 정렬 + 아래 여백
+  border-radius: $radius-md;
   overflow-y: visible;
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+
   h2.title {
     font-size: 24px;
   }
-  margin-bottom: 10vh;
 }
 
 .optionBar {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .searchBar {
@@ -32,8 +33,8 @@ body {
   .searchInput {
     width: 335px;
     height: 42px;
-    border: 1px solid vars.$gray-200;
-    border-radius: vars.$radius-sm;
+    border: 1px solid $gray-200;
+    border-radius: $radius-sm;
     padding-left: 40px;
   }
 
@@ -54,17 +55,40 @@ body {
   .sortButton {
     width: 180px;
     height: 42px;
-    border: 1px solid vars.$gray-200;
-    border-radius: vars.$radius-sm;
+
+    border: 1px solid $gray-200;
+    border-radius: $radius-sm;
     background-color: white;
+
     cursor: pointer;
+    color: $gray-300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 16px;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid $gray-300;
+      pointer-events: none;
+    }
   }
 
   .sortList {
     width: 180px;
     list-style: none;
-    border: 1px solid vars.$gray-200;
-    border-radius: vars.$radius-md;
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
     background-color: white;
     position: absolute;
     top: calc(100% + 8px);
@@ -74,17 +98,24 @@ body {
     .sortItem {
       width: 100%;
       height: 42px;
-      border-bottom: 1px solid vars.$gray-200;
+      border-bottom: 1px solid $gray-200;
       cursor: pointer;
       text-align: center;
       line-height: 42px;
 
       &:last-child {
         border-bottom: none;
+        border-bottom-left-radius: $radius-md;
+        border-bottom-right-radius: $radius-md;
       }
 
       &:hover {
-        background-color: vars.$gray-100;
+        background-color: $gray-100;
+      }
+
+      &:first-child {
+        border-top-left-radius: $radius-md;
+        border-top-right-radius: $radius-md;
       }
     }
   }
@@ -103,14 +134,14 @@ body {
 }
 
 .studyCard {
-  border: 1px solid vars.$gray-200;
-  border-radius: vars.$radius-md;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
   text-align: center;
-  background-color: vars.$bg;
+  background-color: $bg;
 
   img {
     max-width: 100%;
-    border-radius: vars.$radius-md;
+    border-radius: $radius-md;
   }
 
   h3 {
@@ -118,14 +149,14 @@ body {
   }
 
   p {
-    color: vars.$gray-300;
+    color: $gray-300;
   }
 }
 
 .loadMore {
   display: block;
-  border: 1px solid vars.$gray-200;
-  border-radius: vars.$radius-md;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
   background-color: white;
   cursor: pointer;
   margin-top: 36px;
@@ -133,29 +164,17 @@ body {
   height: 53px;
   margin-left: auto;
   margin-right: auto;
+  color: $green-text;
 
   &:hover {
-    background-color: vars.$gray-100;
+    background-color: $gray-100;
   }
-}
-
-.loading {
-  text-align: center;
-  font-size: 18px;
-  color: vars.$gray-300;
 }
 
 .error {
   text-align: center;
   font-size: 18px;
-  color: vars.$error-200;
-}
-
-.loadingMore {
-  text-align: center;
-  color: $gray-300;
-  font-size: 14px;
-  margin-top: 8px;
+  color: $error-200;
 }
 
 .studyCardContainer {

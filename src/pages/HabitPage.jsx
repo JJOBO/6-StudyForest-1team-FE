@@ -48,7 +48,7 @@ export default function HabitPage() {
     }
   }, [studyId]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) return <div></div>;
   if (error) return <div>{error}</div>;
 
   const openModal = () => setIsModalOpen(true);
@@ -126,7 +126,7 @@ export default function HabitPage() {
   };
 
   return (
-    <>
+    <main className={styles.habitContainer}>
       <div className={styles.container}>
         <nav className={styles.nav}>
           <div className={styles.studyTitle}>
@@ -136,7 +136,7 @@ export default function HabitPage() {
             <Link to={`/${studyId}/focus`}>
               <button>오늘의 집중</button>
             </Link>
-            <Link to="/">
+            <Link to={`/${studyId}`}>
               <button>홈</button>
             </Link>
           </div>
@@ -149,39 +149,41 @@ export default function HabitPage() {
         </nav>
 
         <section className={styles.section}>
-          <div className={styles.habitBar}>
-            <div className={styles.habitTitle}>오늘의 습관</div>
-            <button onClick={openModal} className={styles.editBtn}>
-              목록수정
-            </button>
-            <HabitModal
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              habits={habits}
-              onSave={saveHabits}
-              onDelete={deleteHabit}
-            />
-          </div>
-          <div className={styles.habitList}>
-            {habits.length > 0 ? (
-              habits.map((habit) => (
-                <HabitList
-                  key={habit.id}
-                  habit={habit}
-                  toggleCheckHabit={toggleCheckHabit}
-                  checkedHabits={checkedHabits}
-                />
-              ))
-            ) : (
-              <p>
-                아직 습관이 없어요
-                <br />
-                목록 수정을 눌러서 습관을 생성해 보세요
-              </p>
-            )}
+          <div className={styles.habitContent}>
+            <div className={styles.habitBar}>
+              <div className={styles.habitTitle}>오늘의 습관</div>
+              <button onClick={openModal} className={styles.editBtn}>
+                목록수정
+              </button>
+              <HabitModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                habits={habits}
+                onSave={saveHabits}
+                onDelete={deleteHabit}
+              />
+            </div>
+            <div className={styles.habitList}>
+              {habits.length > 0 ? (
+                habits.map((habit) => (
+                  <HabitList
+                    key={habit.id}
+                    habit={habit}
+                    toggleCheckHabit={toggleCheckHabit}
+                    checkedHabits={checkedHabits}
+                  />
+                ))
+              ) : (
+                <p>
+                  아직 습관이 없어요
+                  <br />
+                  목록 수정을 눌러서 습관을 생성해 보세요
+                </p>
+              )}
+            </div>
           </div>
         </section>
       </div>
-    </>
+    </main>
   );
 }

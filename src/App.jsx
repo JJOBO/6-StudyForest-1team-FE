@@ -16,10 +16,13 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/registration" element={<StudyRegistration />} />
-            <Route path="/modification" element={<StudyModification />} />
             <Route path=":studyId" element={<StudyDetail />} />
             <Route path=":studyId/focus" element={<FocusPage />} />
             <Route path=":studyId/habits" element={<HabitPage />} />
+            <Route
+              path=":studyId/modification"
+              element={<StudyModification />}
+            />
           </Route>
         </Routes>
       </HabitProvider>

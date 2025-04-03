@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import studyAPI from "../studyAPI";
 import styles from "./StudyContents.module.scss";
 import StudyCard from "./StudyCard";
@@ -8,18 +8,18 @@ import searchIcon from "../../../../../src/assets/icons/ic_search.svg";
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("createdAt");
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const [cards, setCards] = useState([]);
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // 실제 검색에 사용될 쿼리
+  const sortRef = useRef(null);
 
   useEffect(() => {
     const fetchStudies = async () => {
       if (offset === 0) setIsInitialLoading(true);
-      setIsLoading(true);
       setError(null);
       try {
         const data = await studyAPI.getStudyList(
@@ -34,7 +34,6 @@ function StudyContents() {
       } catch (err) {
         setError(err);
       } finally {
-        setIsLoading(false);
         if (offset === 0) setIsInitialLoading(false);
       }
     };
@@ -45,7 +44,18 @@ function StudyContents() {
     } else if (offset === 0) {
       fetchStudies();
     }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [searchQuery, sortOption, offset]);
+
+  const handleClickOutside = (e) => {
+    if (sortRef.current && !sortRef.current.contains(e.target)) {
+      setIsSortOpen(false);
+    }
+  };
 
   const handleLoadMore = () => {
     if (cards.length < total) {
@@ -90,9 +100,7 @@ function StudyContents() {
     }
   };
   // 최초 로딩일 때만 전체 로딩 화면 표시
-  if (isInitialLoading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  if (isInitialLoading) return;
 
   if (error) {
     return <div className={styles.error}>Error: {error.message}</div>;
@@ -115,30 +123,39 @@ function StudyContents() {
             className={styles.searchInput}
           />
         </div>
-        <div className={styles.sortDropdown}>
-          <button className={styles.sortButton}>
-            {
+
+        <div className={styles.sortDropdown} ref={sortRef}>
+          <button
+            className={styles.sortButton}
+            onClick={() => setIsSortOpen((prev) => !prev)}
+          >
+            <span className={styles.sortLabel}>
               {
-                createdAt: "최근 순",
-                oldest: "오래된 순",
-                totalPointsDesc: "많은 포인트 순",
-                totalPointsAsc: "적은 포인트 순",
-              }[sortOption]
-            }
+                {
+                  createdAt: "최근 순",
+                  oldest: "오래된 순",
+                  totalPointsDesc: "많은 포인트 순",
+                  totalPointsAsc: "적은 포인트 순",
+                }[sortOption]
+              }
+            </span>
+            <span className={styles.sortIcon}></span>
           </button>
-          <ul className={styles.sortList}>
-            {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
-              (option) => (
-                <li
-                  key={option}
-                  onClick={() => handleSortChange(option)}
-                  className={styles.sortItem}
-                >
-                  {option}
-                </li>
-              )
-            )}
-          </ul>
+          {isSortOpen && (
+            <ul className={styles.sortList}>
+              {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
+                (option) => (
+                  <li
+                    key={option}
+                    onClick={() => handleSortChange(option)}
+                    className={styles.sortItem}
+                  >
+                    {option}
+                  </li>
+                )
+              )}
+            </ul>
+          )}
         </div>
       </div>
 
@@ -170,10 +187,6 @@ function StudyContents() {
           <button className={styles.loadMore} onClick={handleLoadMore}>
             더보기
           </button>
-          {/* 추가 로딩 중일 때 아래쪽 로딩 메시지 표시 */}
-          {isLoading && (
-            <div className={styles.loadingMore}>불러오는 중...</div>
-          )}
         </div>
       )}
     </div>

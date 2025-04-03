@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import studyAPI from "../studyAPI";
 import focusAPI from "../../focus/focusAPI";
 import habitAPI from "../../habit/habitAPI";
 import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
-import styles from "./StudyResources.module.scss"; // Import SCSS module
-import PasswordPrompt from "../../../common/PasswordPrompt"; // PasswordPrompt 컴포넌트 추가
+import LinkButton from "../../../common/LinkButton";
+import styles from "./StudyResources.module.scss";
+import PasswordPrompt from "../../../common/PasswordPrompt";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { showErrorToast } from "./PasswordToast";
+import Picker from "emoji-picker-react";
+import AddButtonIcon from "/src/assets/buttons/btn_add.svg";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(null);
+  const [showPicker, setShowPicker] = useState(false);
+  const navigate = useNavigate();
 
+  // 스터디 상세 정보 불러오기
   useEffect(() => {
     const fetchStudyDetail = async () => {
       try {
@@ -26,8 +36,27 @@ function StudyResources({ studyId }) {
     }
   }, [studyId]);
 
+  // 이모지 피커에서 이모지 선택 시 호출되는 함수
+  const onEmojiClick = async (emojiData) => {
+    setShowPicker(false);
+    try {
+      await studyAPI.addEmojiToStudy(studyId, emojiData.emoji);
+      // 이모지 추가 후 스터디 상세 정보를 다시 불러와서 이모지 목록을 업데이트
+      const data = await studyAPI.getStudyDetail(studyId);
+      setStudyDetail(data);
+    } catch (error) {
+      console.error("Failed to add emoji:", error);
+    }
+  };
+
+  // 이모지 추가 버튼 클릭 시 호출되는 함수
+  const handleAddEmojiClick = () => {
+    setShowPicker(!showPicker);
+  };
+
+  // 공유하기 링크 복사
   const handleShare = async () => {
-    const shareUrl = `${window.location.origin}/study/${studyId}`;
+    const shareUrl = `${window.location.origin}/${studyId}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
       alert(`링크가 복사되었습니다: ${shareUrl}`);
@@ -37,149 +66,185 @@ function StudyResources({ studyId }) {
     }
   };
 
-  const handleEdit = async () => {
-    const newName = prompt(
-      "새로운 스터디 이름을 입력하세요:",
-      studyDetail.name
-    );
-    if (newName && newName !== studyDetail.name) {
-      try {
-        const updatedStudy = await studyAPI.updateStudy(studyId, {
-          name: newName,
-        });
-        setStudyDetail({ ...studyDetail, name: updatedStudy.name });
-        alert("스터디 이름이 수정되었습니다.");
-      } catch (error) {
-        console.error("Failed to update study:", error);
-        alert("스터디 수정에 실패했습니다.");
-      }
-    }
-  };
-
+  // 스터디 삭제
   const handleDelete = async (password) => {
-    if (password) {
-      try {
-        await studyAPI.deleteStudy(studyId, password);
-
-        // localStorage에서 스터디 ID 제거
-        const recentStudyIds = JSON.parse(
-          localStorage.getItem("recentStudyIds") || "[]"
-        );
-        const updatedStudyIds = recentStudyIds.filter((id) => id !== studyId);
-        localStorage.setItem("recentStudyIds", JSON.stringify(updatedStudyIds));
-
-        alert("스터디가 삭제되었습니다.");
-        window.location.href = "/"; // 홈 또는 다른 페이지로 리다이렉트
-      } catch (error) {
-        console.error("Failed to delete study:", error);
-        alert("스터디 삭제에 실패했습니다.");
-      }
+    if (!password) return;
+    try {
+      await studyAPI.deleteStudy(studyId, password);
+      const recentStudyIds = JSON.parse(
+        localStorage.getItem("recentStudyIds") || "[]"
+      );
+      const updatedIds = recentStudyIds.filter((id) => id !== studyId);
+      localStorage.setItem("recentStudyIds", JSON.stringify(updatedIds));
+      alert("스터디가 삭제되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.error("Failed to delete study:", error);
+      showErrorToast();
+      return;
     }
-    setShowPasswordPrompt(false); // 비밀번호 프롬프트 닫기
+    setShowPasswordPrompt(null);
   };
 
+  // 스터디 수정 페이지로 이동
+  const handleEdit = async (password) => {
+    try {
+      const result = await studyAPI.authenticateStudy(studyId, password);
+      if (result.success) {
+        navigate(`/${studyId}/modification`);
+        setShowPasswordPrompt(null);
+      } else {
+        throw new Error("Unauthorized");
+      }
+    } catch (error) {
+      console.error(error);
+      showErrorToast();
+    }
+  };
+
+  // 습관 페이지 인증 후 이동
   const handleHabitAccess = async (password) => {
     try {
       await habitAPI.authenticateHabit(studyId, password);
-      window.location.href = `/${studyId}/habits`;
+      navigate(`/${studyId}/habits`);
+      setShowPasswordPrompt(null);
     } catch (error) {
       console.error(error);
-      alert("비밀번호가 틀렸습니다.");
+      showErrorToast();
     }
   };
 
+  // 집중 페이지 인증 후 이동
   const handleFocusAccess = async (password) => {
     try {
       await focusAPI.authenticateFocus(studyId, password);
-      window.location.href = `/${studyId}/focus`;
+      navigate(`/${studyId}/focus`);
+      setShowPasswordPrompt(null);
     } catch (error) {
       console.error(error);
-      alert("비밀번호가 틀렸습니다.");
+      showErrorToast();
     }
   };
 
   return (
-    <div>
-      {studyDetail ? (
-        <div>
-          <div className={styles.studyHeader}>
-            <div className={styles.studyEmojis}>
-              {studyDetail.emojis.map((emoji, index) => (
-                <Emoji
-                  type="general"
-                  key={index}
-                  emoji={emoji.emoji}
-                  count={emoji.count}
-                />
-              ))}
-            </div>
-            <div className={styles.studyOptions}>
-              <p onClick={handleShare}>공유하기</p>
-              <p>|</p>
-              <p onClick={handleEdit}>수정하기</p>
-              <p>|</p>
-              {/* 비밀번호 프롬프트를 열기 위한 버튼 */}
-              <p onClick={() => setShowPasswordPrompt("delete")}>
-                스터디 삭제하기
-              </p>
-            </div>
-          </div>
-          <div className={styles.studyContainer}>
-            <div className={styles.studyTitle}>
-              <h1>
-                {studyDetail.creatorNick}의 {studyDetail.name}
-              </h1>
-              <div className={styles.linkButtons}>
-                <button onClick={() => setShowPasswordPrompt("habit")}>
-                  오늘의 습관
+    <>
+      <div>
+        {studyDetail ? (
+          <div>
+            <div className={styles.studyHeader}>
+              <div className={styles.studyEmojis}>
+                {studyDetail.emojis.map((emoji, index) => (
+                  <Emoji
+                    key={index}
+                    type="general"
+                    emoji={emoji.emoji}
+                    count={emoji.count}
+                  />
+                ))}
+                {/* 이모지 추가 버튼 */}
+                <button
+                  className={styles.emojiAddButton}
+                  onClick={handleAddEmojiClick}
+                >
+                  <img src={AddButtonIcon} alt="이모지 추가" />
                 </button>
-                <button onClick={() => setShowPasswordPrompt("focus")}>
-                  오늘의 집중
-                </button>
+
+                {/* 이모지 피커 */}
+                {showPicker && (
+                  <Picker
+                    onEmojiClick={onEmojiClick}
+                    pickerStyle={{ width: "100%" }}
+                  />
+                )}
+              </div>
+              <div className={styles.studyOptions}>
+                <p onClick={handleShare}>공유하기</p>
+                <p>|</p>
+                <p onClick={() => setShowPasswordPrompt("modification")}>
+                  수정하기
+                </p>
+                <p>|</p>
+                <p onClick={() => setShowPasswordPrompt("delete")}>
+                  스터디 삭제하기
+                </p>
               </div>
             </div>
-            <div className={styles.studyDescription}>
-              <p>소개</p>
-              <p>{studyDetail.description}</p>
-            </div>
-            <div className={styles.studyPoints}>
-              <p>현재까지 획득한 포인트</p>
-              <Point
-                type="general"
-                points={studyDetail.totalPoints}
-                className={styles.point}
-              />
+            <div className={styles.studyContainer}>
+              <div className={styles.studyTitle}>
+                <h1>
+                  {studyDetail.creatorNick}의 {studyDetail.name}
+                </h1>
+                <div className={styles.linkButtons}>
+                  <LinkButton
+                    type="habit"
+                    onClick={() => setShowPasswordPrompt("habit")}
+                  />
+                  <LinkButton
+                    type="focus"
+                    onClick={() => setShowPasswordPrompt("focus")}
+                  />
+                </div>
+              </div>
+              <div className={styles.studyDescription}>
+                <p>소개</p>
+                <p>{studyDetail.description}</p>
+              </div>
+              <div className={styles.studyPoints}>
+                <p>현재까지 획득한 포인트</p>
+                <Point
+                  type="general"
+                  points={studyDetail.totalPoints}
+                  className={styles.point}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <p>스터디 디테일 로딩중...</p>
-      )}
-      {studyDetail && showPasswordPrompt === "delete" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="삭제"
-          onSubmit={handleDelete}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
-      {studyDetail && showPasswordPrompt === "habit" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="습관"
-          onSubmit={handleHabitAccess}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
-      {studyDetail && showPasswordPrompt === "focus" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="집중"
-          onSubmit={handleFocusAccess}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
-    </div>
+        ) : (
+          <p></p>
+        )}
+
+        {/* 비밀번호 입력 모달 - 삭제 */}
+        {studyDetail && showPasswordPrompt === "delete" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="삭제"
+            onSubmit={handleDelete}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
+
+        {/* 비밀번호 입력 모달 - 습관 */}
+        {studyDetail && showPasswordPrompt === "habit" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="습관"
+            onSubmit={handleHabitAccess}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
+
+        {/* 비밀번호 입력 모달 - 집중 */}
+        {studyDetail && showPasswordPrompt === "focus" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="집중"
+            onSubmit={handleFocusAccess}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
+
+        {/* 비밀번호 입력 모달 - 수정 */}
+        {studyDetail && showPasswordPrompt === "modification" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="수정"
+            onSubmit={handleEdit}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
+      </div>
+      <ToastContainer position="bottom-center" />
+    </>
   );
 }
 
