@@ -54,7 +54,14 @@ function PasswordPrompt({
       <div className={styles.modal}>
         <header>
           <h2>{studyTitle}</h2>
-          <button onClick={onCancel}>나가기</button>
+          <button
+            onClick={() => {
+              toast.dismiss();
+              onCancel();
+            }}
+          >
+            나가기
+          </button>
         </header>
         <p>권한이 필요해요!</p>
         <div className={styles.passwordInput}>
