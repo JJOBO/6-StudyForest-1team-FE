@@ -41,7 +41,8 @@ function PasswordPrompt({
     return modificationButton; // 기본값
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (password.trim()) {
       onSubmit(password);
     } else {
@@ -64,35 +65,38 @@ function PasswordPrompt({
           </button>
         </header>
         <p>권한이 필요해요!</p>
-        <div className={styles.passwordInput}>
-          <p>비밀번호</p>
-          <div className={styles.inputWrapper}>
-            <input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                toast.dismiss();
-              }}
-              placeholder="비밀번호를 입력하세요"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className={styles.toggleButton}
-            >
-              <img
-                src={showPassword ? visibilityOnIcon : visibilityOffIcon}
-                alt={showPassword ? "숨기기" : "보기"}
+
+        <form onSubmit={handleSubmit}>
+          <div className={styles.passwordInput}>
+            <p>비밀번호</p>
+            <div className={styles.inputWrapper}>
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => {
+                  toast.dismiss();
+                  setPassword(e.target.value);
+                }}
+                placeholder="비밀번호를 입력하세요"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className={styles.toggleButton}
+              >
+                <img
+                  src={showPassword ? visibilityOnIcon : visibilityOffIcon}
+                  alt={showPassword ? "숨기기" : "보기"}
+                />
+              </button>
+            </div>
+          </div>
+          <div className={styles.buttonGroup}>
+            <button type="submit" className={styles.modificationButton}>
+              <img src={getButtonImage()} alt={`${actionType} 버튼`} />
             </button>
           </div>
-        </div>
-        <div className={styles.buttonGroup}>
-          <button onClick={handleSubmit} className={styles.modificationButton}>
-            <img src={getButtonImage()} alt={`${actionType} 버튼`} />
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );

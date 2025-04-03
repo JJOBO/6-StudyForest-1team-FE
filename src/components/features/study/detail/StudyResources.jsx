@@ -97,7 +97,7 @@ function StudyResources({ studyId }) {
         throw new Error("Unauthorized");
       }
     } catch (error) {
-      console.error("Failed to authenticate for modification:", error);
+      console.error(error);
       showErrorToast();
     }
   };
@@ -202,47 +202,48 @@ function StudyResources({ studyId }) {
         <p></p>
       )}
 
-      {/* 비밀번호 입력 모달 - 삭제 */}
-      {studyDetail && showPasswordPrompt === "delete" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="삭제"
-          onSubmit={handleDelete}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
+        {/* 비밀번호 입력 모달 - 삭제 */}
+        {studyDetail && showPasswordPrompt === "delete" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="삭제"
+            onSubmit={handleDelete}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
 
-      {/* 비밀번호 입력 모달 - 습관 */}
-      {studyDetail && showPasswordPrompt === "habit" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="습관"
-          onSubmit={handleHabitAccess}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
+        {/* 비밀번호 입력 모달 - 습관 */}
+        {studyDetail && showPasswordPrompt === "habit" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="습관"
+            onSubmit={handleHabitAccess}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
 
-      {/* 비밀번호 입력 모달 - 집중 */}
-      {studyDetail && showPasswordPrompt === "focus" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="집중"
-          onSubmit={handleFocusAccess}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
+        {/* 비밀번호 입력 모달 - 집중 */}
+        {studyDetail && showPasswordPrompt === "focus" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="집중"
+            onSubmit={handleFocusAccess}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
 
-      {/* 비밀번호 입력 모달 - 수정 */}
-      {studyDetail && showPasswordPrompt === "modification" && (
-        <PasswordPrompt
-          studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-          actionType="수정"
-          onSubmit={handleEdit}
-          onCancel={() => setShowPasswordPrompt(null)}
-        />
-      )}
-      <ToastContainer />
-    </div>
+        {/* 비밀번호 입력 모달 - 수정 */}
+        {studyDetail && showPasswordPrompt === "modification" && (
+          <PasswordPrompt
+            studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
+            actionType="수정"
+            onSubmit={handleEdit}
+            onCancel={() => setShowPasswordPrompt(null)}
+          />
+        )}
+      </div>
+      <ToastContainer position="bottom-center" />
+    </>
   );
 }
 
