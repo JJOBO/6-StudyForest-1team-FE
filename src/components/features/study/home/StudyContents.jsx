@@ -89,7 +89,7 @@ function StudyContents() {
       setSearchQuery(searchTerm); // 실제 검색 쿼리 업데이트
     }
   };
-// 최초 로딩일 때만 전체 로딩 화면 표시
+  // 최초 로딩일 때만 전체 로딩 화면 표시
   if (isInitialLoading) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -169,7 +169,9 @@ function StudyContents() {
             더보기
           </button>
           {/* 추가 로딩 중일 때 아래쪽 로딩 메시지 표시 */}
-          {isLoading && <div className={styles.loadingMore}>불러오는 중...</div>}
+          {isLoading && (
+            <div className={styles.loadingMore}>불러오는 중...</div>
+          )}
         </div>
       )}
     </div>
