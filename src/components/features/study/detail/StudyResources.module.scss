@@ -1,43 +1,55 @@
 .studyHeader {
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem; // 24px -> 1.5rem
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column-reverse;
+    gap: 1rem; // 16px -> 1rem
+    font-size: 0.75rem; // 12px -> 0.75rem
+    align-items: unset;
+  }
 }
 
 .studyTitle {
-  margin-bottom: 16px;
+  margin-bottom: 1rem; // 16px -> 1rem
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem; // 16px -> 1rem
+  }
 }
 
 .studyDescription {
-  margin-bottom: 24px;
-  font-size: 18px;
+  margin-bottom: 1.5rem; // 24px -> 1.5rem
+  font-size: 1.125rem; // 18px -> 1.125rem
   p:first-child {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem; // 8px -> 0.5rem
     color: #818181;
   }
 }
 
 .studyPoints {
-  gap: 8px;
-  margin-top: 24px;
+  gap: 0.5rem; // 8px -> 0.5rem
+  margin-top: 1.5rem; // 24px -> 1.5rem
   p:first-child {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem; // 8px -> 0.5rem
     color: #818181;
-    font-size: 18px;
+    font-size: 1.125rem; // 18px -> 1.125rem
   }
 
   .point {
-    width: 116px;
-    height: 35px;
+    width: 7.25rem; // 116px -> 7.25rem
+    height: 2.1875rem; // 35px -> 2.1875rem
   }
 }
 
 .studyOptions {
+  gap: 1rem; // 16px -> 1rem
   display: flex;
-  gap: 16px;
 
   p {
     cursor: pointer;
@@ -47,14 +59,27 @@
   p:last-child {
     color: #818181;
   }
+
+  @media (max-width: $mobile) {
+    gap: 0.5rem; // 8px -> 0.5rem
+    justify-content: flex-end;
+  }
 }
 
 .studyEmojis {
+  gap: 0.25rem; // 4px -> 0.25rem
   display: flex;
-  gap: 8px;
 }
 
 .linkButtons {
+  gap: 1rem; // 16px -> 1rem
   display: flex;
-  gap: 16px;
+
+  @media (max-width: $tablet) {
+    gap: 0.5rem; // 8px -> 0.5rem
+  }
+
+  @media (max-width: $mobile) {
+    gap: 0.5rem; // 8px -> 0.5rem
+  }
 }
