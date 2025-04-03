@@ -5,18 +5,18 @@ body {
 .studyContents {
   background-color: white;
   width: 100%;
-  max-width: 1200px;
+  max-width: 75rem; // 1200px -> 75rem
   min-height: 70vh;
   margin: 0 auto 10vh auto; // 가운데 정렬 + 아래 여백
   border-radius: $radius-md;
   overflow-y: visible;
-  padding: 40px;
+  padding: 2.5rem; // 40px -> 2.5rem
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1.5rem; // 24px -> 1.5rem
 
   h2.title {
-    font-size: 24px;
+    font-size: 1.5rem; // 24px -> 1.5rem
   }
 }
 
@@ -24,27 +24,27 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 1rem; // 16px -> 1rem
 }
 
 .searchBar {
   position: relative;
 
   .searchInput {
-    width: 335px;
-    height: 42px;
+    width: 20.9375rem; // 335px -> 20.9375rem
+    height: 2.625rem; // 42px -> 2.625rem
     border: 1px solid $gray-200;
     border-radius: $radius-sm;
-    padding-left: 40px;
+    padding-left: 2.5rem; // 40px -> 2.5rem
   }
 
   .searchIcon {
     position: absolute;
     top: 50%;
-    left: 16px;
+    left: 1rem; // 16px -> 1rem
     transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
+    width: 1.125rem; // 18px -> 1.125rem
+    height: 1.125rem; // 18px -> 1.125rem
     pointer-events: none;
   }
 }
@@ -53,55 +53,53 @@ body {
   position: relative;
 
   .sortButton {
-    width: 180px;
-    height: 42px;
-
+    width: 11.25rem; // 180px -> 11.25rem
+    height: 2.625rem; // 42px -> 2.625rem
     border: 1px solid $gray-200;
     border-radius: $radius-sm;
     background-color: white;
-
     cursor: pointer;
     color: $gray-300;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    font-size: 16px;
+    padding: 0 1.25rem; // 20px -> 1.25rem
+    font-size: 1rem; // 16px -> 1rem
 
     &::after {
       content: "";
       display: inline-block;
       position: absolute;
-      right: 16px;
+      right: 1rem; // 16px -> 1rem
       top: 50%;
       transform: translateY(-50%);
       width: 0;
       height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 6px solid $gray-300;
+      border-left: 0.375rem solid transparent; // 6px -> 0.375rem
+      border-right: 0.375rem solid transparent; // 6px -> 0.375rem
+      border-top: 0.375rem solid $gray-300; // 6px -> 0.375rem
       pointer-events: none;
     }
   }
 
   .sortList {
-    width: 180px;
+    width: 11.25rem; // 180px -> 11.25rem
     list-style: none;
     border: 1px solid $gray-200;
     border-radius: $radius-md;
     background-color: white;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 0.5rem); // 8px -> 0.5rem
     display: none;
     z-index: 10;
 
     .sortItem {
       width: 100%;
-      height: 42px;
+      height: 2.625rem; // 42px -> 2.625rem
       border-bottom: 1px solid $gray-200;
       cursor: pointer;
       text-align: center;
-      line-height: 42px;
+      line-height: 2.625rem; // 42px -> 2.625rem
 
       &:last-child {
         border-bottom: none;
@@ -128,8 +126,11 @@ body {
 
 .studyCards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(18.75rem, 1fr)
+  ); // 300px -> 18.75rem
+  gap: 1.5rem; // 24px -> 1.5rem
   justify-items: center;
 }
 
@@ -145,7 +146,7 @@ body {
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 1.125rem; // 18px -> 1.125rem
   }
 
   p {
@@ -159,9 +160,9 @@ body {
   border-radius: $radius-md;
   background-color: white;
   cursor: pointer;
-  margin-top: 36px;
-  width: 280px;
-  height: 53px;
+  margin-top: 2.25rem; // 36px -> 2.25rem
+  width: 17.5rem; // 280px -> 17.5rem
+  height: 3.3125rem; // 53px -> 3.3125rem
   margin-left: auto;
   margin-right: auto;
   color: $green-text;
@@ -173,25 +174,25 @@ body {
 
 .error {
   text-align: center;
-  font-size: 18px;
+  font-size: 1.125rem; // 18px -> 1.125rem
   color: $error-200;
 }
 
 .studyCardContainer {
-  width: 358px;
-  height: 243px;
+  width: 22.375rem; // 358px -> 22.375rem
+  height: 15.1875rem; // 243px -> 15.1875rem
 }
 
 @media (max-width: $mobile) {
   .studyCardContainer {
-    width: 312px;
-    height: 180px;
+    width: 19.5rem; // 312px -> 19.5rem
+    height: 11.25rem; // 180px -> 11.25rem
   }
 }
 
 @media (max-width: $tablet) {
   .studyCardContainer {
-    width: 312px;
-    height: 243px;
+    width: 19.5rem; // 312px -> 19.5rem
+    height: 15.1875rem; // 243px -> 15.1875rem
   }
 }
