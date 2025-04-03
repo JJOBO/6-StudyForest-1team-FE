@@ -1,9 +1,8 @@
-// src/features/study/home/RecentStudy.jsx
 import React, { useState, useEffect } from "react";
 import studyAPI from "../studyAPI";
 import styles from "./RecentStudy.module.scss";
 import StudyCard from "./StudyCard";
-import { Link } from "react-router-dom"; // Link 추가
+import { Link } from "react-router-dom";
 
 function RecentStudy() {
   const [recentStudies, setRecentStudies] = useState([]);
@@ -15,28 +14,37 @@ function RecentStudy() {
       setIsLoading(true);
       setError(null);
       try {
-        const recentStudyIds = JSON.parse(
+        let recentStudyIds = JSON.parse(
           localStorage.getItem("recentStudyIds") || "[]"
         );
-
         if (recentStudyIds.length === 0) {
           setRecentStudies([]);
           setIsLoading(false);
           return;
         }
 
-        // 스터디 ID 목록을 사용하여 스터디 정보를 가져옵니다.
+        const validStudyIds = []; // 유효한 스터디 ID를 저장할 배열
         const studyPromises = recentStudyIds.map(async (studyId) => {
           if (!studyId) {
+            return null;
+          }
+          try {
+            const studyDetail = await studyAPI.getStudyDetail(studyId);
+            validStudyIds.push(studyId); // 유효한 ID 추가
+            return studyDetail;
+          } catch (err) {
+            // 스터디를 찾을 수 없는 경우 (삭제된 경우)
+            console.error(`스터디 ID ${studyId}를 찾을 수 없습니다.`, err);
             return null; // 유효하지 않은 ID는 무시
           }
-          const studyDetail = await studyAPI.getStudyDetail(studyId);
-          return studyDetail;
         });
 
         const studyDetails = (await Promise.all(studyPromises)).filter(
           (study) => study !== null
         );
+
+        // 유효하지 않은 ID를 제거한 후 로컬 스토리지 업데이트
+        localStorage.setItem("recentStudyIds", JSON.stringify(validStudyIds));
         setRecentStudies(studyDetails);
       } catch (err) {
         setError(err);
@@ -80,18 +88,20 @@ function RecentStudy() {
               key={study.id}
               className={styles.studyCardLink}
             >
-              <StudyCard
-                key={study.id}
-                name={study.name}
-                description={study.description}
-                image={study.background}
-                points={study.totalPoints}
-                createdAt={study.createdAt}
-                emojis={study.emojis}
-                calculateDays={calculateDays}
-                background={study.background}
-                creatorNick={study.creatorNick}
-              />
+              <div className={styles.studyCardContainer}>
+                <StudyCard
+                  key={study.id}
+                  name={study.name}
+                  description={study.description}
+                  image={study.background}
+                  points={study.totalPoints}
+                  createdAt={study.createdAt}
+                  emojis={study.emojis}
+                  calculateDays={calculateDays}
+                  background={study.background}
+                  creatorNick={study.creatorNick}
+                />
+              </div>
             </Link>
           ))
         )}

@@ -100,6 +100,7 @@ function StudyContents() {
     }
   };
   // 최초 로딩일 때만 전체 로딩 화면 표시
+
   if (isInitialLoading) return;
 
   if (error) {
@@ -166,17 +167,19 @@ function StudyContents() {
             key={card.id}
             className={styles.studyCardLink}
           >
-            <StudyCard
-              name={card.name}
-              description={card.description}
-              image={card.background}
-              points={card.totalPoints}
-              createdAt={card.createdAt}
-              emojis={card.emojis}
-              background={card.background}
-              calculateDays={calculateDays}
-              creatorNick={card.creatorNick}
-            />
+            <div className={styles.studyCardContainer}>
+              <StudyCard
+                name={card.name}
+                description={card.description}
+                image={card.background}
+                points={card.totalPoints}
+                createdAt={card.createdAt}
+                emojis={card.emojis}
+                background={card.background}
+                calculateDays={calculateDays}
+                creatorNick={card.creatorNick}
+              />
+            </div>
           </Link>
         ))}
       </div>

@@ -2,41 +2,41 @@
 
 .recentStudy {
   background-color: white;
-  width: 1200px;
-  height: 382px;
+  width: 75rem; // 1200px -> 75rem
+  height: 23.875rem; // 382px -> 23.875rem
   border-radius: vars.$radius-md;
   display: flex;
   flex-direction: column; // 제목과 카드를 수직으로 쌓기
-  gap: 30px;
-  font-size: 24px; // 컨테이너 글꼴 크기 설정
-  padding: 40px 38px 40px 40px; // 상하 40, 우 38, 좌 40
-  margin-top: 40px; // 위쪽 마진 40 추가
+  gap: 1.875rem; // 30px -> 1.875rem
+  font-size: 1.5rem; // 24px -> 1.5rem
+  padding: 2.5rem 2.375rem 2.5rem 2.5rem; // 40px 38px 40px 40px -> 2.5rem 2.375rem 2.5rem 2.5rem
+  margin-top: 2.5rem; // 40px -> 2.5rem
   overflow-y: hidden; // 세로 스크롤 비활성화
 
   h2 {
-    font-size: 24px; // 글꼴 크기 업데이트
+    font-size: 1.5rem; // 24px -> 1.5rem
     font-weight: 800; // 제목을 굵게 표시
   }
 
   .studyCards {
     display: flex;
-    gap: 24px; // 카드 간격 설정
+    gap: 1.5rem; // 24px -> 1.5rem
     justify-content: flex-start; // 카드를 왼쪽 정렬
     overflow-x: auto; // 가로 스크롤 활성화
     overflow-y: hidden; // 세로 스크롤 비활성화
     white-space: nowrap; // 자식 요소가 줄바꿈되지 않도록 설정
-    padding-bottom: 260px; // 스크롤바와 콘텐츠 간격 추가
+    padding-bottom: 16.25rem; // 260px -> 16.25rem
     scrollbar-width: auto; // 스크롤바 두께 조정 (Firefox)
     scrollbar-color: vars.$gray-200 transparent; // 스크롤바 색상 조정 (Firefox)
   }
 
   .studyCards::-webkit-scrollbar {
-    height: 8px; // 스크롤바 높이 조정 (Webkit)
+    height: 0.5rem; // 8px -> 0.5rem
   }
 
   .studyCards::-webkit-scrollbar-thumb {
     background-color: vars.$gray-200; // 스크롤바 색상 조정 (Webkit)
-    border-radius: 4px; // 스크롤바 모서리 둥글게
+    border-radius: 0.25rem; // 4px -> 0.25rem
   }
 
   .studyCards::-webkit-scrollbar-track {
@@ -47,14 +47,14 @@
 .studyCard {
   background: vars.$gray-100;
   border-radius: vars.$radius-sm;
-  box-shadow: 0 2px 5px rgba(vars.$black, 0.1);
+  box-shadow: 0 0.125rem 0.3125rem rgba(vars.$black, 0.1); // 0 2px 5px -> 0 0.125rem 0.3125rem
   overflow: hidden;
-  width: 358px;
-  height: 243px;
+  width: 22.375rem; // 358px -> 22.375rem
+  height: 15.1875rem; // 243px -> 15.1875rem
   box-sizing: border-box;
   text-align: center; // 카드 내부 텍스트 중앙 정렬
   position: relative; // 자식 요소 위치 지정 가능
-  border: 1px solid vars.$gray-200; // 미세한 테두리 추가
+  border: 0.0625rem solid vars.$gray-200; // 1px -> 0.0625rem
   background-image: url("path/to/image.jpg"); // 이미지를 배경으로 설정
   background-size: cover; // 이미지가 카드 전체를 덮도록 설정
   background-position: center; // 이미지를 중앙에 배치
@@ -68,13 +68,32 @@
 
     h3 {
       margin: 0;
-      font-size: 24px; // 글꼴 크기 업데이트
+      font-size: 1.5rem; // 24px -> 1.5rem
       font-weight: bold; // 제목을 굵게 표시
     }
 
     p {
       color: vars.$gray-300;
-      font-size: 24px; // 글꼴 크기 업데이트
+      font-size: 1.5rem; // 24px -> 1.5rem
     }
+  }
+}
+
+.studyCardContainer {
+  width: 22.375rem; // 358px -> 22.375rem
+  height: 15.1875rem; // 243px -> 15.1875rem
+}
+
+@media (max-width: $tablet) {
+  .studyCardContainer {
+    width: 22.375rem; // 358px -> 22.375rem
+    height: 15.1875rem; // 243px -> 15.1875rem
+  }
+}
+
+@media (max-width: $mobile) {
+  .studyCardContainer {
+    width: 15rem; // 240px -> 15rem
+    height: 11.25rem; // 180px -> 11.25rem
   }
 }
