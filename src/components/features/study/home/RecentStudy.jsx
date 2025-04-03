@@ -82,18 +82,20 @@ function RecentStudy() {
               key={study.id}
               className={styles.studyCardLink}
             >
-              <StudyCard
-                key={study.id}
-                name={study.name}
-                description={study.description}
-                image={study.background}
-                points={study.totalPoints}
-                createdAt={study.createdAt}
-                emojis={study.emojis}
-                calculateDays={calculateDays}
-                background={study.background}
-                creatorNick={study.creatorNick}
-              />
+              <div className={styles.studyCardContainer}>
+                <StudyCard
+                  key={study.id}
+                  name={study.name}
+                  description={study.description}
+                  image={study.background}
+                  points={study.totalPoints}
+                  createdAt={study.createdAt}
+                  emojis={study.emojis}
+                  calculateDays={calculateDays}
+                  background={study.background}
+                  creatorNick={study.creatorNick}
+                />
+              </div>
             </Link>
           ))
         )}

@@ -56,7 +56,7 @@ body {
     height: 42px;
     border: 1px solid vars.$gray-200;
     border-radius: vars.$radius-sm;
-    background-color: vars.$bg;
+    background-color: white;
     cursor: pointer;
   }
 
@@ -65,7 +65,7 @@ body {
     list-style: none;
     border: 1px solid vars.$gray-200;
     border-radius: vars.$radius-md;
-    background-color: vars.$bg;
+    background-color: white;
     position: absolute;
     top: calc(100% + 8px);
     display: none;
@@ -126,7 +126,7 @@ body {
   display: block;
   border: 1px solid vars.$gray-200;
   border-radius: vars.$radius-md;
-  background-color: vars.$bg;
+  background-color: white;
   cursor: pointer;
   margin-top: 36px;
   width: 280px;
@@ -156,4 +156,16 @@ body {
   color: $gray-300;
   font-size: 14px;
   margin-top: 8px;
+}
+
+.studyCardContainer {
+  width: 358px;
+  height: 243px;
+}
+
+@media (max-width: 744px) {
+  .studyCardContainer {
+    width: 312px;
+    height: 180px;
+  }
 }
