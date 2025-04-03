@@ -1,48 +1,34 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./LinkButton.module.scss";
 import arrowIcon from "../../assets/icons/ic_arrow_right.svg";
 
-function LinkButton({ type, onClick, studyId }) {
-  const navigate = useNavigate();
-
-  const linkPaths = {
-    habit: `/${studyId}/habits`,
-    focus: `/${studyId}/focus`,
-    home: `/`,
-  };
-
-  const handleClick = () => {
-    if (onClick) onClick();
-    if (linkPaths[type]) navigate(linkPaths[type]);
-  };
-
+function LinkButton({ type, onClick }) {
   const renderContent = () => {
     switch (type) {
       case "home":
         return (
-          <button className={styles.homeButton} onClick={handleClick}>
+          <button className={styles.homeButton} onClick={onClick}>
             홈
             <img src={arrowIcon} alt="arrow" className={styles.arrowIcon} />
           </button>
         );
       case "habit":
         return (
-          <button className={styles.habitButton} onClick={handleClick}>
+          <button className={styles.habitButton} onClick={onClick}>
             오늘의 습관
             <img src={arrowIcon} alt="arrow" className={styles.arrowIcon} />
           </button>
         );
       case "focus":
         return (
-          <button className={styles.focusButton} onClick={handleClick}>
+          <button className={styles.focusButton} onClick={onClick}>
             오늘의 집중
             <img src={arrowIcon} alt="arrow" className={styles.arrowIcon} />
           </button>
         );
       default:
         return (
-          <button className={styles.homeButton} onClick={handleClick}>
+          <button className={styles.homeButton} onClick={onClick}>
             홈
             <img src={arrowIcon} alt="arrow" className={styles.arrowIcon} />
           </button>
