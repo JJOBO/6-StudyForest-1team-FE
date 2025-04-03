@@ -81,5 +81,10 @@
 
   @media (max-width: $mobile) {
     gap: 0.5rem; // 8px -> 0.5rem
+
+    button {
+      width: 120px;
+      height: 40px;
+    }
   }
 }
