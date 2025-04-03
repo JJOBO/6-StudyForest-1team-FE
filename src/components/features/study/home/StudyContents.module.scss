@@ -176,3 +176,15 @@ body {
   font-size: 18px;
   color: $error-200;
 }
+
+.studyCardContainer {
+  width: 358px;
+  height: 243px;
+}
+
+@media (max-width: 744px) {
+  .studyCardContainer {
+    width: 312px;
+    height: 180px;
+  }
+}

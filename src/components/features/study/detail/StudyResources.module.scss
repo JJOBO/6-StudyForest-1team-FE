@@ -16,7 +16,7 @@
   font-size: 18px;
   p:first-child {
     margin-bottom: 8px;
-    color: #818181; // Updated font color for "소개"
+    color: #818181;
   }
 }
 
@@ -25,7 +25,7 @@
   margin-top: 24px;
   p:first-child {
     margin-bottom: 8px;
-    color: #818181; // Updated font color for "현재까지 획득한 포인트"
+    color: #818181;
     font-size: 18px;
   }
 
@@ -40,12 +40,12 @@
   gap: 16px;
 
   p {
-    cursor: pointer; // Add pointer cursor for clickable items
-    color: #578246; // Font color for "공유하기" and "수정하기"
+    cursor: pointer;
+    color: #578246;
   }
 
   p:last-child {
-    color: #818181; // Updated font color for "스터디 삭제하기"
+    color: #818181;
   }
 }
 

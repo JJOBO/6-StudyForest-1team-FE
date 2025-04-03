@@ -78,3 +78,15 @@
     }
   }
 }
+
+.studyCardContainer {
+  width: 358px;
+  height: 243px;
+}
+
+@media (max-width: 744px) {
+  .studyCardContainer {
+    width: 240px;
+    height: 180px;
+  }
+}

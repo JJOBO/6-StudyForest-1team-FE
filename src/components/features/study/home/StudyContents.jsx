@@ -166,17 +166,19 @@ function StudyContents() {
             key={card.id}
             className={styles.studyCardLink}
           >
-            <StudyCard
-              name={card.name}
-              description={card.description}
-              image={card.background}
-              points={card.totalPoints}
-              createdAt={card.createdAt}
-              emojis={card.emojis}
-              background={card.background}
-              calculateDays={calculateDays}
-              creatorNick={card.creatorNick}
-            />
+            <div className={styles.studyCardContainer}>
+              <StudyCard
+                name={card.name}
+                description={card.description}
+                image={card.background}
+                points={card.totalPoints}
+                createdAt={card.createdAt}
+                emojis={card.emojis}
+                background={card.background}
+                calculateDays={calculateDays}
+                creatorNick={card.creatorNick}
+              />
+            </div>
           </Link>
         ))}
       </div>
