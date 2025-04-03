@@ -8,7 +8,6 @@ import styles from "./FocusPage.module.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const FocusPage = () => {
   const { studyId } = useParams();
   const [studyInfo, setStudyInfo] = useState(null);
@@ -28,7 +27,7 @@ const FocusPage = () => {
     fetchData();
   }, [studyId]);
 
-  if (!studyInfo) return <div>Loading...</div>;
+  if (!studyInfo) return <div></div>;
 
   return (
     <div className={styles.container}>
@@ -36,7 +35,7 @@ const FocusPage = () => {
         <FocusContainer studyInfo={studyInfo} />
         <PointDisplay totalPoints={totalPoints} />
         <FocusTimer totalPoints={totalPoints} setTotalPoints={setTotalPoints} />
-        <ToastContainer />
+        <ToastContainer position="bottom-center" />
       </div>
     </div>
   );
