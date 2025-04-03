@@ -23,6 +23,7 @@ import modificationButton from "../../assets/buttons/btn_modification/btn_modifi
 import confirmButton from "../../assets/buttons/btn_confirm/btn_confirm_lg.svg";
 import visibilityOnIcon from "../../assets/buttons/btn_visibility/btn_visibility_on_24px.svg";
 import visibilityOffIcon from "../../assets/buttons/btn_visibility/btn_visibility_off_24px.svg";
+import { toast } from "react-toastify";
 
 function PasswordPrompt({
   studyTitle,
@@ -62,7 +63,10 @@ function PasswordPrompt({
             <input
               type={showPassword ? "text" : "password"}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                toast.dismiss();
+              }}
               placeholder="비밀번호를 입력하세요"
             />
             <button
