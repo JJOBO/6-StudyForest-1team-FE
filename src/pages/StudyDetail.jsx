@@ -1,4 +1,3 @@
-// src/pages/StudyDetail.jsx
 import React, { useEffect } from "react"; // useEffect 추가
 import styles from "./StudyDetail.module.scss";
 import { useParams } from "react-router-dom";
