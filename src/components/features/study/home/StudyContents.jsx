@@ -116,16 +116,19 @@ function StudyContents() {
           />
         </div>
         <div className={styles.sortDropdown}>
-          <button className={styles.sortButton}>
-            {
-              {
-                createdAt: "최근 순",
-                oldest: "오래된 순",
-                totalPointsDesc: "많은 포인트 순",
-                totalPointsAsc: "적은 포인트 순",
-              }[sortOption]
-            }
-          </button>
+        <button className={styles.sortButton}>
+  <span className={styles.sortLabel}>
+    {
+      {
+        createdAt: "최근 순",
+        oldest: "오래된 순",
+        totalPointsDesc: "많은 포인트 순",
+        totalPointsAsc: "적은 포인트 순",
+      }[sortOption]
+    }
+  </span>
+  <span className={styles.sortIcon}></span>
+</button>
           <ul className={styles.sortList}>
             {["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"].map(
               (option) => (

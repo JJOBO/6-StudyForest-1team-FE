@@ -1,4 +1,5 @@
 @use "../../../../styles/variables" as vars;
+@use "../../../../styles/breakpoints" as *;
 
 body {
   background-color: vars.$bg;
@@ -6,24 +7,27 @@ body {
 
 .studyContents {
   background-color: white;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   min-height: 70vh;
-  position: static;
+  margin: 0 auto 10vh auto; // 가운데 정렬 + 아래 여백
   border-radius: vars.$radius-md;
   overflow-y: visible;
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+
   h2.title {
     font-size: 24px;
   }
-  margin-bottom: 10vh;
 }
 
 .optionBar {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .searchBar {
@@ -56,8 +60,29 @@ body {
     height: 42px;
     border: 1px solid vars.$gray-200;
     border-radius: vars.$radius-sm;
-    background-color: vars.$bg;
+    background-color: white;
     cursor: pointer;
+    color: vars.$gray-300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 16px;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid vars.$gray-300;
+      pointer-events: none;
+    }
   }
 
   .sortList {
@@ -65,7 +90,7 @@ body {
     list-style: none;
     border: 1px solid vars.$gray-200;
     border-radius: vars.$radius-md;
-    background-color: vars.$bg;
+    background-color: white;
     position: absolute;
     top: calc(100% + 8px);
     display: none;
@@ -126,34 +151,31 @@ body {
   display: block;
   border: 1px solid vars.$gray-200;
   border-radius: vars.$radius-md;
-  background-color: vars.$bg;
+  background-color: white;
   cursor: pointer;
   margin-top: 36px;
   width: 280px;
   height: 53px;
   margin-left: auto;
   margin-right: auto;
+  color: vars.$green-text;
 
   &:hover {
     background-color: vars.$gray-100;
   }
 }
 
-.loading {
+.loading, .error, .loadingMore {
   text-align: center;
   font-size: 18px;
   color: vars.$gray-300;
 }
 
 .error {
-  text-align: center;
-  font-size: 18px;
   color: vars.$error-200;
 }
 
 .loadingMore {
-  text-align: center;
-  color: $gray-300;
   font-size: 14px;
   margin-top: 8px;
 }
