@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import studyAPI from "../studyAPI";
 import focusAPI from "../../focus/focusAPI";
 import habitAPI from "../../habit/habitAPI";
-import Point from "../../../common/Point";
 import Emoji from "../../../common/Emoji";
 import LinkButton from "../../../common/LinkButton";
 import styles from "./StudyResources.module.scss";
@@ -13,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { showErrorToast } from "./PasswordToast";
 import Picker from "emoji-picker-react";
 import AddButtonIcon from "/src/assets/buttons/btn_add.svg";
+import PointDisplay from "../../../common/PointDisplay";
 
 function StudyResources({ studyId }) {
   const [studyDetail, setStudyDetail] = useState(null);
@@ -190,12 +190,7 @@ function StudyResources({ studyId }) {
                 <p>{studyDetail.description}</p>
               </div>
               <div className={styles.studyPoints}>
-                <p>현재까지 획득한 포인트</p>
-                <Point
-                  type="general"
-                  points={studyDetail.totalPoints}
-                  className={styles.point}
-                />
+                <PointDisplay totalPoints={studyDetail.totalPoints} />
               </div>
             </div>
           </div>

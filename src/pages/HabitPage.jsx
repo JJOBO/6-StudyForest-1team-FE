@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import habitAPI from "../components/features/habit/habitAPI";
 import styles from "./HabitPage.module.scss";
-import { Link } from "react-router-dom";
 import HabitModal from "../components/features/habit/HabitModal";
 import FormatDate from "../components/features/habit/FormatDate";
 import HabitList from "../components/features/habit/HabitList";
