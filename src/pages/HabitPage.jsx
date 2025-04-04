@@ -7,6 +7,8 @@ import HabitModal from "../components/features/habit/HabitModal";
 import FormatDate from "../components/features/habit/FormatDate";
 import HabitList from "../components/features/habit/HabitList";
 import { useHabit } from "../components/features/study/habit/HabitContext";
+import LinkButton from "../components/common/LinkButton";
+import { useNavigate } from "react-router-dom";
 
 export default function HabitPage() {
   const { studyId } = useParams();
@@ -19,6 +21,7 @@ export default function HabitPage() {
   const [studyNickName, setStudyNickName] = useState(null);
   const { triggerRefresh } = useHabit();
   const dayInNumber = (new Date().getDay() + 6) % 7;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (studyId) {
@@ -133,12 +136,18 @@ export default function HabitPage() {
             {studyNickName}의 {studyName}
           </div>
           <div className={styles.links}>
-            <Link to={`/${studyId}/focus`}>
-              <button>오늘의 집중</button>
-            </Link>
-            <Link to={`/${studyId}`}>
-              <button>홈</button>
-            </Link>
+            <LinkButton
+              type="focus"
+              onClick={() => {
+                navigate(`/${studyId}/focus`);
+              }}
+            />
+            <LinkButton
+              type="home"
+              onClick={() => {
+                navigate(`/${studyId}`);
+              }}
+            />
           </div>
           <div className={styles.currentTime}>
             <div className={styles.text}>현재 시간</div>
