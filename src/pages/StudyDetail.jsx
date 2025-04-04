@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // useEffect 추가
+import React, { useEffect } from "react";
 import styles from "./StudyDetail.module.scss";
 import { useParams } from "react-router-dom";
 import StudyResources from "../components/features/study/detail/StudyResources";

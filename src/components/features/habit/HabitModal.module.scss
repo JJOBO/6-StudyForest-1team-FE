@@ -92,7 +92,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $mobile) {
   .container {
     margin: 0 16px;
     padding: 16px 16px 24px 16px;
