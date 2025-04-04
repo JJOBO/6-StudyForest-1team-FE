@@ -1,6 +1,7 @@
 .recentStudy {
   background-color: white;
-  width: 75rem; // 1200px -> 75rem
+  width: 100%;
+  max-width: 75rem;
   height: 23.875rem; // 382px -> 23.875rem
   border-radius: $radius-md;
   display: flex;
@@ -9,7 +10,6 @@
   font-size: 1.5rem; // 24px -> 1.5rem
   padding: 2.5rem 2.375rem 2.5rem 2.5rem; // 40px 38px 40px 40px -> 2.5rem 2.375rem 2.5rem 2.5rem
   margin-top: 2.5rem; // 40px -> 2.5rem
-  overflow-y: hidden; // 세로 스크롤 비활성화
 
   h2 {
     font-size: 1.5rem; // 24px -> 1.5rem
@@ -21,7 +21,7 @@
     gap: 1.5rem; // 24px -> 1.5rem
     justify-content: flex-start; // 카드를 왼쪽 정렬
     overflow-x: auto; // 가로 스크롤 활성화
-    overflow-y: hidden; // 세로 스크롤 비활성화
+    overflow-y: auto;
     white-space: nowrap; // 자식 요소가 줄바꿈되지 않도록 설정
     padding-bottom: 16.25rem; // 260px -> 16.25rem
     scrollbar-width: auto; // 스크롤바 두께 조정 (Firefox)
@@ -46,7 +46,6 @@
   background: $gray-100;
   border-radius: $radius-sm;
   box-shadow: 0 0.125rem 0.3125rem rgba($black, 0.1); // 0 2px 5px -> 0 0.125rem 0.3125rem
-  overflow: hidden;
   width: 22.375rem; // 358px -> 22.375rem
   height: 15.1875rem; // 243px -> 15.1875rem
   box-sizing: border-box;
@@ -83,6 +82,20 @@
 }
 
 @media (max-width: $tablet) {
+  .recentStudy {
+    width: 697px; //
+    height: 338px;
+    font-size: 1rem; // 16px -> 1rem
+    gap: 1rem; // 16px -> 1rem
+    padding: 24px;
+    .studyCards {
+      width: 673px; //
+      height: 243px;
+      padding-bottom: 15.6rem; // 260px -> 16.25rem
+      gap: 24px;
+    }
+  }
+
   .studyCardContainer {
     width: 22.375rem; // 358px -> 22.375rem
     height: 15.1875rem; // 243px -> 15.1875rem
@@ -90,6 +103,23 @@
 }
 
 @media (max-width: $mobile) {
+  .recentStudy {
+    width: 21.5rem; // 344px -> 21.5rem
+    height: 15.4375rem; // 247px -> 15.4375rem
+    gap: 1rem; // 16px -> 1rem
+    padding: 1rem; // 16px -> 1rem.
+
+    .studyCards {
+      width: 328px;
+      padding-bottom: 11.7rem; // 260px -> 16.25rem
+      gap: 16px;
+    }
+
+    h2 {
+      font-size: 1rem; // 16px -> 1rem
+    }
+  }
+
   .studyCardContainer {
     width: 15rem; // 240px -> 15rem
     height: 11.25rem; // 180px -> 11.25rem
