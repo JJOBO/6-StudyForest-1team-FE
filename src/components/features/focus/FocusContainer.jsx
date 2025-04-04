@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import arrow from "../../../assets/icons/ic_arrow_right.svg";
+import { useParams } from "react-router-dom";
 import styles from "./FocusContainer.module.scss";
 import LinkButton from "../../common/LinkButton";
 import { useNavigate } from "react-router-dom";

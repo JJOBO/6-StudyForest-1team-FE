@@ -42,21 +42,6 @@
   }
 }
 
-.studyPoints {
-  gap: 0.5rem; // 8px -> 0.5rem
-  margin-top: 1.5rem; // 24px -> 1.5rem
-  p:first-child {
-    margin-bottom: 0.5rem; // 8px -> 0.5rem
-    color: #818181;
-    font-size: 1.125rem; // 18px -> 1.125rem
-  }
-
-  .point {
-    width: 7.25rem; // 116px -> 7.25rem
-    height: 2.1875rem; // 35px -> 2.1875rem
-  }
-}
-
 .studyOptions {
   gap: 1rem; // 16px -> 1rem
   display: flex;
