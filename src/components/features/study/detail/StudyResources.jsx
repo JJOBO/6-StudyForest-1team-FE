@@ -202,7 +202,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "delete" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="삭제"
+            buttonLabel="삭제"
             onSubmit={handleDelete}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -212,7 +212,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "habit" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="습관"
+            buttonLabel="오늘의 습관으로 가기"
             onSubmit={handleHabitAccess}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -222,7 +222,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "focus" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="집중"
+            buttonLabel="오늘의 집중으로 가기"
             onSubmit={handleFocusAccess}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -232,7 +232,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "modification" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="수정"
+            buttonLabel="수정하러 가기"
             onSubmit={handleEdit}
             onCancel={() => setShowPasswordPrompt(null)}
           />

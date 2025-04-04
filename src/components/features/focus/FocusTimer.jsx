@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import focusAPI from "./focusAPI";
 import FocusTimerDisplay from "./FocusTimerDisplay";
 import FocusControls from "./FocusControls";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./FocusTimer.module.scss";
-import {showPauseToast, showPointToast} from "./FocusToast";
+import { showPauseToast, showPointToast } from "./FocusToast";
 
 function FocusTimer({ setTotalPoints }) {
   const { studyId } = useParams();
@@ -64,10 +64,10 @@ function FocusTimer({ setTotalPoints }) {
     if (isPaused) {
       setPausedDuration((prev) => prev + (Date.now() - pauseStartTime));
       setPauseStartTime(null);
-      toast.dismiss(); 
+      toast.dismiss();
     } else {
       setPauseStartTime(Date.now());
-      showPauseToast(); 
+      showPauseToast();
     }
 
     setIsPaused((prev) => !prev);

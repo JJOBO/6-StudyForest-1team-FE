@@ -25,7 +25,7 @@ function PasswordPrompt({
   studyTitle,
   onSubmit,
   onCancel,
-  actionType = "수정", // "삭제", "습관", "집중"
+  buttonLabel, // "삭제", "습관", "집중"
 }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -81,12 +81,10 @@ function PasswordPrompt({
             </div>
           </div>
           <div className={styles.buttonGroup}>
-            <button
-              type="submit"
-              className={`${styles.modalButton} ${styles[actionType]}`}
-            ></button>
+            <button type="submit" className={`${styles.modalButton}`}>
+              {buttonLabel}
+            </button>
           </div>
-
           <button
             type="button"
             className={styles.exitButtonMobile}

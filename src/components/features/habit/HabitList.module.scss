@@ -16,7 +16,7 @@
   color: $gray-300;
 }
 
-@media (max-width: 767px) {
+@media (max-width: $mobile) {
   .habitList {
     width: 280px;
   }

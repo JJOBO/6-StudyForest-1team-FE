@@ -51,7 +51,11 @@ function StudyForm({
       ? selectedBackground.name
       : form.background;
     await onSubmit({
-      ...form,
+      name: form.studyName,
+      creatorNick: form.nickname,
+      description: form.description,
+      password: form.password,
+      passwordConfirm: form.confirmPassword,
       background: backgroundName,
       backgroundColor: form.background,
     });

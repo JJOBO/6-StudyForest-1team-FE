@@ -1,44 +1,25 @@
-@use "../../styles/_variables.scss" as vars;
-
-.habitButton,
-.focusButton {
+.linkButton {
   padding: 12px 16px 12px 24px;
-  border: 1px solid vars.$gray-200;
-  border-radius: vars.$radius-sm;
+  border: 1px solid $gray-200;
+  border-radius: $radius-sm;
   background-color: #ffffff;
-  color: vars.$gray-300;
+  color: $gray-300;
   font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @include mobile {
-    padding: 8px 6px 8px 10px;
+  &:hover {
+    background-color: $gray-100;
+    transition: background-color 0.3s;
   }
-}
-
-.homeButton {
-  padding: 12px 16px 12px 24px;
-  border: 1px solid vars.$gray-200;
-  border-radius: vars.$radius-sm;
-  background-color: #ffffff;
-  color: vars.$gray-300;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 
   @include mobile {
     padding: 8px 6px 8px 10px;
   }
-}
-
-button:hover {
-  background-color: $gray-100;
-  transition: background-color 0.3s;
 }
 
 .arrowIcon {
+  margin-left: 4px;
   opacity: 0.6;
 }
