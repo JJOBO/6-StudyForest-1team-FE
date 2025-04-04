@@ -36,7 +36,17 @@
   color: $gray-300;
 }
 
+@media (max-width: $tablet) {
+  .habitTrackerContainer {
+    margin-top: 24px;
+  }
+}
+
 @media (max-width: $mobile) {
+  .habitTrackerContainer {
+    margin-top: 24px;
+  }
+
   .days > div {
     display: flex;
     justify-content: center;

@@ -1,13 +1,9 @@
-@use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
-
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
   height: 942px;
-  margin: 0px 220px;
   padding-top: 40px;
   border: 0px;
 
