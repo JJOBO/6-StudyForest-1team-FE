@@ -4,7 +4,7 @@ body {
 
 .studyContents {
   background-color: white;
-  width: 100%;
+  width: 75rem;
   max-width: 75rem; // 1200px -> 75rem
   min-height: 70vh;
   margin: 0 auto 10vh auto; // 가운데 정렬 + 아래 여백
@@ -190,6 +190,22 @@ body {
   height: 15.1875rem; // 243px -> 15.1875rem
 }
 
+@media (max-width: $tablet) {
+  .studyCardContainer {
+    width: 19.5rem; // 312px -> 19.5rem
+    height: 15.1875rem; // 243px -> 15.1875rem
+  }
+
+  .studyContents {
+    max-width: 43.5rem; // 696px -> 43.5rem
+    padding: 24px;
+  }
+
+  .studyCards {
+    grid-template-columns: repeat(2, 1fr); // 한 줄당 2개
+  }
+}
+
 @media (max-width: $mobile) {
   .studyCardContainer {
     width: 19.5rem; // 312px -> 19.5rem
@@ -199,11 +215,27 @@ body {
   .optionBar {
     justify-content: right;
   }
-}
 
-@media (max-width: $tablet) {
-  .studyCardContainer {
+  .studyContents {
+    max-width: 344px; // 696px -> 43.5rem
+    padding: 16px;
+    gap: 12px;
+
+    h2.title {
+      font-size: 16px; // 24px -> 1.5rem
+    }
+  }
+
+  .studyCards {
+    grid-template-columns: repeat(1, 1fr); // 한 줄당 1개
+  }
+
+  .searchBar .searchInput {
     width: 19.5rem; // 312px -> 19.5rem
-    height: 15.1875rem; // 243px -> 15.1875rem
+    height: 2.625rem; // 42px -> 2.625rem
+  }
+
+  .loadMore {
+    margin-top: 1.125rem; // 18px -> 1.125rem (30px closer)
   }
 }
