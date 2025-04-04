@@ -34,11 +34,11 @@ function StudyForm({
       validationErrors.studyName = "*스터디 이름을 입력해주세요";
     if (!form.nickname) validationErrors.nickname = "*닉네임을 입력해주세요";
     if (!form.description)
-      validationErrors.description = "*소개 멘트를 작성해주세요.";
-    if (!form.password) validationErrors.password = "*비밀번호를 입력해주세요.";
+      validationErrors.description = "*소개 멘트를 작성해주세요";
+    if (!form.password) validationErrors.password = "*비밀번호를 입력해주세요";
     if (form.password !== form.confirmPassword)
       validationErrors.confirmPassword = "*비밀번호가 일치하지 않습니다";
-    if (!form.background) validationErrors.background = "*배경을 선택해주세요.";
+    if (!form.background) validationErrors.background = "*배경을 선택해주세요";
 
     setErrors(validationErrors);
 
