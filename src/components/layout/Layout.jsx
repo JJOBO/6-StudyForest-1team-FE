@@ -12,9 +12,7 @@ const Layout = () => {
   return (
     <>
       <Header isButtonDisabled={!isButtonEnabled} />
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
     </>
   );
 };

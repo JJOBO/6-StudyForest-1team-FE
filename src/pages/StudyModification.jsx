@@ -6,9 +6,9 @@ import tablet from "../assets/background/tablet.jpg";
 import laptop from "../assets/background/laptop.jpg";
 import tile from "../assets/background/tile.jpg";
 import leaf from "../assets/background/leaf.jpg";
-import confirmBtnPC from "../assets/buttons/btn_confirm/btn_confirm_lg.svg";
-import confirmBtnMobile from "../assets/buttons/btn_confirm/btn_confirm_md.svg";
 import selectedIcon from "../assets/icons/ic_bg_selected.svg";
+import visibilityOnIcon from "../assets/buttons/btn_visibility/btn_visibility_on_24px.svg";
+import visibilityOffIcon from "../assets/buttons/btn_visibility/btn_visibility_off_24px.svg";
 
 const backgrounds = [
   { color: "#E1EDDE", name: "green" },
@@ -27,20 +27,12 @@ function StudyModification() {
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [background, setBackground] = useState(backgrounds[0].color);
+  const [background, setBackground] = useState("");
   const [errors, setErrors] = useState({});
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { studyId } = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 767);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const fetchStudyDetail = async () => {
@@ -73,17 +65,15 @@ function StudyModification() {
     let validationErrors = {};
 
     // 유효성 검사
-    if (!studyName) validationErrors.studyName = "스터디 이름을 입력해주세요";
-    if (!nickname) validationErrors.nickname = "닉네임을 입력해주세요";
+    // 유효성 검사
+    if (!studyName) validationErrors.studyName = "*스터디 이름을 입력해주세요";
+    if (!nickname) validationErrors.nickname = "*닉네임을 입력해주세요";
     if (!description)
-      validationErrors.description = "소개 멘트를 작성해주세요.";
-    if (!background) validationErrors.background = "배경을 선택해주세요.";
-
-    if (password) {
-      if (password !== confirmPassword) {
-        validationErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
-      }
-    }
+      validationErrors.description = "*소개 멘트를 작성해주세요.";
+    if (!password) validationErrors.password = "*비밀번호를 입력해주세요.";
+    if (password !== confirmPassword)
+      validationErrors.confirmPassword = "*비밀번호가 일치하지 않습니다";
+    if (!background) validationErrors.background = "*배경을 선택해주세요.";
 
     setErrors(validationErrors);
 
@@ -112,7 +102,8 @@ function StudyModification() {
       localStorage.setItem(`studyBackground-${studyId}`, background);
       navigate(`/${studyId}`);
     } catch (error) {
-      window.alert("올바른 비밀번호를 입력해주세요.");
+      console.error("Failed to modify study:", error);
+      alert("스터디 수정에 실패했습니다.");
     }
   };
 
@@ -217,12 +208,22 @@ function StudyModification() {
             <label htmlFor="password">비밀번호</label>
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="비밀번호를 입력해 주세요"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={errors.password ? styles.error : ""}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className={styles.toggleButton}
+            >
+              <img
+                src={showPassword ? visibilityOnIcon : visibilityOffIcon}
+                alt={showPassword ? "숨기기" : "보기"}
+              />
+            </button>
             {errors.password && (
               <span className={styles.errorText}>{errors.password}</span>
             )}
@@ -235,22 +236,27 @@ function StudyModification() {
             <label htmlFor="confirmPassword">비밀번호 확인</label>
             <input
               id="confirmPassword"
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="비밀번호를 다시 한 번 입력해 주세요"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className={errors.confirmPassword ? styles.error : ""}
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className={styles.toggleButton}
+            >
+              <img
+                src={showPassword ? visibilityOnIcon : visibilityOffIcon}
+                alt={showPassword ? "숨기기" : "보기"}
+              />
+            </button>
             {errors.confirmPassword && (
               <span className={styles.errorText}>{errors.confirmPassword}</span>
             )}
           </div>
-          <button className={styles.submitButtonWrapper}>
-            <img
-              src={isMobile ? confirmBtnMobile : confirmBtnPC}
-              alt="확인 버튼"
-            />
-          </button>
+          <button className={styles.submitButtonWrapper}>수정하기</button>
         </form>
       </div>
     </div>
