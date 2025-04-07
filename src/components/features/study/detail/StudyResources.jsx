@@ -9,7 +9,7 @@ import styles from "./StudyResources.module.scss";
 import PasswordPrompt from "../../../common/PasswordPrompt";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { showErrorToast } from "./PasswordToast";
+import { showErrorToast, showLinkCopiedToast } from "./StudyToast";
 import Picker from "emoji-picker-react";
 import AddButtonIcon from "/src/assets/buttons/btn_add.svg";
 import PointDisplay from "../../../common/PointDisplay";
@@ -59,10 +59,9 @@ function StudyResources({ studyId }) {
     const shareUrl = `${window.location.origin}/${studyId}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
-      alert(`링크가 복사되었습니다: ${shareUrl}`);
+      showLinkCopiedToast();
     } catch (error) {
       console.error("Failed to copy link:", error);
-      alert("링크 복사에 실패했습니다.");
     }
   };
 
