@@ -106,19 +106,17 @@
 .emojiPopover {
   position: absolute;
   top: calc(100% + 0.25rem); // 아래에 뜨도록
-  left: -2.5rem; // 왼쪽 정렬
+  left: -18px; // 왼쪽 정렬
   width: 17rem;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid $gray-200;
   border-radius: 15px;
-  border-radius: 0.5rem;
-  box-shadow: none;
-  padding: 0.5rem;
+  box-shadow: 12 0 2px rgba(0, 0, 0, 0.08);
+  padding: 12px;
   z-index: 10;
 
   display: grid;
   grid-template-columns: repeat(4, auto); // 4개씩 한 줄에
-  gap: 0.5rem;
 }
 
 .linkButtons {
