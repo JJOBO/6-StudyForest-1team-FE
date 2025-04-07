@@ -100,6 +100,7 @@ function RecentStudy() {
                   calculateDays={calculateDays}
                   background={study.background}
                   creatorNick={study.creatorNick}
+                  isRecent={true} // isRecent prop을 true로 설정
                 />
               </div>
             </Link>
