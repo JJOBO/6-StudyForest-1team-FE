@@ -86,11 +86,11 @@ function FocusTimer({ setTotalPoints }) {
       handleClickResetTimer();
     } catch (error) {
       console.error("타이머 중지 오류:", error);
-      showErrorToast("타이머 종료에 실패했어요.");
     }
   };
 
   const handleClickResetTimer = () => {
+    toast.dismiss();
     setIsRunning(false);
     setIsPaused(false);
     setTimeLeft(0);
