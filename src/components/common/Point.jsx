@@ -4,16 +4,16 @@ import pointIcon from "../../assets/icons/ic_point.svg"; // 포인트 아이콘 
 
 function Point({ points, type = "dark" }) {
   return (
-    <div
+    <section
       className={`${styles.pointContainer} ${
         styles[`pointContainer--${type}`]
       }`}
     >
-      <span className={styles.pointIcon}>
+      <figure className={styles.pointIcon}>
         <img src={pointIcon} alt="Point Icon" />
-      </span>
-      <span className={styles.pointText}>{points}P 획득</span>
-    </div>
+      </figure>
+      <figcaption className={styles.pointText}>{points}P 획득</figcaption>
+    </section>
   );
 }
 

@@ -165,7 +165,7 @@ function StudyContents() {
   }
 
   return (
-    <div className={styles.studyContents}>
+    <section className={styles.studyContents}>
       <h2 className={styles.title}>스터디 둘러보기</h2>
       <div className={styles.optionBar}>
         <div className={styles.searchBar}>
@@ -185,30 +185,28 @@ function StudyContents() {
         <SortDropdown sortOption={sortOption} onSortChange={handleSortChange} />
       </div>
 
-      <div className={styles.studyCards}>
+      <ul className={styles.studyCards}>
         {cards.map((card) => (
-          <Link
-            to={`/${card.id}`}
-            key={card.id}
-            className={styles.studyCardLink}
-          >
-            <div className={styles.studyCardContainer}>
-              <StudyCard
-                name={card.name}
-                description={card.description}
-                image={card.background}
-                points={card.totalPoints}
-                createdAt={card.createdAt}
-                emojis={card.emojis}
-                background={card.background}
-                calculateDays={calculateDays}
-                creatorNick={card.creatorNick}
-                isRecent={false} // isRecent prop을 false로 설정
-              />
-            </div>
-          </Link>
+          <li key={card.id} className={styles.studyCardLink}>
+            <Link to={`/${card.id}`}>
+              <article className={styles.studyCardContainer}>
+                <StudyCard
+                  name={card.name}
+                  description={card.description}
+                  image={card.background}
+                  points={card.totalPoints}
+                  createdAt={card.createdAt}
+                  emojis={card.emojis}
+                  background={card.background}
+                  calculateDays={calculateDays}
+                  creatorNick={card.creatorNick}
+                  isRecent={false} // isRecent prop을 false로 설정
+                />
+              </article>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
       {cards.length < total && (
         <div className={styles.loadMoreWrapper}>
@@ -217,7 +215,7 @@ function StudyContents() {
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 

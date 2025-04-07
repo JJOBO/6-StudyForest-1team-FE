@@ -2,126 +2,123 @@
   background-color: white;
   width: 100%;
   max-width: 75rem;
-  height: 23.875rem; // 382px -> 23.875rem
+  height: 23.875rem;
   border-radius: $radius-md;
   display: flex;
-  flex-direction: column; // 제목과 카드를 수직으로 쌓기
-  gap: 1.875rem; // 30px -> 1.875rem
-  font-size: 1.5rem; // 24px -> 1.5rem
-  padding: 2.5rem 2.375rem 2.5rem 2.5rem; // 40px 38px 40px 40px -> 2.5rem 2.375rem 2.5rem 2.5rem
-  margin-top: 2.5rem; // 40px -> 2.5rem
+  flex-direction: column;
+  gap: 1.875rem;
+  font-size: 1.5rem;
+  padding: 2.5rem 2.375rem 2.5rem 2.5rem;
+  margin-top: 2.5rem;
 
   h2 {
-    font-size: 1.5rem; // 24px -> 1.5rem
-    font-weight: 800; // 제목을 굵게 표시
+    font-size: 1.5rem;
+    font-weight: 800;
   }
 
   .studyCards {
     display: flex;
-    gap: 1.5rem; // 24px -> 1.5rem
-    justify-content: flex-start; // 카드를 왼쪽 정렬
-    overflow-x: auto; // 가로 스크롤 활성화
+    gap: 1.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
     overflow-y: auto;
-    white-space: nowrap; // 자식 요소가 줄바꿈되지 않도록 설정
-    padding-bottom: 16.25rem; // 260px -> 16.25rem
-    scrollbar-width: auto; // 스크롤바 두께 조정 (Firefox)
-    scrollbar-color: $gray-200 transparent; // 스크롤바 색상 조정 (Firefox)
-  }
+    white-space: nowrap;
+    padding-bottom: 16.25rem;
+    scrollbar-width: auto;
+    scrollbar-color: $gray-200 transparent;
 
-  .studyCards::-webkit-scrollbar {
-    height: 0.5rem; // 8px -> 0.5rem
-  }
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
 
-  .studyCards::-webkit-scrollbar-thumb {
-    background-color: $gray-200; // 스크롤바 색상 조정 (Webkit)
-    border-radius: 0.25rem; // 4px -> 0.25rem
-  }
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-200;
+      border-radius: 0.25rem;
+    }
 
-  .studyCards::-webkit-scrollbar-track {
-    background: transparent; // 스크롤바 트랙 배경 투명
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
   }
 }
 
 .studyCard {
   background: $gray-100;
   border-radius: $radius-sm;
-  box-shadow: 0 0.125rem 0.3125rem rgba($black, 0.1); // 0 2px 5px -> 0 0.125rem 0.3125rem
-  width: 22.375rem; // 358px -> 22.375rem
-  height: 15.1875rem; // 243px -> 15.1875rem
+  box-shadow: 0 0.125rem 0.3125rem rgba($black, 0.1);
+  width: 22.375rem;
+  height: 15.1875rem;
   box-sizing: border-box;
-  text-align: center; // 카드 내부 텍스트 중앙 정렬
-  position: relative; // 자식 요소 위치 지정 가능
-  border: 0.0625rem solid $gray-200; // 1px -> 0.0625rem
-  background-image: url("path/to/image.jpg"); // 이미지를 배경으로 설정
-  background-size: cover; // 이미지가 카드 전체를 덮도록 설정
-  background-position: center; // 이미지를 중앙에 배치
-
-  .studyImage {
-    display: none; // 이미지 요소 제거
-  }
+  text-align: center;
+  position: relative;
+  border: 0.0625rem solid $gray-200;
+  background-image: url("path/to/image.jpg");
+  background-size: cover;
+  background-position: center;
 
   .studyContent {
-    text-align: left; // 텍스트를 왼쪽 정렬
+    text-align: left;
 
     h3 {
       margin: 0;
-      font-size: 1.5rem; // 24px -> 1.5rem
-      font-weight: bold; // 제목을 굵게 표시
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
     p {
       color: $gray-300;
-      font-size: 1.5rem; // 24px -> 1.5rem
+      font-size: 1.5rem;
     }
   }
 }
 
 .studyCardContainer {
-  width: 22.375rem; // 358px -> 22.375rem
-  height: 15.1875rem; // 243px -> 15.1875rem
+  width: 22.375rem;
+  height: 15.1875rem;
 }
 
 @media (max-width: $tablet) {
   .recentStudy {
-    width: 697px; //
-    height: 338px;
-    font-size: 1rem; // 16px -> 1rem
-    gap: 1rem; // 16px -> 1rem
-    padding: 24px;
+    width: 43.5625rem;
+    height: 21.125rem;
+    font-size: 1rem;
+    gap: 1rem;
+    padding: 1.5rem;
+
     .studyCards {
-      width: 673px; //
-      height: 243px;
-      padding-bottom: 15.6rem; // 260px -> 16.25rem
-      gap: 24px;
+      width: 42.0625rem;
+      height: 15.1875rem;
+      padding-bottom: 16.25rem;
+      gap: 1.5rem;
     }
   }
 
   .studyCardContainer {
-    width: 22.375rem; // 358px -> 22.375rem
-    height: 15.1875rem; // 243px -> 15.1875rem
+    width: 22.375rem;
+    height: 15.1875rem;
   }
 }
 
 @media (max-width: $mobile) {
   .recentStudy {
-    width: 21.5rem; // 344px -> 21.5rem
-    height: 15.4375rem; // 247px -> 15.4375rem
-    gap: 1rem; // 16px -> 1rem
-    padding: 1rem; // 16px -> 1rem.
+    width: 21.5rem;
+    height: 15.4375rem;
+    gap: 1rem;
+    padding: 1rem;
 
     .studyCards {
-      width: 328px;
-      padding-bottom: 11.7rem; // 260px -> 16.25rem
-      gap: 16px;
+      width: 20.5rem;
+      padding-bottom: 11.7rem;
+      gap: 1rem;
     }
 
     h2 {
-      font-size: 1rem; // 16px -> 1rem
+      font-size: 1rem;
     }
   }
 
   .studyCardContainer {
-    width: 15rem; // 240px -> 15rem
-    height: 11.25rem; // 180px -> 11.25rem
+    width: 15rem;
+    height: 11.25rem;
   }
 }

@@ -11,32 +11,31 @@
   border: 1px solid $gray-200;
   padding: 1.875rem; // 30px -> 1.875rem
 
+  &.green,
+  &.yellow,
+  &.blue,
+  &.pink {
+    .creatorNick {
+      color: inherit;
+    }
+    .studyContent h3,
+    .studyContent p,
+    .studyStats {
+      color: inherit;
+    }
+  }
+
   &.green {
     background: $green;
-    .creatorNick {
-      color: $green-text;
-    }
   }
-
   &.yellow {
     background: $yellow;
-    .creatorNick {
-      color: $yellow-text;
-    }
   }
-
   &.blue {
     background: $blue;
-    .creatorNick {
-      color: $blue-text;
-    }
   }
-
   &.pink {
     background: $pink;
-    .creatorNick {
-      color: $pink-text;
-    }
   }
 
   &.tablet,
@@ -59,32 +58,18 @@
   &.tablet {
     background-image: url("/src/assets/background/tablet.jpg");
   }
-
   &.laptop {
     background-image: url("/src/assets/background/laptop.jpg");
   }
-
   &.tile {
     background-image: url("/src/assets/background/tile.jpg");
   }
-
   &.leaf {
     background-image: url("/src/assets/background/leaf.jpg");
   }
 
   &.default {
     background: $bg;
-    .studyContent h3,
-    .studyContent p,
-    .studyStats {
-      color: inherit;
-    }
-  }
-
-  &.green,
-  &.yellow,
-  &.blue,
-  &.pink {
     .studyContent h3,
     .studyContent p,
     .studyStats {

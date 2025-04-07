@@ -29,7 +29,7 @@ function LinkButton({ type, onClick }) {
     }
   };
 
-  return <div>{renderContent()}</div>;
+  return <nav>{renderContent()}</nav>;
 }
 
 export default LinkButton;
