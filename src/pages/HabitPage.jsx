@@ -89,11 +89,13 @@ export default function HabitPage() {
     setHabits([...existingHabits, ...newHabits]);
   };
 
-  const deleteHabit = (habitId) => {
-    habitAPI
-      .deleteHabit(habitId)
+  const deleteHabit = (habitIds) => {
+    Promise.all(habitIds.map((habitId) => habitAPI.deleteHabit(habitId)))
+
       .then(() => {
-        const updatedHabits = habits.filter((habit) => habit.id !== habitId);
+        const updatedHabits = habits.filter(
+          (habit) => !habitIds.includes(habit.id)
+        );
         setHabits(updatedHabits);
       })
       .catch((err) => {

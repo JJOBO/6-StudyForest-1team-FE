@@ -75,9 +75,7 @@ const HabitModal = ({ isOpen, onClose, habits, onSave, onDelete }) => {
       return;
     }
 
-    for (const habitId of pendingDeletions) {
-      await onDelete(habitId);
-    }
+    await onDelete(pendingDeletions);
 
     onSave(editedHabits);
     onClose();
