@@ -96,9 +96,7 @@ function FocusTimer({ setTotalPoints }) {
     dismissPauseToast();
     setIsRunning(false);
     setIsPaused(false);
-    setTimeLeft(0);
-    setInputMinutes("");
-    setInputSeconds("");
+    setTimeLeft(getTargetTime());
     setPausedDuration(0);
     setPauseStartTime(null);
     setStartTime(null);
