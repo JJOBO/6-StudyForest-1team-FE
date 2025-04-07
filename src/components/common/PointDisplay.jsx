@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PointDisplay.module.scss";
-import pointIcon from "../../../assets/icons/ic_point.svg"
+import pointIcon from "../../assets/icons/ic_point.svg"
 
 
 const PointDisplay = ({ totalPoints }) => {

@@ -1,10 +1,12 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import arrow from "../../../assets/icons/ic_arrow_right.svg";
+import { useParams } from "react-router-dom";
 import styles from "./FocusContainer.module.scss";
+import LinkButton from "../../common/LinkButton";
+import { useNavigate } from "react-router-dom";
 
 const FocusContainer = ({ studyInfo }) => {
   const { studyId } = useParams(); // studyId를 URL에서 가져오기
+  const navigate = useNavigate();
 
   return (
     <div className={styles.header}>
@@ -14,13 +16,18 @@ const FocusContainer = ({ studyInfo }) => {
         </h1>
       </div>
       <div className={styles.btnContainer}>
-        <Link to={`/${studyId}/habits`} className={styles.btn}>
-          오늘의 습관
-          <img src={arrow} alt="arrow" />
-        </Link>
-        <Link to={`/${studyId}`} className={styles.btn}>
-          홈<img src={arrow} alt="arrow" />
-        </Link>
+        <LinkButton
+          type="habit"
+          onClick={() => {
+            navigate(`/${studyId}/habits`);
+          }}
+        />
+        <LinkButton
+          type="home"
+          onClick={() => {
+            navigate(`/${studyId}`);
+          }}
+        />
       </div>
     </div>
   );

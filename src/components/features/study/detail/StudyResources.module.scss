@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   @media (max-width: $mobile) {
     flex-direction: column-reverse;
     gap: 1rem; // 16px -> 1rem
@@ -16,34 +17,28 @@
   display: flex;
   justify-content: space-between;
 
+  h1 {
+    font-size: 32px;
+  }
+
   @media (max-width: $mobile) {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem; // 16px -> 1rem
+
+    h1 {
+      font-size: 24px;
+    }
   }
 }
 
 .studyDescription {
   margin-bottom: 1.5rem; // 24px -> 1.5rem
   font-size: 1.125rem; // 18px -> 1.125rem
+
   p:first-child {
     margin-bottom: 0.5rem; // 8px -> 0.5rem
     color: #818181;
-  }
-}
-
-.studyPoints {
-  gap: 0.5rem; // 8px -> 0.5rem
-  margin-top: 1.5rem; // 24px -> 1.5rem
-  p:first-child {
-    margin-bottom: 0.5rem; // 8px -> 0.5rem
-    color: #818181;
-    font-size: 1.125rem; // 18px -> 1.125rem
-  }
-
-  .point {
-    width: 7.25rem; // 116px -> 7.25rem
-    height: 2.1875rem; // 35px -> 2.1875rem
   }
 }
 
