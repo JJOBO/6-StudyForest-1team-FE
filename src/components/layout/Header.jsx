@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
-import logo from "../../assets/logos/img_logo.svg"; // 로고 이미지 경로 수정
+import logo from "../../assets/logos/img_logo.svg";
 import btnCTAPc from "../../assets/buttons/btn_CTA/btn_cta_lg.svg";
 import btnCTATablet from "../../assets/buttons/btn_CTA/btn_cta_md.svg";
 import btnCTAMobile from "../../assets/buttons/btn_CTA/btn_cta_sm.svg";
 
-import { Link, useNavigate } from "react-router-dom";
-
-//<네비명 isButtonDisabled={true} />  true = 비활성화 false = 활성화
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({ isButtonDisabled }) => {
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 경로를 가져옵니다.
   const [buttonImage, setButtonImage] = useState(btnCTAPc);
 
   const updateButtonImage = () => {
@@ -25,11 +24,11 @@ const Header = ({ isButtonDisabled }) => {
   };
 
   useEffect(() => {
-    updateButtonImage(); 
-    window.addEventListener("resize", updateButtonImage); 
+    updateButtonImage();
+    window.addEventListener("resize", updateButtonImage);
 
     return () => {
-      window.removeEventListener("resize", updateButtonImage); 
+      window.removeEventListener("resize", updateButtonImage);
     };
   }, []);
 
@@ -37,11 +36,25 @@ const Header = ({ isButtonDisabled }) => {
     navigate("/registration");
   };
 
+  const handleLogoClick = (event) => {
+    if (location.pathname !== "/") {
+      event.preventDefault();
+      navigate("/");
+    } else {
+    }
+  };
+
   return (
     <nav className={styles.globalNavigationBar}>
-      <Link to="/">
-        <img src={logo} alt="Logo" className={styles.logo} />
-      </Link>
+      {location.pathname === "/" ? (
+        <a href="/" onClick={handleLogoClick}>
+          <img src={logo} alt="Logo" className={styles.logo} />
+        </a>
+      ) : (
+        <Link to="/" onClick={handleLogoClick}>
+          <img src={logo} alt="Logo" className={styles.logo} />
+        </Link>
+      )}
       <button
         className={`${styles.ctaButton} ${
           isButtonDisabled ? styles.disabled : ""
