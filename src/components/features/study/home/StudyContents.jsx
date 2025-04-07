@@ -178,6 +178,7 @@ function StudyContents() {
                 background={card.background}
                 calculateDays={calculateDays}
                 creatorNick={card.creatorNick}
+                isRecent={false} // isRecent prop을 false로 설정
               />
             </div>
           </Link>
