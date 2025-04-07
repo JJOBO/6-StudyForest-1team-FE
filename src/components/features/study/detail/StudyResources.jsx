@@ -126,6 +126,8 @@ function StudyResources({ studyId }) {
     }
   };
 
+  const [showAllEmojis, setShowAllEmojis] = useState(false);
+
   return (
     <>
       <div>
@@ -133,7 +135,7 @@ function StudyResources({ studyId }) {
           <div>
             <div className={styles.studyHeader}>
               <div className={styles.studyEmojis}>
-                {studyDetail.emojis.map((emoji, index) => (
+                {studyDetail.emojis.slice(0, 3).map((emoji, index) => (
                   <Emoji
                     key={index}
                     type="general"
@@ -141,22 +143,47 @@ function StudyResources({ studyId }) {
                     count={emoji.count}
                   />
                 ))}
-                {/* 이모지 추가 버튼 */}
-                <button
-                  className={styles.emojiAddButton}
-                  onClick={handleAddEmojiClick}
-                >
-                  <img src={AddButtonIcon} alt="이모지 추가" />
-                </button>
 
-                {/* 이모지 피커 */}
-                {showPicker && (
-                  <Picker
-                    onEmojiClick={onEmojiClick}
-                    pickerStyle={{ width: "100%" }}
-                  />
+                {/* +n 버튼: 4개 이상일 때만 보임 */}
+                {studyDetail.emojis.length > 3 && (
+                  <button
+                    className={styles.emojiMoreButton}
+                    onClick={() => setShowAllEmojis((prev) => !prev)} // ❗누르면 토글
+                  >
+                    +{studyDetail.emojis.length - 3}
+                  </button>
+                )}
+
+                {/* 이모지 추가 버튼 */}
+                <div className={styles.emojiPickerWrapper}>
+                  <button
+                    className={styles.emojiAddButton}
+                    onClick={handleAddEmojiClick}
+                  >
+                    <img src={AddButtonIcon} alt="이모지 추가" />
+                  </button>
+
+                  {/* 이모지 피커 */}
+                  {showPicker && (
+                    <div className={styles.pickerOverlay}>
+                      <Picker onEmojiClick={onEmojiClick} />
+                    </div>
+                  )}
+                </div>
+                {showAllEmojis && (
+                  <div className={styles.emojiPopover}>
+                    {studyDetail.emojis.slice(3).map((emoji, index) => (
+                      <Emoji
+                        key={index}
+                        type="general"
+                        emoji={emoji.emoji}
+                        count={emoji.count}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
+
               <div className={styles.studyOptions}>
                 <p onClick={handleShare}>공유하기</p>
                 <p>|</p>
@@ -202,7 +229,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "delete" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="삭제"
+            buttonLabel="삭제"
             onSubmit={handleDelete}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -212,7 +239,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "habit" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="습관"
+            buttonLabel="오늘의 습관으로 가기"
             onSubmit={handleHabitAccess}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -222,7 +249,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "focus" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="집중"
+            buttonLabel="오늘의 집중으로 가기"
             onSubmit={handleFocusAccess}
             onCancel={() => setShowPasswordPrompt(null)}
           />
@@ -232,7 +259,7 @@ function StudyResources({ studyId }) {
         {studyDetail && showPasswordPrompt === "modification" && (
           <PasswordPrompt
             studyTitle={`${studyDetail.creatorNick}의 ${studyDetail.name}`}
-            actionType="수정"
+            buttonLabel="수정하러 가기"
             onSubmit={handleEdit}
             onCancel={() => setShowPasswordPrompt(null)}
           />

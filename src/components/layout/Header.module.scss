@@ -1,5 +1,3 @@
-@use "../../styles/_variables.scss";
-
 .globalNavigationBar {
   width: 100%; // 반응형을 위한 전체 너비
   max-width: 1400px;
@@ -7,7 +5,7 @@
   display: flex;
   justify-content: space-between; // 로고와 버튼 간 간격 조정
   align-items: center;
-  
+
   margin: 0 auto;
 
   .logo {
@@ -23,14 +21,13 @@
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: $tablet) {
   .globalNavigationBar {
     padding: 0 24px;
-
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $mobile) {
   .globalNavigationBar {
     padding: 0 16px;
 

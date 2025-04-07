@@ -12,11 +12,14 @@ function StudyCard({
   calculateDays,
   background,
   creatorNick,
+  isRecent = false, // isRecent prop 추가, 기본값은 false
 }) {
   const backgroundClass = styles[background] || styles.default;
 
   const darkBackgrounds = ["tablet", "laptop", "tile", "leaf"];
   const pointType = darkBackgrounds.includes(background) ? "dark" : "light";
+  // isRecent가 true일 경우, emojis 배열을 슬라이싱
+  const displayedEmojis = isRecent ? emojis.slice(0, 3) : emojis;
 
   return (
     <div className={`${styles.studyCard} ${backgroundClass}`}>
@@ -34,7 +37,7 @@ function StudyCard({
         <p>{description}</p>
       </div>
       <div className={styles.studyStats}>
-        {emojis.map((emoji, index) => (
+        {displayedEmojis.map((emoji, index) => (
           <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
         ))}
       </div>
