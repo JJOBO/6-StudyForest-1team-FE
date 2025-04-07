@@ -22,8 +22,8 @@ function StudyCard({
   const displayedEmojis = isRecent ? emojis.slice(0, 3) : emojis;
 
   return (
-    <div className={`${styles.studyCard} ${backgroundClass}`}>
-      <div className={styles.studyContent}>
+    <article className={`${styles.studyCard} ${backgroundClass}`}>
+      <section className={styles.studyContent}>
         <header>
           <div className={styles.studyTitle}>
             <h3>
@@ -35,13 +35,13 @@ function StudyCard({
           <p>{calculateDays(createdAt)}일째 진행 중</p>
         </header>
         <p>{description}</p>
-      </div>
-      <div className={styles.studyStats}>
+      </section>
+      <footer className={styles.studyStats}>
         {displayedEmojis.map((emoji, index) => (
           <Emoji key={index} emoji={emoji.emoji} count={emoji.count} />
         ))}
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 }
 

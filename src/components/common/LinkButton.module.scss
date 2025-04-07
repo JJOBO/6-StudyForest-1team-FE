@@ -1,10 +1,10 @@
 .linkButton {
-  padding: 12px 16px 12px 24px;
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
   border: 1px solid $gray-200;
   border-radius: $radius-sm;
   background-color: #ffffff;
   color: $gray-300;
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,11 +15,11 @@
   }
 
   @include mobile {
-    padding: 8px 6px 8px 10px;
+    padding: 0.5rem 0.375rem 0.5rem 0.625rem;
   }
 }
 
 .arrowIcon {
-  margin-left: 4px;
+  margin-left: 0.25rem;
   opacity: 0.6;
 }

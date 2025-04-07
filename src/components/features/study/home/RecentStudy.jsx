@@ -70,9 +70,9 @@ function RecentStudy() {
   }
 
   return (
-    <div className={styles.recentStudy}>
+    <section className={styles.recentStudy}>
       <h2>최근 조회한 스터디</h2>
-      <div
+      <article
         className={styles.studyCards}
         style={{
           overflowX: recentStudies.length > 3 ? "auto" : "hidden",
@@ -88,7 +88,7 @@ function RecentStudy() {
               key={study.id}
               className={styles.studyCardLink}
             >
-              <div className={styles.studyCardContainer}>
+              <figure className={styles.studyCardContainer}>
                 <StudyCard
                   key={study.id}
                   name={study.name}
@@ -102,12 +102,12 @@ function RecentStudy() {
                   creatorNick={study.creatorNick}
                   isRecent={true} // isRecent prop을 true로 설정
                 />
-              </div>
+              </figure>
             </Link>
           ))
         )}
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }
 

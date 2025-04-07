@@ -130,9 +130,9 @@ function StudyResources({ studyId }) {
 
   return (
     <>
-      <div>
+      <section>
         {studyDetail ? (
-          <div>
+          <article>
             <div className={styles.studyHeader}>
               <div className={styles.studyEmojis}>
                 {studyDetail.emojis.slice(0, 3).map((emoji, index) => (
@@ -220,7 +220,7 @@ function StudyResources({ studyId }) {
                 <PointDisplay totalPoints={studyDetail.totalPoints} />
               </div>
             </div>
-          </div>
+          </article>
         ) : (
           <p></p>
         )}
@@ -264,7 +264,7 @@ function StudyResources({ studyId }) {
             onCancel={() => setShowPasswordPrompt(null)}
           />
         )}
-      </div>
+      </section>
       <ToastContainer position="bottom-center" />
     </>
   );

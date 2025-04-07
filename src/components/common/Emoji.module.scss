@@ -1,53 +1,58 @@
+@use "../../styles/variables" as vars;
+
 @mixin emojiSize($type: "default") {
+  $width: 3rem;
+  $height: 1.625rem;
+
   @if $type == "general" {
-    width: 56px;
-    height: 31px;
-  } @else {
-    width: 48px;
-    height: 26px;
+    $width: 3.5rem;
+    $height: 1.9375rem;
   }
+
+  width: $width;
+  height: $height;
 }
 
 @mixin emojiIconSize($type: "default") {
+  $size: 0.75rem;
+
   @if $type == "general" {
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-  } @else {
-    width: 12px;
-    height: 12px;
-    font-size: 12px;
+    $size: 1rem;
   }
+
+  width: $size;
+  height: $size;
+  font-size: $size;
 }
 
 .emojiContainer {
   display: flex;
-  align-items: center; // 수직 정렬
+  align-items: center;
   justify-content: center;
-  gap: 8px; // 간격 조정
-  font-size: 12px; // 기본 텍스트 크기
-  @include emojiSize(); // 기본 타입 크기
-  border-radius: $radius-lg;
-  background-color: rgba(0, 0, 0, 0.5); // 배경색만 반투명
-  opacity: 1; // 컨테이너 자체는 투명도 없음
-}
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  @include emojiSize();
+  border-radius: vars.$radius-lg;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
 
-.emojiContainer.general {
-  @include emojiSize("general"); // general 타입 크기
+  &.general {
+    @include emojiSize("general");
+  }
 }
 
 .emojiIcon {
-  display: flex; // 플렉스 컨테이너로 설정
-  align-items: center; // 아이콘 수직 정렬
-  justify-content: center; // 아이콘 수평 정렬
-  @include emojiIconSize(); // 기본 타입 아이콘 크기
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include emojiIconSize();
 
-.emojiContainer.general .emojiIcon {
-  @include emojiIconSize("general"); // general 타입 아이콘 크기
+  .emojiContainer.general & {
+    @include emojiIconSize("general");
+  }
 }
 
 .emojiCount {
-  font-weight: bold; // 카운트 텍스트 굵기
-  color: #fff; // 카운트 텍스트 색상
+  font-weight: bold;
+  color: vars.$white;
 }
