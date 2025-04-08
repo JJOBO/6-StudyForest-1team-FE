@@ -9,7 +9,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({ isButtonDisabled }) => {
   const navigate = useNavigate();
-  const location = useLocation(); // 현재 경로를 가져옵니다.
+  const location = useLocation();
   const [buttonImage, setButtonImage] = useState(btnCTAPc);
 
   const updateButtonImage = () => {
@@ -40,7 +40,6 @@ const Header = ({ isButtonDisabled }) => {
     if (location.pathname !== "/") {
       event.preventDefault();
       navigate("/");
-    } else {
     }
   };
 
@@ -55,15 +54,11 @@ const Header = ({ isButtonDisabled }) => {
           <img src={logo} alt="Logo" className={styles.logo} />
         </Link>
       )}
-      <button
-        className={`${styles.ctaButton} ${
-          isButtonDisabled ? styles.disabled : ""
-        }`}
-        disabled={isButtonDisabled}
-        onClick={handleCreateStudyClick}
-      >
-        <img src={buttonImage} alt="Call to Action" />
-      </button>
+      {!isButtonDisabled && (
+        <button className={styles.ctaButton} onClick={handleCreateStudyClick}>
+          <img src={buttonImage} alt="Create Study" />
+        </button>
+      )}
     </nav>
   );
 };
