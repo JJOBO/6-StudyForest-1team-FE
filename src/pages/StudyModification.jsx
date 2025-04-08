@@ -41,10 +41,6 @@ function StudyModification() {
     try {
       const response = await studyAPI.updateStudy(studyId, formData);
       console.log("Study updated:", response);
-      localStorage.setItem(
-        `studyBackground-${studyId}`,
-        formData.backgroundColor
-      );
       navigate(`/${studyId}`);
     } catch (error) {
       console.error("Failed to modify study:", error);

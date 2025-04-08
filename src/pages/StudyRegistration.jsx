@@ -22,10 +22,6 @@ function StudyRegistration() {
     try {
       const response = await studyAPI.createStudy(formData);
       console.log("Study created:", response);
-      localStorage.setItem(
-        `studyBackground-${response.id}`,
-        formData.backgroundColor
-      );
       navigate(`/${response.id}`);
     } catch (error) {
       console.error("Failed to create study:", error);
