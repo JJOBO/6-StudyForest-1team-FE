@@ -1,0 +1,68 @@
+.focusTimerDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 120px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 96px;
+
+  &.warning {
+    color: $error-200 !important;
+  }
+
+  &.negative {
+    color: $gray-300 !important;
+  }
+}
+
+.timeInput {
+  max-width: 230px;
+  font-size: 120px;
+  font-weight: 800;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+  display: inline-block;
+
+  &::selection {
+    background: #cce6ff;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.colon {
+  font-size: 120px;
+  color: inherit;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .focusTimerDisplay {
+    font-size: 80px;
+  }
+
+  .timeInput {
+    font-size: 80px;
+  }
+
+  .colon {
+    font-size: 80px;
+  }
+}

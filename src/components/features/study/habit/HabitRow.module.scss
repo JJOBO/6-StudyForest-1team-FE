@@ -1,0 +1,27 @@
+.habitName {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.habitCell {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 64px;
+}
+
+@media (max-width: $mobile) {
+  .habitName {
+    margin-right: 16px;
+  }
+
+  .habitCell > div {
+    display: flex;
+    justify-content: center;
+    width: 64px;
+  }
+}

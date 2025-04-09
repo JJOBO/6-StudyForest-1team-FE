@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 942px;
+  padding-top: 40px;
+  border: 0px;
+
+  @include tablet {
+    margin: 0 24px;
+    padding-top: 16px;
+    height: 942px;
+  }
+
+  @include mobile {
+    margin: 0 15px;
+    padding-top: 20px;
+    height: auto;
+  }
+}
+
+.focusContainer {
+  background-color: #ffffff ;
+  width: 100%;
+  max-width: 1248px;
+  padding: 40px;
+  border-radius: $radius-md;
+
+  @include tablet {
+    padding: 24px;
+  }
+  
+  @include mobile {
+    padding: 16px;
+  }
+}
+
+

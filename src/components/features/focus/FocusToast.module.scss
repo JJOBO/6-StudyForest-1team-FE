@@ -1,0 +1,39 @@
+.toast {
+  position: fixed !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: 223px !important;
+  height: 47px !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 47px !important;
+  text-align: center;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 12px;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+// 경고용
+.toastWarning {
+  background-color: $pink !important;
+  color: $error-200 !important;
+  padding: 0 28px !important;
+}
+
+// 포인트용
+.toastPoint {
+  background-color: $green !important;
+  color: $green-text !important;
+  padding: 0 18px !important;
+}

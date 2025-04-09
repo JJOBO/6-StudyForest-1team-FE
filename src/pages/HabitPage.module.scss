@@ -1,0 +1,157 @@
+.habitContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  position: relative;
+  width: 100%;
+  max-width: 1248px;
+  top: 40px;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 24px;
+}
+
+.studyTitle {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.links {
+  display: flex;
+  justify-content: right;
+  gap: 16px;
+}
+
+.currentTime {
+  margin-top: 16px;
+  flex-basis: 1;
+
+  .text {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray-300;
+  }
+
+  .tag {
+    display: inline-flex;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: $radius-full;
+  }
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  min-height: 500px;
+  padding: 40px 24px;
+  border: 1px solid $gray-200;
+  border-radius: 20px;
+}
+
+.habitContent {
+  display: block;
+  max-width: 400px;
+}
+
+.habitBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.habitTitle {
+  color: $black;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 100%;
+}
+
+.editBtn {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: $gray-300;
+}
+
+.habitList {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 20px;
+  font-size: 20px;
+  font-weight: 500;
+
+  p {
+    margin-top: 144px;
+    text-align: center;
+    color: $gray-300;
+  }
+}
+
+@media (max-width: $tablet) {
+  .container {
+    padding: 24px;
+    top: 16px;
+    margin: 0 24px;
+  }
+
+  .nav {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: $mobile) {
+  .container {
+    padding: 16px 16px 24px 16px;
+    top: 20px;
+    margin: 0 16px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .links {
+      justify-content: left;
+      gap: 8px;
+    }
+  }
+
+  .studyTitle {
+    font-size: 24px;
+  }
+
+  .currentTime {
+    margin-top: 0;
+  }
+
+  .section {
+    padding: 24px 16px;
+  }
+
+  .habitTitle {
+    font-size: 18px;
+  }
+
+  .habitList {
+    gap: 12px;
+  }
+}

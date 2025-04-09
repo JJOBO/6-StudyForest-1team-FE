@@ -1,0 +1,28 @@
+.studyModificationPageLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.studyModification {
+  width: 100%;
+  max-width: 696px;
+  background-color: #ffffff;
+  border-radius: $radius-md;
+  padding: 24px 24px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto 107px;
+
+  @include tablet {
+    margin: 20px 24px 10rem 24px;
+  }
+
+  @include mobile {
+    padding: 16px 16px 20px 16px;
+    margin: 20px 16px 100px 16px;
+    width: calc(50%);
+    min-width: 350px;
+  }
+}

@@ -1,0 +1,125 @@
+.modalOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  background-color: #fff;
+  padding: 40px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .modalTitle {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 800;
+  }
+}
+
+.habitItem {
+  display: flex;
+  margin-bottom: 20px;
+
+  .input {
+    width: 400px;
+    height: 54px;
+    border: none;
+    border-radius: 20px;
+    background-color: $gray-100;
+    font-size: 16px;
+    font-weight: 700;
+    color: $gray-300;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  img {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+  }
+}
+
+.habitList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-y: auto;
+  flex: 1;
+  margin-bottom: 1rem;
+
+  .addBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 54px;
+    border: $black 2px solid;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: 24px;
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: $mobile) {
+  .container {
+    margin: 0 16px;
+    padding: 16px 16px 24px 16px;
+
+    .modalTitle {
+      font-size: 20px;
+    }
+  }
+
+  .habitList {
+    align-items: flex-start;
+    width: 100%;
+
+    .addBtn {
+      width: 312px;
+    }
+  }
+
+  .habitItem {
+    display: flex;
+
+    .input {
+      width: 256px;
+    }
+
+    img {
+      right: 0;
+    }
+  }
+}

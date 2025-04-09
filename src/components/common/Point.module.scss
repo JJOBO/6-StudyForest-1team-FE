@@ -1,0 +1,59 @@
+@mixin point-style($width, $height, $bg-color, $border-color, $icon-size) {
+  width: $width;
+  height: $height;
+  background-color: $bg-color;
+  border: 1px solid $border-color;
+
+  .pointIcon {
+    width: $icon-size;
+    height: $icon-size;
+  }
+}
+
+.pointContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  gap: 4px;
+  padding: 4px 12px;
+  color: rgba(255, 255, 255, 0.3);
+
+  &--dark {
+    @include point-style(86px, 22px, #00000080, #0000001a, 14px);
+    .pointText {
+      color: white;
+      font-size: 12px;
+    }
+  }
+
+  &--light {
+    @include point-style(86px, 22px, #ffffff4d, #0000001a, 14px);
+
+    .pointText {
+      color: $black;
+      font-size: 12px;
+    }
+  }
+
+  &--general {
+    @include point-style(116px, 31px, #ffffff4d, #0000001a, 19px);
+
+    .pointText {
+      color: $black;
+      font-size: 16px;
+    }
+  }
+}
+
+.pointIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pointText {
+  white-space: nowrap;
+  color: $black;
+  font-size: 12px;
+}

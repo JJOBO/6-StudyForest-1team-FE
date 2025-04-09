@@ -1,0 +1,124 @@
+.recentStudy {
+  background-color: white;
+  width: 100%;
+  max-width: 75rem;
+  height: 23.875rem;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  font-size: 1.5rem;
+  padding: 2.5rem 2.375rem 2.5rem 2.5rem;
+  margin-top: 2.5rem;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .studyCards {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    padding-bottom: 16.25rem;
+    scrollbar-width: auto;
+    scrollbar-color: $gray-200 transparent;
+
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-200;
+      border-radius: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+}
+
+.studyCard {
+  background: $gray-100;
+  border-radius: $radius-sm;
+  box-shadow: 0 0.125rem 0.3125rem rgba($black, 0.1);
+  width: 22.375rem;
+  height: 15.1875rem;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  border: 0.0625rem solid $gray-200;
+  background-image: url("path/to/image.jpg");
+  background-size: cover;
+  background-position: center;
+
+  .studyContent {
+    text-align: left;
+
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    p {
+      color: $gray-300;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.studyCardContainer {
+  width: 22.375rem;
+  height: 15.1875rem;
+}
+
+@media (max-width: $tablet) {
+  .recentStudy {
+    width: 43.5625rem;
+    height: 21.125rem;
+    font-size: 1rem;
+    gap: 1rem;
+    padding: 1.5rem;
+
+    .studyCards {
+      width: 42.0625rem;
+      height: 15.1875rem;
+      padding-bottom: 16.25rem;
+      gap: 1.5rem;
+    }
+  }
+
+  .studyCardContainer {
+    width: 22.375rem;
+    height: 15.1875rem;
+  }
+}
+
+@media (max-width: $mobile) {
+  .recentStudy {
+    width: 21.5rem;
+    height: 15.4375rem;
+    gap: 1rem;
+    padding: 1rem;
+
+    .studyCards {
+      width: 20.5rem;
+      padding-bottom: 11.7rem;
+      gap: 1rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  .studyCardContainer {
+    width: 15rem;
+    height: 11.25rem;
+  }
+}

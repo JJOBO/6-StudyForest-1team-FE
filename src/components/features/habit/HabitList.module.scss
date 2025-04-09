@@ -1,0 +1,23 @@
+.habitList {
+  width: 400px;
+  height: 54px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.active {
+  background-color: $brand;
+  color: #fff;
+}
+
+.inActive {
+  background-color: $gray-100;
+  color: $gray-300;
+}
+
+@media (max-width: $mobile) {
+  .habitList {
+    width: 280px;
+  }
+}

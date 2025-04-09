@@ -1,0 +1,32 @@
+.studyDetailContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.studyDetailContent {
+  max-width: 1200px;
+  width: 100vw;
+  height: fit-content;
+  background-color: white;
+  border-radius: $radius-md;
+  padding: 40px;
+}
+
+@media (max-width: $tablet) {
+  .studyDetailContent {
+    width: calc(100% - 48px);
+    padding: 24px;
+  }
+}
+
+@media (max-width: $mobile) {
+  .studyDetailContent {
+    width: calc(100% - 32px);
+    padding: 16px;
+  }
+}

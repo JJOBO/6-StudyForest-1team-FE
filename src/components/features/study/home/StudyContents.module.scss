@@ -1,0 +1,160 @@
+body {
+  background-color: $bg;
+}
+
+.studyContents {
+  background-color: white;
+  width: 75rem;
+  max-width: 75rem;
+  min-height: 70vh;
+  margin: 0 auto 10vh;
+  border-radius: $radius-md;
+  overflow-y: visible;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  h2.title {
+    font-size: 1.5rem;
+  }
+}
+
+.optionBar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.searchBar {
+  position: relative;
+
+  .searchInput {
+    width: 20.9375rem;
+    height: 2.625rem;
+    border: 1px solid $gray-200;
+    border-radius: $radius-sm;
+    padding-left: 2.5rem;
+
+    &:focus {
+      outline: none;
+      border-color: $black;
+      transition-duration: 0.3s;
+    }
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    width: 1.125rem;
+    height: 1.125rem;
+    pointer-events: none;
+  }
+}
+
+.studyCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.studyCard {
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
+  text-align: center;
+  background-color: $bg;
+
+  img {
+    max-width: 100%;
+    border-radius: $radius-md;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+  }
+
+  p {
+    color: $gray-300;
+  }
+}
+
+.loadMore {
+  display: block;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
+  background-color: white;
+  cursor: pointer;
+  margin: 2.25rem auto 0;
+  width: 17.5rem;
+  height: 3.3125rem;
+  color: $green-text;
+
+  &:hover {
+    background-color: $gray-100;
+  }
+}
+
+.error {
+  text-align: center;
+  font-size: 1.125rem;
+  color: $error-200;
+}
+
+.studyCardContainer {
+  width: 22.375rem;
+  height: 15.1875rem;
+}
+
+@media (max-width: $tablet) {
+  .studyCardContainer {
+    width: 19.5rem;
+    height: 15.1875rem;
+  }
+
+  .studyContents {
+    max-width: 43.5rem;
+    padding: 24px;
+  }
+
+  .studyCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $mobile) {
+  .studyCardContainer {
+    width: 19.5rem;
+    height: 11.25rem;
+  }
+
+  .optionBar {
+    justify-content: right;
+  }
+
+  .studyContents {
+    max-width: 21.5rem;
+    padding: 16px;
+    gap: 12px;
+
+    h2.title {
+      font-size: 16px;
+    }
+  }
+
+  .studyCards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .searchBar .searchInput {
+    width: 19.5rem;
+    height: 2.625rem;
+  }
+
+  .loadMore {
+    margin-top: 1.125rem;
+  }
+}
