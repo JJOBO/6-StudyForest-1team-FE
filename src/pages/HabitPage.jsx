@@ -24,22 +24,18 @@ export default function HabitPage() {
 
   useEffect(() => {
     if (studyId) {
-      Promise.all([
-        habitAPI.getHabits(studyId),
-        habitAPI.getCheckedHabits(studyId),
-        habitAPI.getStudyInfo(studyId),
-      ])
-        .then(([habitsData, checkedData, studyData]) => {
-          const sortedHabits = habitsData.sort((a, b) => a.id - b.id);
+      habitAPI.getDashboardData(studyId)
+        .then((data) => {
+          const sortedHabits = data.habits.sort((a, b) => a.id - b.id);
           setHabits(sortedHabits);
 
-          const checked = checkedData
+          const checked = data.weeklyRecords
             .filter((habit) => habit.records[dayInNumber])
             .map((record) => record.habitId);
           setCheckedHabits(checked);
 
-          setStudyNickName(studyData.creatorNick);
-          setStudyName(studyData.name);
+          setStudyNickName(data.studyInfo.creatorNick);
+          setStudyName(data.studyInfo.name);
           setLoading(false);
         })
         .catch((err) => {
