@@ -18,9 +18,9 @@ function StudyRegistration() {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (data) => {
     try {
-      const response = await studyAPI.createStudy(formData);
+      const response = await studyAPI.createStudy(data);
       console.log("Study created:", response);
       navigate(`/${response.id}`);
     } catch (error) {

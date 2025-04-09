@@ -37,9 +37,9 @@ function StudyModification() {
     if (studyId) fetchStudyDetail();
   }, [studyId, navigate]);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async (data) => {
     try {
-      const response = await studyAPI.updateStudy(studyId, formData);
+      const response = await studyAPI.updateStudy(studyId, data);
       console.log("Study updated:", response);
       navigate(`/${studyId}`);
     } catch (error) {

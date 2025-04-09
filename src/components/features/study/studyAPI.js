@@ -26,11 +26,11 @@ const getStudyList = async (
   }
 };
 
-const createStudy = async (formData) => {
+const createStudy = async (data) => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/study/registration`,
-      formData
+      data
     );
     return response.data;
   } catch (error) {
@@ -78,11 +78,11 @@ const deleteStudy = async (studyId, password) => {
   }
 };
 
-const updateStudy = async (studyId, formData) => {
+const updateStudy = async (studyId, data) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/study/${studyId}`,
-      formData
+      data
     );
     return response.data;
   } catch (error) {
