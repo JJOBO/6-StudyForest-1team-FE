@@ -3,6 +3,19 @@ import axios from "axios";
 const BASE_URL = "https://studyforest-xdk5.onrender.com/study";
 
 const habitAPI = {
+  // 통합 API 추가
+  getDashboardData: async (studyId) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/${studyId}/habits/dashboard`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+      throw error;
+    }
+  },
+
   authenticateHabit: async (studyId, password) => {
     try {
       const response = await axios.post(`${BASE_URL}/${studyId}/habits/auth`, {
@@ -14,23 +27,6 @@ const habitAPI = {
         `Error authenticating habit for study ID ${studyId}:`,
         error
       );
-      throw error;
-    }
-  },
-
-  // 습관 목록 가져오기
-  getHabits: async (studyId) => {
-    const response = await axios.get(`${BASE_URL}/${studyId}/habits`);
-    return response.data;
-  },
-
-  // studyName 불러오기
-  getStudyInfo: async (studyId) => {
-    try {
-      const response = await axios.get(`${BASE_URL}/${studyId}`);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to fetch study info:", error);
       throw error;
     }
   },
