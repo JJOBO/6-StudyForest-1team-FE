@@ -1,96 +1,10 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  memo,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import studyAPI from "../studyAPI";
 import styles from "./StudyContents.module.scss";
 import StudyCard from "./StudyCard";
 import { Link } from "react-router-dom";
 import searchIcon from "../../../../../src/assets/icons/ic_search.svg";
-
-// 정렬 드롭다운 컴포넌트를 분리하여 메모이제이션
-const SortDropdown = memo(({ sortOption, onSortChange }) => {
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const sortRef = useRef(null);
-
-  // 드롭다운 외부 클릭 핸들러
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (e.target && sortRef.current && !sortRef.current.contains(e.target)) {
-        setIsSortOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleSortSelect = useCallback((option) => {
-    let newSortOption;
-    switch (option) {
-      case "최근 순":
-        newSortOption = "createdAt";
-        break;
-      case "오래된 순":
-        newSortOption = "oldest";
-        break;
-      case "많은 포인트 순":
-        newSortOption = "totalPointsDesc";
-        break;
-      case "적은 포인트 순":
-        newSortOption = "totalPointsAsc";
-        break;
-      default:
-        newSortOption = "createdAt";
-    }
-
-    if (newSortOption != sortOption) {
-      onSortChange(newSortOption);
-    }
-  }, []);
-
-  const label = useMemo(() => {
-    return {
-      createdAt: "최근 순",
-      oldest: "오래된 순",
-      totalPointsDesc: "많은 포인트 순",
-      totalPointsAsc: "적은 포인트 순",
-    }[sortOption];
-  }, [sortOption]);
-
-  const options = ["최근 순", "오래된 순", "많은 포인트 순", "적은 포인트 순"];
-
-  return (
-    <div className={styles.sortDropdown} ref={sortRef}>
-      <button
-        className={styles.sortButton}
-        onClick={() => setIsSortOpen((prev) => !prev)}
-      >
-        <span className={styles.sortLabel}>{label}</span>
-        <span className={styles.sortIcon}></span>
-      </button>
-      {isSortOpen && (
-        <ul className={styles.sortList}>
-          {options.map((option) => (
-            <li
-              key={option}
-              onClick={() => handleSortSelect(option)}
-              className={styles.sortItem}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-});
+import SortDropdown from "../../../common/SortDropdown";
 
 function StudyContents() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -101,7 +15,6 @@ function StudyContents() {
   const [total, setTotal] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [error, setError] = useState(null);
-  const isLoadingMoreRef = useRef(false);
 
   const calculateDays = (createdAt) => {
     const createdDate = new Date(createdAt);
@@ -128,8 +41,7 @@ function StudyContents() {
 
   // 더보기 실행 함수
   const handleLoadMore = useCallback(() => {
-    if (cards.length < total && !isLoadingMoreRef.current) {
-      isLoadingMoreRef.current = true;
+    if (cards.length < total) {
       setOffset((prevOffset) => prevOffset + 6);
     }
   }, [cards.length, total]);
@@ -150,7 +62,6 @@ function StudyContents() {
       setError(err);
     } finally {
       setIsInitialLoading(false);
-      isLoadingMoreRef.current = false;
     }
   }, [searchQuery, sortOption, offset]);
 
