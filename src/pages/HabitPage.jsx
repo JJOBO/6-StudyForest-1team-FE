@@ -67,7 +67,6 @@ export default function HabitPage() {
             name: habit.name,
           });
           newHabits.push(created);
-          console.log("습관 생성 완료:", created);
         } catch (err) {
           console.error("습관 생성 실패:", err);
         }
@@ -77,7 +76,6 @@ export default function HabitPage() {
             name: habit.name,
           });
           existingHabits.push(updated);
-          console.log("습관 수정 완료:", updated);
         } catch (err) {
           console.error("습관 수정 실패:", err);
         }
